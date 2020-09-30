@@ -1,4 +1,4 @@
-package me.CHANGEME.slimefunaddon;
+package me.gallowsdove.foxymachines;
 
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -20,9 +20,9 @@ public class ExampleAddon extends JavaPlugin implements SlimefunAddon {
         // Read something from your config.yml
         Config cfg = new Config(this);
 
-        if (cfg.getBoolean("options.auto-update")) {
+        //if (cfg.getBoolean("options.auto-update")) {
             // You could start an Auto-Updater for example
-        }
+        //}
 
         // Create a new Category
         // This Category will use this ItemStack

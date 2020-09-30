@@ -5,7 +5,7 @@ name: FoxyMachines
 author: GallowsDove
 
 ## CHANGE this to a meaninful but short description of your plugin.
-description: Useful and fun machines.
+description: Adds tools and machines to Slimefun.
 
 ## CHANGE this to the path of the class that extends JavaPlugin.
 main: me.gallowsdove.foxymachines.FoxyMachines
