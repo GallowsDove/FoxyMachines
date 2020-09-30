@@ -1,4 +1,4 @@
-package me.gallowsdove.foxymachines.items;
+package me.gallowsdove.foxymachines;
 
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.Objects.Category;
@@ -8,18 +8,17 @@ import org.bukkit.Material;
 
 
 public final class Items{
-  Category tools = new Category(
-    new NamespacedKey(this, "foxy_tools"),
-    new CustomItem(Material.SCISSORS, "&4Foxy Tools", "", "&a> Click to open"));
+  public static Category tools = new Category(
+    new NamespacedKey(FoxyMachines.getInstance(), "foxy_tools"),
+    new CustomItem(Material.SHEARS, "&4Foxy Tools", "", "&a> Click to open"));
 
     public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
        "ELECTRIC_WIND_STAFF",
-       Material.SCISSORS,
+       Material.SHEARS,
        "&9Electric Wind Staff",
        "",
-       "&8\u21E8 &7Electric version of the wind staff.",
+       "&8\u21E8 &7Ride on the wind.",
        "",
        "&c&o&8\u21E8 &e\u26A1 &70 / 50 J"
    );
-
 };

@@ -14,27 +14,34 @@ import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 
 public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
+  private static FoxyMachines instance;
 
-    @Override
-    public void onEnable() {
-        // Read something from your config.yml
-        Config cfg = new Config(this);
-    }
+  @Override
+  public void onEnable() {
+    instance = this;
+    // Read something from your config.yml
+    Config cfg = new Config(this);
+    ItemSetup.INSTANCE.init();
+  }
 
-    @Override
-    public void onDisable() {
-        // Logic for disabling the plugin...
-    }
+  @Override
+  public void onDisable() {
+    // Logic for disabling the plugin...
+  }
 
-    @Override
-    public String getBugTrackerURL() {
-        // You can return a link to your Bug Tracker instead of null here
-        return "https://github.com/GallowsDove/FoxyMachines/issues";
-    }
+  @Override
+  public String getBugTrackerURL() {
+    // You can return a link to your Bug Tracker instead of null here
+    return "https://github.com/GallowsDove/FoxyMachines/issues";
+  }
 
-    @Override
-    public JavaPlugin getJavaPlugin() {
-        return this;
-    }
+  @Override
+  public JavaPlugin getJavaPlugin() {
+    return this;
+  }
+
+  public static FoxyMachines getInstance() {
+    return instance;
+  }
 
 }

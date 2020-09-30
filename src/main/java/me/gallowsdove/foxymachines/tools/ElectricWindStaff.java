@@ -4,7 +4,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.Effect;
 import org.bukkit.Sound;
-import me.gallowsdove.foxymachines.items;
+import org.bukkit.Bukkit;
+import me.gallowsdove.foxymachines.Items;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Rechargeable;
@@ -17,18 +18,19 @@ public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
   private static final float COST = 0.5F;
 
   public ElectricWindStaff() {
-    super(Items.foxy_tools, Items.ELECTRIC_WIND_STAFF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+    super(Items.tools, Items.ELECTRIC_WIND_STAFF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
       null, null, null,
       null, SlimefunItems.SMALL_CAPACITOR, null,
       null, null, null
     });
+  }
 
   @Override
   public float getMaxItemCharge(ItemStack item) {
     return 50;
   }
 
-  @Override
+  //@Override
   public ItemUseHandler getItemHandler() {
     return e -> {
       Player p = e.getPlayer();
