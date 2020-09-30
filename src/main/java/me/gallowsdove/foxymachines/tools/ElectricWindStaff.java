@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import me.gallowsdove.foxymachines.Items;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.ToolUseHandler;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Rechargeable;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
@@ -15,7 +16,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 
 public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
 
-  private static final float COST = 0.5F;
+  private static final float COST = 0.75F;
 
   public ElectricWindStaff() {
     super(Items.tools, Items.ELECTRIC_WIND_STAFF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -27,11 +28,10 @@ public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
 
   @Override
   public float getMaxItemCharge(ItemStack item) {
-    return 50;
+    return 100;
   }
 
-  //@Override
-  public ItemUseHandler getItemHandler() {
+  protected ItemUseHandler getItemUseHandler() {
     return e -> {
       Player p = e.getPlayer();
       ItemStack item = e.getItem();
@@ -43,5 +43,19 @@ public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
         p.setFallDistance(0F);
       }
     };
+  }
+
+  private ToolUseHandler getToolUseHandler() {
+    return (e, tool, fortune, drops) -> {
+      e.setCancelled(true);
+    };
+  }
+
+  @Override
+  public void preRegister() {
+    super.preRegister();
+
+    addItemHandler(getItemUseHandler());
+    addItemHandler(getToolUseHandler());
   }
 }

@@ -14,7 +14,7 @@ public final class Items{
 
     public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
        "ELECTRIC_WIND_STAFF",
-       Material.SHEARS,
+       Material.BLAZE_ROD,
        "&9Electric Wind Staff",
        "",
        "&8\u21E8 &7Ride on the wind.",
