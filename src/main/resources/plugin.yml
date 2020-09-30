@@ -1,17 +1,17 @@
 ## CHANGE this to the name of your plugin.
-name: SlimefunAddon
+name: FoxyMachines
 
 ## CHANGE this to your username.
-author: CHANGEME
+author: GallowsDove
 
 ## CHANGE this to a meaninful but short description of your plugin.
-description: A generic Slimefun4-Addon
+description: Useful and fun machines.
 
 ## CHANGE this to the path of the class that extends JavaPlugin.
-main: me.CHANGEME.slimefunaddon.ExampleAddon
+main: me.gallowsdove.foxymachines.FoxyMachines
 
 ## You can change this to link to your website or repository. You can also remove this line if you want to.
-website: https://github.com/TheBusyBiscuit/Slimefun4-Addon
+website: https://github.com/GallowsDove/FoxyMachines
 
 ## This is required and marks Slimefun as a plugin dependency.
 depend: [Slimefun]
@@ -20,4 +20,4 @@ depend: [Slimefun]
 version: ${project.version}
 
 ## This is the minimum minecraft version required to run your plugin.
-api-version: 1.14
+api-version: 1.16.3
