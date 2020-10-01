@@ -1,8 +1,8 @@
-package me.gallowsdove.foxymachines.tools;
+package me.gallowsdove.foxymachines.implementation.tools;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.entity.SmallFireball;
+import org.bukkit.entity.LargeFireball;
 import org.bukkit.Bukkit;
 import me.gallowsdove.foxymachines.Items;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -12,21 +12,21 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 
 
-public class ElectricFireStaff extends SlimefunItem implements Rechargeable {
+public class ElectricFireStaffII extends SlimefunItem implements Rechargeable {
 
-  private static final float COST = 0.75F;
+  private static final float COST = 1.5F;
 
-  public ElectricFireStaff() {
-    super(Items.tools, Items.ELECTRIC_FIRE_STAFF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-      SlimefunItems.LAVA_CRYSTAL, SlimefunItems.POWER_CRYSTAL, SlimefunItems.LAVA_CRYSTAL,
-      SlimefunItems.HEATING_COIL, SlimefunItems.STAFF_FIRE, SlimefunItems.HEATING_COIL,
+  public ElectricFireStaffII() {
+    super(Items.tools, Items.ELECTRIC_FIRE_STAFF_II, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+      SlimefunItems.CARBONADO, SlimefunItems.POWER_CRYSTAL, SlimefunItems.CARBONADO,
+      SlimefunItems.HEATING_COIL, Items.ELECTRIC_FIRE_STAFF, SlimefunItems.HEATING_COIL,
       SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.MEDIUM_CAPACITOR, SlimefunItems.REINFORCED_ALLOY_INGOT
     });
   }
 
   @Override
   public float getMaxItemCharge(ItemStack item) {
-    return 100;
+    return 200;
   }
 
   protected ItemUseHandler getItemUseHandler() {
@@ -35,7 +35,7 @@ public class ElectricFireStaff extends SlimefunItem implements Rechargeable {
       ItemStack item = e.getItem();
 
       if (removeItemCharge(item, COST)) {
-        SmallFireball fireball = p.launchProjectile(SmallFireball.class);
+        LargeFireball fireball = p.launchProjectile(LargeFireball.class);
         fireball.setVelocity(fireball.getVelocity().multiply(50));
       }
     };

@@ -15,15 +15,21 @@ public final class Items{
   public static Category tools = new Category(
     new NamespacedKey(FoxyMachines.getInstance(), "foxy_tools"),
     new CustomItem(Material.SHEARS, "&4Foxy Tools", "", "&a> Click to open"));
+  public static Category weapons = new Category(
+    new NamespacedKey(FoxyMachines.getInstance(), "foxy_weapons"),
+    new CustomItem(Material.BOW, "&4Foxy Weapons", "", "&a> Click to open"));
+  public static Category materials = new Category(
+    new NamespacedKey(FoxyMachines.getInstance(), "foxy_materials"),
+    new CustomItem(Material.STRING, "&4Foxy Materials", "", "&a> Click to open"));
 
-    public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
-       "ELECTRIC_WIND_STAFF",
-       Material.BLAZE_ROD,
-       "&bElectric Wind Staff",
-       "",
-       "&8\u21E8 &7Ride on the wind.",
-       "",
-       "&c&o&8\u21E8 &e\u26A1 &70 / 100 J"
+  public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
+     "ELECTRIC_WIND_STAFF",
+     Material.BLAZE_ROD,
+     "&bElectric Wind Staff",
+     "",
+     "&8\u21E8 &7Ride on the wind.",
+     "",
+     "&c&o&8\u21E8 &e\u26A1 &70 / 100 J"
    );
    static {
      ELECTRIC_WIND_STAFF.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
@@ -64,5 +70,19 @@ public final class Items{
    ELECTRIC_FIRE_STAFF_II.setItemMeta(meta);
  }
 
+ public static final SlimefunItemStack HEALING_BOW = new SlimefunItemStack(
+    "HEALING_BOW",
+    Material.BOW,
+    "&4Healing Bow",
+    "Healing II",
+    "",
+    "&8Finally a support weapon."
+);
+
+public static final SlimefunItemStack REINFORCED_STRING = new SlimefunItemStack(
+   "REINFORCED_STRING",
+   Material.STRING,
+   "&bReinforced String"
+ );
 
 };

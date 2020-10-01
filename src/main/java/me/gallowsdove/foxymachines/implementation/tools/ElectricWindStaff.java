@@ -1,4 +1,4 @@
-package me.gallowsdove.foxymachines.tools;
+package me.gallowsdove.foxymachines.implementation.tools;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -45,17 +45,11 @@ public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
     };
   }
 
-  //private ToolUseHandler getToolUseHandler() {
-  //  return (e, tool, fortune, drops) -> {
-  //    e.setCancelled(true);
-  //  };
-  //}
 
   @Override
   public void preRegister() {
     super.preRegister();
 
     addItemHandler(getItemUseHandler());
-    //addItemHandler(getToolUseHandler());
   }
 }
