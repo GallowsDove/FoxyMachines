@@ -20,9 +20,9 @@ public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
 
   public ElectricWindStaff() {
     super(Items.tools, Items.ELECTRIC_WIND_STAFF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-      null, null, null,
-      null, SlimefunItems.SMALL_CAPACITOR, null,
-      null, null, null
+      null, SlimefunItems.POWER_CRYSTAL, null,
+      SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STAFF_WIND, SlimefunItems.ELECTRIC_MOTOR,
+      null, SlimefunItems.MEDIUM_CAPACITOR, null
     });
   }
 
