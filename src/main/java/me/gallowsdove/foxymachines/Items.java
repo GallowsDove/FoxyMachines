@@ -19,6 +19,6 @@ public final class Items{
        "",
        "&8\u21E8 &7Ride on the wind.",
        "",
-       "&c&o&8\u21E8 &e\u26A1 &70 / 50 J"
+       "&c&o&8\u21E8 &e\u26A1 &70 / 100 J"
    );
 };
