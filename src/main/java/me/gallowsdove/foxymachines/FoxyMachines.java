@@ -22,6 +22,7 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
     // Read something from your config.yml
     Config cfg = new Config(this);
     ItemSetup.INSTANCE.init();
+    ResearchSetup.INSTANCE.init();
   }
 
   @Override
