@@ -5,6 +5,8 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
+import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
@@ -12,14 +14,17 @@ import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
+import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.AdvancedMenuClickHandler;
+import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
-
+import org.bukkit.event.inventory.InventoryClickEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import org.bukkit.Material;
 
 
 
@@ -110,4 +115,35 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
   public int getEnergyConsumption() {
     return ENERGY_CONSUMPTION;
   }
+
+  protected void constructMenu(BlockMenuPreset preset) {
+    for (int i : BORDER) {
+      preset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
+    }
+
+    for (int i : BORDER_IN) {
+      preset.addItem(i, ChestMenuUtils.getInputSlotTexture(), ChestMenuUtils.getEmptyClickHandler());
+    }
+
+    for (int i : BORDER_OUT) {
+      preset.addItem(i, ChestMenuUtils.getOutputSlotTexture(), ChestMenuUtils.getEmptyClickHandler());
+    }
+
+    preset.addItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
+
+    for (int i : getOutputSlots()) {
+      preset.addMenuClickHandler(i, new AdvancedMenuClickHandler() {
+
+        @Override
+        public boolean onClick(Player p, int slot, ItemStack cursor, ClickAction action) {
+          return false;
+        }
+
+        @Override
+        public boolean onClick(InventoryClickEvent e, Player p, int slot, ItemStack cursor, ClickAction action) {
+          return cursor == null || cursor.getType() == null || cursor.getType() == Material.AIR;
+        }
+      });
+  }
+}
 }
