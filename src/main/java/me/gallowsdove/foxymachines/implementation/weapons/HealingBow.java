@@ -34,23 +34,4 @@ public class HealingBow extends SlimefunBow {
       n.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, (int)Math.floor(e.getDamage()/5)));
     };
   }
-  /*
-  public BowReleaseHandler getBowReleaseHandler() {
-    return (e) -> {
-      if (e.getProjectile() instanceof AbstractArrow) {
-        AbstractArrow a = (AbstractArrow) e.getProjectile();
-        a.setDamage(0);
-        a.setKnockbackStrength(0);
-        e.setProjectile(a);
-      }
-    };
-  }
-
-  @Override
-  public void preRegister() {
-    super.preRegister();
-
-    addItemHandler(getBowReleaseHandler());
-  }
-  */
 }
