@@ -6,7 +6,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import me.gallowsdove.foxymachines.Items;
-import me.gallowsdove.foxymachines.core.handlers.BowReleaseHandler;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.AbstractArrow;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
