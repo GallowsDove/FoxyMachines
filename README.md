@@ -7,3 +7,5 @@ FoxyMachines adds various machines and tools to Slimefun.
 * Electric Fire Staff II
 ## Weapons
 * Healing Bow
+## Machines
+* Improvement Forge
