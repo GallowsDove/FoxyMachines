@@ -42,7 +42,7 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
   private static final int[] BORDER = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 13, 31, 36, 37, 38, 39, 40, 41, 42, 43, 44 };
   private static final int[] BORDER_IN = { 9, 10, 11, 12, 18, 21, 27, 28, 29, 30 };
   private static final int[] BORDER_OUT = { 14, 15, 16, 17, 23, 26, 32, 33, 34, 35 };
-  public static final int ENERGY_CONSUMPTION = 64;
+  public static final int ENERGY_CONSUMPTION = 128;
   public static final int CAPACITY = 512;
 
   public static Map<Block, MachineRecipe> processing = new HashMap<>();
@@ -61,9 +61,9 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
 
   public ImprovementForge() {
     super(Items.machines, Items.IMPROVEMENT_FORGE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-      null, null, null,
-      null, null, null,
-      null, null, null
+      SlimefunItems.CARBONADO, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.CARBONADO,
+      SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.AUTO_ENCHANTER, SlimefunItems.ELECTRIC_MOTOR,
+      SlimefunItems.REINFORCED_PLATE, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.REINFORCED_PLATE
     });
 
 
@@ -247,7 +247,7 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
       ItemStack item = menu.getItemInSlot(slot);
 
       if (item != null) {
-        if (SlimefunUtils.isItemSimilar(improvementCore, Items.REINFORCED_STRING, true, false)) {
+        if (SlimefunUtils.isItemSimilar(improvementCore, Items.IMPROVEMENT_CORE, true, false)) {
 
           int tier = -1;
           int index = -1;

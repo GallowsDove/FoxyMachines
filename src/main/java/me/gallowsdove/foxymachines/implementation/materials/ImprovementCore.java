@@ -17,10 +17,10 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 public class ImprovementCore extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
   public ImprovementCore() {
-    super(Items.materials, Items.REINFORCED_STRING, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-      new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING),
-      SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT,
-      new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING)
+    super(Items.materials, Items.IMPROVEMENT_CORE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+      SlimefunItems.SYNTHETIC_DIAMOND, Items.REINFORCED_STRING, SlimefunItems.SYNTHETIC_DIAMOND,
+      Items.REINFORCED_STRING, SlimefunItems.BLISTERING_INGOT_3, Items.REINFORCED_STRING,
+      SlimefunItems.SYNTHETIC_DIAMOND, Items.REINFORCED_STRING, SlimefunItems.SYNTHETIC_DIAMOND
     });
   }
 
