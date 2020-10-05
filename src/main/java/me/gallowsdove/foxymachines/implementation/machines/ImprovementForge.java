@@ -278,7 +278,7 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
             menu.consumeItem(inputSlot);
           }
 
-          return new MachineRecipe(10, new ItemStack[] { improvementCore, item }, new ItemStack[] { improvedItem });
+          return new MachineRecipe(60, new ItemStack[] { improvementCore, item }, new ItemStack[] { improvedItem });
         }
 
         break;
