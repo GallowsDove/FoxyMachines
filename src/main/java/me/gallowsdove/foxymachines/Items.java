@@ -1,5 +1,8 @@
 package me.gallowsdove.foxymachines;
 
+import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
+import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
+import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
@@ -8,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.ItemFlag;
+import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
 
 
 public final class Items{
@@ -93,7 +97,18 @@ public final class Items{
     Material.SMITHING_TABLE,
     "&bImprovement Forge",
     "",
-    "Used to improve Slimefun tools, weapons and armor."
+    "Used to improve Slimefun tools, weapons and armor.",
+    "",
+    LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
+    LoreBuilder.powerPerSecond(ImprovementForge.ENERGY_CONSUMPTION)
+  );
+
+  public static final SlimefunItemStack IMPROVEMENT_CORE = new SlimefunItemStack(
+    "IMPROVEMENT_CORE",
+    "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmFmZjJlYjQ5OGU1YzZhMDQ0ODRmMGM5Zjc4NWI0NDg0NzlhYjIxM2RmOTVlYzkxMTc2YTMwOGExMmFkZDcwIn19fQ==",
+    "&aImprovement Core",
+    "",
+    "Combine it with a tool in Improvement Forge to improve it."
   );
 
 };

@@ -5,6 +5,7 @@ import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaff;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaffII;
 import me.gallowsdove.foxymachines.implementation.weapons.HealingBow;
 import me.gallowsdove.foxymachines.implementation.materials.ReinforcedString;
+import me.gallowsdove.foxymachines.implementation.materials.ImprovementCore;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
 import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import org.bukkit.NamespacedKey;
@@ -26,6 +27,7 @@ final class ItemSetup {
     new ElectricFireStaffII().register(FoxyMachines.getInstance());
     new HealingBow().register(FoxyMachines.getInstance());
     new ReinforcedString().register(FoxyMachines.getInstance());
+    new ImprovementCore().register(FoxyMachines.getInstance());
     new ImprovementForge().register(FoxyMachines.getInstance());
   }
 }
@@ -57,9 +59,13 @@ final class ResearchSetup {
       6669669, "Harder, Better, Stronger", 18)
       .addItems(Items.REINFORCED_STRING)
       .register();
-      new Research(new NamespacedKey(FoxyMachines.getInstance(), "improvement_forge"),
-        6669670, "Beyond imaginations", 48)
-        .addItems(Items.IMPROVEMENT_FORGE)
-        .register();
+    new Research(new NamespacedKey(FoxyMachines.getInstance(), "improvement_forge"),
+      6669670, "Beyond imaginations", 48)
+      .addItems(Items.IMPROVEMENT_FORGE)
+      .register();
+    new Research(new NamespacedKey(FoxyMachines.getInstance(), "improvement_core"),
+      6669671, "Up 1", 28)
+      .addItems(Items.IMPROVEMENT_CORE)
+      .register();
   }
 }
