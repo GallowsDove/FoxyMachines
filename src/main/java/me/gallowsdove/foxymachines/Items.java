@@ -12,6 +12,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.ItemFlag;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
+import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
 
 
 public final class Items{
@@ -109,6 +110,17 @@ public final class Items{
     "&aImprovement Core",
     "",
     "Combine it with a tool in Improvement Forge to improve it."
+  );
+  
+  public static final SlimefunItemStack POTION_MIXER = new SlimefunItemStack(
+    "POTION_MIXER",
+    Material.BREWING_STAND	,
+    "&bPotion Mixer",
+    "",
+    "Used to mix potions.",
+    "",
+    LoreBuilder.machine(MachineTier.GOOD, MachineType.MACHINE),
+    LoreBuilder.powerPerSecond(ImprovementForge.ENERGY_CONSUMPTION)
   );
 
 };
