@@ -7,6 +7,7 @@ import me.gallowsdove.foxymachines.implementation.weapons.HealingBow;
 import me.gallowsdove.foxymachines.implementation.materials.ReinforcedString;
 import me.gallowsdove.foxymachines.implementation.materials.ImprovementCore;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
+import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
 import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import org.bukkit.NamespacedKey;
 
@@ -29,6 +30,7 @@ final class ItemSetup {
     new ReinforcedString().register(FoxyMachines.getInstance());
     new ImprovementCore().register(FoxyMachines.getInstance());
     new ImprovementForge().register(FoxyMachines.getInstance());
+    new PotionMixer().register(FoxyMachines.getInstance());
   }
 }
 
@@ -66,6 +68,10 @@ final class ResearchSetup {
     new Research(new NamespacedKey(FoxyMachines.getInstance(), "improvement_core"),
       6669671, "Up 1", 28)
       .addItems(Items.IMPROVEMENT_CORE)
+      .register();
+    new Research(new NamespacedKey(FoxyMachines.getInstance(), "potion_mixer"),
+      6669672, "Brewing like never before", 28)
+      .addItems(Items.POTION_MIXER)
       .register();
   }
 }
