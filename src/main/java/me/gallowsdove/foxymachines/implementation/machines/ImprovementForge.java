@@ -316,6 +316,6 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
           return cursor == null || cursor.getType() == null || cursor.getType() == Material.AIR;
         }
       });
+    }
   }
-}
 }
