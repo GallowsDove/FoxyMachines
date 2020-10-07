@@ -23,18 +23,26 @@ import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecip
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.AdvancedMenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.Material;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionData;
+import org.bukkit.potion.PotionType;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.Color;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import org.bukkit.Material;
 
 
 
@@ -51,10 +59,10 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
   protected final List<MachineRecipe> recipes = new ArrayList<>();
 
   public PotionMixer() {
-    super(Items.machines, Items.IMPROVEMENT_FORGE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-      null, null, null,
-      null, null, null,
-      null, null, null
+    super(Items.machines, Items.POTION_MIXER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+      SlimefunItems.CARBONADO, SlimefunItems.GOLD_24K, SlimefunItems.CARBONADO,
+      SlimefunItems.ELECTRIC_MOTOR, new ItemStack(Material.BREWING_STAND), SlimefunItems.ELECTRIC_MOTOR,
+      SlimefunItems.GOLD_24K, SlimefunItems.MEDIUM_CAPACITOR, SlimefunItems.GOLD_24K
     });
 
 
@@ -183,7 +191,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
 
       @Override
       public void tick(Block b, SlimefunItem sf, Config data) {
-        ImprovementForge.this.tick(b);
+        PotionMixer.this.tick(b);
       }
 
       @Override
@@ -200,7 +208,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
       int timeleft = progress.get(b);
 
       if (timeleft > 0) {
-        ChestMenuUtils.updateProgressbar(inv, 22, timeleft, processing.get(b).getTicks(), getProgressBar());
+        ChestMenuUtils.updateProgressbar(inv, 13, timeleft, processing.get(b).getTicks(), getProgressBar());
 
         if (isChargeable()) {
           if (getCharge(b.getLocation()) < getEnergyConsumption()) {
@@ -212,7 +220,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
         progress.put(b, timeleft - 1);
       }
       else {
-        inv.replaceExistingItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "));
+        inv.replaceExistingItem(13, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "));
 
         for (ItemStack output : processing.get(b).getOutput()) {
           inv.pushItem(output.clone(), getOutputSlots());
@@ -232,28 +240,207 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
     }
   }
 
+  protected PotionEffect[] getCustomEffectsFromBaseData(PotionData potionData, boolean lingering) {
+    PotionType type = potionData.getType();
+    boolean extended = potionData.isExtended();
+    boolean upgraded = potionData.isUpgraded();
+    int d = 1;
+    if (lingering){
+      d = 4;
+    }
+    switch (type) {
+      case FIRE_RESISTANCE:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 8*60*20/d, 0)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 3*60*20/d, 0)};
+        }
+      case INSTANT_DAMAGE:
+        if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.HARM, 0, 1)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.HARM, 0, 0)};
+        }
+      case INSTANT_HEAL:
+        if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.HEAL, 0, 1)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.HEAL, 0, 0)};
+        }
+      case INVISIBILITY:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.INVISIBILITY, 8*60*20/d, 0)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.INVISIBILITY, 3*60*20/d, 0)};
+        }
+      case JUMP:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.JUMP, 8*60*20/d, 0)};
+        } else if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.JUMP, 90*20/d, 1)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.JUMP, 3*60*20/d, 0)};
+        }
+      case LUCK:
+        return new PotionEffect[] {new PotionEffect(PotionEffectType.LUCK, 5*60*20/d, 0)};
+      case NIGHT_VISION:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.NIGHT_VISION, 8*60*20/d, 0)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.NIGHT_VISION, 3*60*20/d, 0)};
+        }
+      case POISON:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.POISON, 45*20/d, 0)};
+        } else if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.POISON, 21*20/d, 1)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.POISON, 90*20/d, 0)};
+        }
+      case REGEN:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.REGENERATION, 45*20/d, 0)};
+        } else if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.REGENERATION, 22*20/d, 1)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.REGENERATION, 90*20/d, 0)};
+        }
+      case SLOW_FALLING:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW_FALLING, 4*60*20/d, 0)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW_FALLING, 90*20/d, 0)};
+        }
+      case SLOWNESS:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW, 4*60*20/d, 0)};
+        } else if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW, 20*20/d, 3)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW, 90*20/d, 0)};
+        }
+      case SPEED:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SPEED, 8*60*20/d, 0)};
+        } else if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SPEED, 90*20/d, 1)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SPEED, 3*60*20/d, 0)};
+        }
+      case STRENGTH:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 8*60*20/d, 0)};
+        } else if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 90*20/d, 1)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 3*60*20/d, 0)};
+        }
+      case TURTLE_MASTER:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW, 40*20/d, 3), new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 40*20/d, 2)};
+        } else if (upgraded) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW, 20*20/d, 5), new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*20/d, 3)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.SLOW, 20*20/d, 3), new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20*20/d, 2)};
+      }
+      case WATER_BREATHING:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.WATER_BREATHING, 8*60*20/d, 0)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.WATER_BREATHING, 3*60*20/d, 0)};
+      }
+      case WEAKNESS:
+        if (extended) {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.WEAKNESS, 4*60*20/d, 0)};
+        } else {
+          return new PotionEffect[] {new PotionEffect(PotionEffectType.WEAKNESS, 90*20/d, 0)};
+        }
+    }
+    return new PotionEffect[] {};
+  }
+
   protected MachineRecipe findNextRecipe(BlockMenu menu) {
-    for (int slot : getInputSlots()) {
-      ItemStack improvementCore = menu.getItemInSlot(slot == getInputSlots()[0] ? getInputSlots()[1] : getInputSlots()[0]);
-      ItemStack item = menu.getItemInSlot(slot);
+    int[] slots = getInputSlots();
+    ItemStack potion1 = menu.getItemInSlot(slots[0]);
+    ItemStack potion2 = menu.getItemInSlot(slots[1]);
 
-      if (item != null) {
-       
-          ItemStack com = item.clone();
-          improvedItem.setType(tools[tier+1][index]);
+    if (potion1 != null && potion2 != null) {
 
-          if (!menu.fits(improvedItem, getOutputSlots())) {
-            return null;
+      if ((potion1.getType() == Material.POTION && potion2.getType() == Material.POTION) ||
+       (potion1.getType() == Material.SPLASH_POTION && potion2.getType() == Material.SPLASH_POTION) ||
+       (potion1.getType() == Material.LINGERING_POTION && potion2.getType() == Material.LINGERING_POTION)){
+
+        boolean lingering = false;
+        if (potion1.getType() == Material.LINGERING_POTION) {
+          lingering = true;
+        }
+        ItemStack potion = potion1.clone();
+
+        PotionMeta potionMeta = (PotionMeta) potion1.getItemMeta();
+        PotionMeta potion2Meta = (PotionMeta) potion2.getItemMeta();
+
+        List<PotionEffect> potion1Effects = new ArrayList<PotionEffect>(potionMeta.getCustomEffects());
+        List<PotionEffect> potion2Effects = potion2Meta.getCustomEffects();
+
+        for (int i = 0; i < potion2Effects.size(); i++) {
+          for (int j = 0; j < potion1Effects.size(); j++) {
+            if (potion1Effects.get(j).getType() == potion2Effects.get(i).getType()) {
+              if (potion1Effects.get(j).getAmplifier() > potion2Effects.get(i).getAmplifier()) {
+                potion2Effects.set(i, potion1Effects.get(j));
+              }
+              potion1Effects.remove(j);
+              break;
+            }
           }
-
-          for (int inputSlot : getInputSlots()) {
-            menu.consumeItem(inputSlot);
-          }
-
-          return new MachineRecipe(60, new ItemStack[] { improvementCore, item }, new ItemStack[] { improvedItem });
+          potionMeta.addCustomEffect(potion2Effects.get(i), true);
         }
 
-        break;
+        for (PotionEffect effect : getCustomEffectsFromBaseData(potionMeta.getBasePotionData(), lingering)) {
+          potionMeta.addCustomEffect(effect, false);
+        }
+
+        for (PotionEffect effect : getCustomEffectsFromBaseData(potion2Meta.getBasePotionData(), lingering)) {
+          for (PotionEffect effect2 : potionMeta.getCustomEffects()) {
+            if (effect.getType() == effect2.getType()) {
+              if (effect.getAmplifier() > effect2.getAmplifier()) {
+                potionMeta.addCustomEffect(effect, true);
+                break;
+              }
+            }
+          };
+          potionMeta.addCustomEffect(effect, false);
+        }
+
+        List<String> lore = new ArrayList<String>() {{add("Not useable in Brewing Stand");}};
+        potionMeta.setBasePotionData​(new PotionData(PotionType.UNCRAFTABLE, false, false));
+        switch(potion1.getType()){
+          case POTION:
+            potionMeta.setDisplayName(ChatColor.AQUA + "Combined Potion");
+            break;
+          case LINGERING_POTION:
+            lore.add(ChatColor.RED + "The time shown is incorrect due to a Minecraft");
+            lore.add(ChatColor.RED + "bug, multiply it by 4 to get the real time.");
+            potionMeta.setDisplayName(ChatColor.AQUA + "Combined Lingering Potion");
+            break;
+          case SPLASH_POTION:
+            potionMeta.setDisplayName(ChatColor.AQUA + "Combined Splash Potion");
+            break;
+        }
+        potionMeta.setLore(lore);
+        potionMeta.setColor(Color.AQUA);
+
+        potion.setItemMeta(potionMeta);
+
+
+        if (!menu.fits(potion, getOutputSlots())) {
+          return null;
+        }
+
+        for (int inputSlot : getInputSlots()) {
+          menu.consumeItem(inputSlot);
+        }
+
+        return new MachineRecipe((1+potionMeta.getCustomEffects().size())*12, new ItemStack[] { potion1, potion2 }, new ItemStack[] { potion });
       }
     }
 
@@ -266,14 +453,14 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
     }
 
     for (int i : BORDER_IN) {
-      .addItem(i, new SlimefunItemStack("_UI_INPUT_SLOT", Material.CYAN_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
+      preset.addItem(i, new SlimefunItemStack("_UI_INPUT_SLOT", Material.CYAN_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
     }
 
     for (int i : BORDER_OUT) {
       preset.addItem(i, new SlimefunItemStack("_UI_OUTPUT_SLOT", Material.ORANGE_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
     }
 
-    preset.addItem(22, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
+    preset.addItem(13, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
 
     for (int i : getOutputSlots()) {
       preset.addMenuClickHandler(i, new AdvancedMenuClickHandler() {

@@ -9,3 +9,4 @@ FoxyMachines adds various machines and tools to Slimefun.
 * Healing Bow
 ## Machines
 * Improvement Forge
+* Potion Mixer
