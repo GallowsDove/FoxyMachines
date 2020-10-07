@@ -9,6 +9,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 
@@ -20,6 +21,11 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
     instance = this;
     // Read something from your config.yml
     Config cfg = new Config(this);
+
+    if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
+      new GitHubBuildsUpdater(this, getFile(), "GallowsDove/FoxyMachines/master/").start();
+    }
+
     ItemSetup.INSTANCE.init();
     ResearchSetup.INSTANCE.init();
   }
@@ -31,7 +37,6 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
 
   @Override
   public String getBugTrackerURL() {
-    // You can return a link to your Bug Tracker instead of null here
     return "https://github.com/GallowsDove/FoxyMachines/issues";
   }
 
