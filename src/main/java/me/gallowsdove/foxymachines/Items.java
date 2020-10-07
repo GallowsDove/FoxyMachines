@@ -111,7 +111,7 @@ public final class Items{
     "",
     "Combine it with a tool in Improvement Forge to improve it."
   );
-  
+
   public static final SlimefunItemStack POTION_MIXER = new SlimefunItemStack(
     "POTION_MIXER",
     Material.BREWING_STAND	,
@@ -120,7 +120,7 @@ public final class Items{
     "Used to mix potions.",
     "",
     LoreBuilder.machine(MachineTier.GOOD, MachineType.MACHINE),
-    LoreBuilder.powerPerSecond(ImprovementForge.ENERGY_CONSUMPTION)
+    LoreBuilder.powerPerSecond(PotionMixer.ENERGY_CONSUMPTION)
   );
 
 };
