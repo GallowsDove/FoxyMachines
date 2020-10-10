@@ -82,7 +82,7 @@ public final class Items{
     "HEALING_BOW",
     Material.BOW,
     "&4Healing Bow",
-    "Healing II",
+    "&cHealing II",
     "",
     "&8Finally a support weapon."
   );
@@ -98,7 +98,7 @@ public final class Items{
     Material.SMITHING_TABLE,
     "&bImprovement Forge",
     "",
-    "Used to improve Slimefun tools, weapons and armor.",
+    "&7Used to improve Slimefun tools, weapons and armor.",
     "",
     LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
     LoreBuilder.powerPerSecond(ImprovementForge.ENERGY_CONSUMPTION)
@@ -109,7 +109,7 @@ public final class Items{
     "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmFmZjJlYjQ5OGU1YzZhMDQ0ODRmMGM5Zjc4NWI0NDg0NzlhYjIxM2RmOTVlYzkxMTc2YTMwOGExMmFkZDcwIn19fQ==",
     "&aImprovement Core",
     "",
-    "Combine it with a tool in Improvement Forge to improve it."
+    "&7Combine it with a tool in Improvement Forge to improve it."
   );
 
   public static final SlimefunItemStack POTION_MIXER = new SlimefunItemStack(
@@ -117,7 +117,7 @@ public final class Items{
     Material.BREWING_STAND	,
     "&bPotion Mixer",
     "",
-    "Used to mix potions.",
+    "&7Used to mix potions.",
     "",
     LoreBuilder.machine(MachineTier.GOOD, MachineType.MACHINE),
     LoreBuilder.powerPerSecond(PotionMixer.ENERGY_CONSUMPTION)
