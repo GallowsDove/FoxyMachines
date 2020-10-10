@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.ItemFlag;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
 import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
+import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
 
 
 public final class Items{
@@ -35,7 +36,7 @@ public final class Items{
     Material.BLAZE_ROD,
     "&bElectric Wind Staff",
     "",
-    "&8\u21E8 &7Ride on the wind.",
+    "&7Ride on the wind.",
     "",
     "&c&o&8\u21E8 &e\u26A1 &70 / 100 J"
    );
@@ -51,7 +52,7 @@ public final class Items{
     Material.BLAZE_ROD,
     "&4Electric Fire Staff",
     "",
-    "&8\u21E8 &7Create inferno.",
+    "&7Create inferno.",
     "",
     "&c&o&8\u21E8 &e\u26A1 &70 / 100 J"
   );
@@ -67,7 +68,7 @@ public final class Items{
     Material.BLAZE_ROD,
     "&4Electric Fire Staff &7- &eII",
     "",
-    "&8\u21E8 &7Fire, fire, fire!",
+    "&7Fire, fire, fire!",
     "",
     "&c&o&8\u21E8 &e\u26A1 &70 / 200 J"
     );
@@ -100,7 +101,7 @@ public final class Items{
     "",
     "Used to improve Slimefun tools, weapons and armor.",
     "",
-    LoreBuilder.machine(MachineTier.ADVANCED, MachineType.MACHINE),
+    LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
     LoreBuilder.powerPerSecond(ImprovementForge.ENERGY_CONSUMPTION)
   );
 
@@ -121,6 +122,17 @@ public final class Items{
     "",
     LoreBuilder.machine(MachineTier.GOOD, MachineType.MACHINE),
     LoreBuilder.powerPerSecond(PotionMixer.ENERGY_CONSUMPTION)
+  );
+
+  public static final SlimefunItemStack ELECTRIC_GOLD_REFINERY = new SlimefunItemStack(
+    "ELECTRIC_GOLD_REFINERY",
+    Material.GOLD_BLOCK	,
+    "&bElectric Gold Refinery",
+    "",
+    "&7Refines gold dust to gold ingots.",
+    "",
+    LoreBuilder.machine(MachineTier.END_GAME, MachineType.MACHINE),
+    LoreBuilder.powerPerSecond(ElectricGoldRefinery.ENERGY_CONSUMPTION)
   );
 
 };

@@ -8,6 +8,7 @@ import me.gallowsdove.foxymachines.implementation.materials.ReinforcedString;
 import me.gallowsdove.foxymachines.implementation.materials.ImprovementCore;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
 import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
+import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
 import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import org.bukkit.NamespacedKey;
 
@@ -31,6 +32,7 @@ final class ItemSetup {
     new ImprovementCore().register(FoxyMachines.getInstance());
     new ImprovementForge().register(FoxyMachines.getInstance());
     new PotionMixer().register(FoxyMachines.getInstance());
+    new ElectricGoldRefinery().register(FoxyMachines.getInstance());
   }
 }
 
@@ -72,6 +74,10 @@ final class ResearchSetup {
     new Research(new NamespacedKey(FoxyMachines.getInstance(), "potion_mixer"),
       6669672, "Brewing like never before", 28)
       .addItems(Items.POTION_MIXER)
+      .register();
+    new Research(new NamespacedKey(FoxyMachines.getInstance(), "electric_gold_refinery"),
+      6669673, "Get rid of the smelteries", 28)
+      .addItems(Items.ELECTRIC_GOLD_REFINERY)
       .register();
   }
 }
