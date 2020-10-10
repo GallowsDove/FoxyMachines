@@ -386,6 +386,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
           lingering = true;
         }
         ItemStack potion = potion1.clone();
+        potion.setAmount(1);
 
         PotionMeta potionMeta = (PotionMeta) potion1.getItemMeta();
         PotionMeta potion2Meta = (PotionMeta) potion2.getItemMeta();
