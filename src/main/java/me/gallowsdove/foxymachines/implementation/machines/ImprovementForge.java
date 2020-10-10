@@ -110,10 +110,17 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
         return array;
       }
     };
-  }
+    
+    registerBlockHandler(getID(), (p, b, stack, reason) -> {
+      BlockMenu inv = BlockStorage.getInventory(b);
+      
+      if (inv != null) {
+        inv.dropItems(b.getLocation(), getOutputSlots());
+        inv.dropItems(b.getLocation(), getInputSlots());
+      }
 
-  private Comparator<Integer> compareSlots(DirtyChestMenu menu) {
-    return Comparator.comparingInt(slot -> menu.getItemInSlot(slot).getAmount());
+      return true;
+    });
   }
 
   @Override
