@@ -10,3 +10,4 @@ FoxyMachines adds various machines and tools to Slimefun.
 ## Machines
 * Improvement Forge
 * Potion Mixer
+* Electric Gold Refinery
