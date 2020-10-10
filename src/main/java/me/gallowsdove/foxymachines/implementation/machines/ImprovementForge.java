@@ -123,7 +123,7 @@ public class ImprovementForge extends SlimefunItem implements InventoryBlock, En
     });
   }
 
-  private Comparator<Integer> compareSlots(DirtyChestMenu menu){
+  private Comparator<Integer> compareSlots(DirtyChestMenu menu) {
     return Comparator.comparingInt(slot -> menu.getItemInSlot(slot).getAmount());
   }
 
