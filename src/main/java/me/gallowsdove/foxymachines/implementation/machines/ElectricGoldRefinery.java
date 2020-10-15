@@ -35,6 +35,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -147,22 +148,32 @@ public class ElectricGoldRefinery extends SlimefunItem implements InventoryBlock
           return getOutputSlots();
         }
 
-        List<Integer> slots = new ArrayList<>();
+        List<Integer> slots = new LinkedList<>();
+
         for (int slot : getInputSlots()) {
-          if (menu.getItemInSlot(slot) != null) {
+          ItemStack stack = menu.getItemInSlot(slot);
+          if (stack != null) {
+            if (SlimefunUtils.isItemSimilar(stack, item, true, false)) {
+              if (stack.getAmount() < stack.getMaxStackSize()) {
+                slots.add(slot);
+              }
+            }
+          } else {
             slots.add(slot);
           }
         }
 
-        Collections.sort(slots, compareSlots(menu));
+        if (slots.isEmpty()) {
+          return getInputSlots();
+        } else {
+          int[] array = new int[slots.size()];
 
-        int[] array = new int[slots.size()];
+          for (int i = 0; i < slots.size(); i++) {
+            array[i] = slots.get(i);
+          }
 
-        for (int i = 0; i < slots.size(); i++) {
-          array[i] = slots.get(i);
+          return array;
         }
-
-        return array;
       }
     };
 
