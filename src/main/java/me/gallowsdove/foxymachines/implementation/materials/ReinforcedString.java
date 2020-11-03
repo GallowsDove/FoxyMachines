@@ -17,7 +17,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 public class ReinforcedString extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
   public ReinforcedString() {
-    super(Items.materials, Items.REINFORCED_STRING, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+    super(Items.category, Items.REINFORCED_STRING, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
       new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING),
       SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT,
       new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING)
