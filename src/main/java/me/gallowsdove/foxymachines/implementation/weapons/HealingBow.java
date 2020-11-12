@@ -17,7 +17,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 public class HealingBow extends SlimefunBow {
 
   public HealingBow() {
-    super(Items.weapons, Items.HEALING_BOW, new ItemStack[] {
+    super(Items.category, Items.HEALING_BOW, new ItemStack[] {
       null, SlimefunItems.SYNTHETIC_DIAMOND, Items.REINFORCED_STRING,
       SlimefunItems.SYNTHETIC_DIAMOND, SlimefunItems.ESSENCE_OF_AFTERLIFE, Items.REINFORCED_STRING,
       null, SlimefunItems.SYNTHETIC_DIAMOND, Items.REINFORCED_STRING

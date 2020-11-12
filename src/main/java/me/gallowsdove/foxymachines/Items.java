@@ -18,18 +18,9 @@ import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
 
 public final class Items{
 
-  public static Category tools = new Category(
-    new NamespacedKey(FoxyMachines.getInstance(), "foxy_tools"),
-    new CustomItem(Material.SHEARS, "&4Foxy Tools", "", "&a> Click to open"));
-  public static Category weapons = new Category(
-    new NamespacedKey(FoxyMachines.getInstance(), "foxy_weapons"),
-    new CustomItem(Material.BOW, "&4Foxy Weapons", "", "&a> Click to open"));
-  public static Category materials = new Category(
-    new NamespacedKey(FoxyMachines.getInstance(), "foxy_materials"),
-    new CustomItem(Material.STRING, "&4Foxy Materials", "", "&a> Click to open"));
-  public static Category machines = new Category(
-    new NamespacedKey(FoxyMachines.getInstance(), "foxy_machines"),
-    new CustomItem(Material.SMITHING_TABLE, "&4Foxy Machines", "", "&a> Click to open"));
+  public static Category category = new Category(
+    new NamespacedKey(FoxyMachines.getInstance(), "foxy_maxhines"),
+    new CustomItem(Material.SHEARS, "&4Foxy Machines", "", "&a> Click to open"));
 
   public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
     "ELECTRIC_WIND_STAFF",
