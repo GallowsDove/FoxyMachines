@@ -126,4 +126,20 @@ public final class Items{
     LoreBuilder.powerPerSecond(ElectricGoldRefinery.ENERGY_CONSUMPTION)
   );
 
+  public static final SlimefunItemStack CHUNK_LOADER = new SlimefunItemStack(
+    "CHUNK_LOADER",
+    Material.END_ROD,
+    "&bChunk Loader",
+    "",
+    "&7Keeps chunk loaded."
+  );
+
+  public static final SlimefunItemStack STABILIZED_BLISTERING_BLOCK = new SlimefunItemStack(
+    "STABILIZED_BLISTERING_BLOCK",
+    Material.SNOW_BLOCK,
+    "&bStabilized Blistering Block",
+    "",
+    "&7A stable material."
+  );
+
 };
