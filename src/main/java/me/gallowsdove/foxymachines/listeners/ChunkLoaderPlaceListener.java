@@ -48,7 +48,6 @@ public class ChunkLoaderPlaceListener implements Listener {
 
     p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
     b.getChunk().setForceLoaded(true);
-    BlockStorage.addBlockInfo(b, "chunk_loader", "true");
     BlockStorage.addBlockInfo(b, "owner", p.getUniqueId().toString());
   }
 }
