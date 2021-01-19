@@ -19,36 +19,36 @@ import java.util.List;
 
 
 public class ChunkLoader extends SlimefunItem {
-  public ChunkLoader() {
-    super(Items.category, Items.CHUNK_LOADER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-      Items.REINFORCED_STRING, Items.STABILIZED_BLISTERING_BLOCK, Items.REINFORCED_STRING,
-      SlimefunItems.ENRICHED_NETHER_ICE, Items.STABILIZED_BLISTERING_BLOCK, SlimefunItems.ENRICHED_NETHER_ICE,
-      Items.REINFORCED_STRING, Items.STABILIZED_BLISTERING_BLOCK, Items.REINFORCED_STRING
-    });
-  }
+    public ChunkLoader() {
+        super(Items.category, Items.CHUNK_LOADER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                Items.REINFORCED_STRING, Items.STABILIZED_BLISTERING_BLOCK, Items.REINFORCED_STRING,
+                SlimefunItems.ENRICHED_NETHER_ICE, Items.STABILIZED_BLISTERING_BLOCK, SlimefunItems.ENRICHED_NETHER_ICE,
+                Items.REINFORCED_STRING, Items.STABILIZED_BLISTERING_BLOCK, Items.REINFORCED_STRING
+        });
+    }
 
-  @Override
-  public void preRegister() {
-    super.preRegister();
+    @Override
+    public void preRegister() {
+        super.preRegister();
 
-    addItemHandler(onBreak());
-  }
+        addItemHandler(onBreak());
+    }
 
-  private BlockBreakHandler onBreak() {
-    return new BlockBreakHandler() {
-      @Override
-      public boolean onBlockBreak(BlockBreakEvent e, ItemStack item, int fortune, List<ItemStack> drops) {
-        Block b = e.getBlock();
-        NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
-        Player p = Bukkit.getPlayer(UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner")));
-        Integer i = p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) - 1;
-        p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
+    private BlockBreakHandler onBreak() {
+        return new BlockBreakHandler() {
+            @Override
+            public boolean onBlockBreak(BlockBreakEvent e, ItemStack item, int fortune, List<ItemStack> drops) {
+                Block b = e.getBlock();
+                NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
+                Player p = Bukkit.getPlayer(UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner")));
+                Integer i = p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) - 1;
+                p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
 
-        b.getChunk().setForceLoaded(false);
-        BlockStorage.clearBlockInfo(b);
-        return true;
-      }
-    };
-  }
+                b.getChunk().setForceLoaded(false);
+                BlockStorage.clearBlockInfo(b);
+                return true;
+            }
+        };
+    }
 
 }

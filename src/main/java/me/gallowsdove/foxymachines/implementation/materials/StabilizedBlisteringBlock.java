@@ -1,13 +1,10 @@
 package me.gallowsdove.foxymachines.implementation.materials;
 
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.Material;
 import me.gallowsdove.foxymachines.Items;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 
@@ -15,18 +12,16 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 
 public class StabilizedBlisteringBlock extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
-  public StabilizedBlisteringBlock() {
-    super(Items.category, Items.STABILIZED_BLISTERING_BLOCK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-      SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT,SlimefunItems.HARDENED_METAL_INGOT,
-      SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.REINFORCED_ALLOY_INGOT,
-      SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.HARDENED_METAL_INGOT
-    });
-  }
+    public StabilizedBlisteringBlock() {
+        super(Items.category, Items.STABILIZED_BLISTERING_BLOCK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT,SlimefunItems.HARDENED_METAL_INGOT,
+                SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.REINFORCED_ALLOY_INGOT,
+                SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.HARDENED_METAL_INGOT
+        });
+    }
 
-  @Override
-  public ItemUseHandler getItemHandler() {
-    return e -> {
-      e.cancel();
-    };
-  }
+    @Override
+    public ItemUseHandler getItemHandler() {
+        return e -> e.cancel();
+    }
 }
