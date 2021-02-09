@@ -14,7 +14,6 @@ import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -36,7 +35,7 @@ import org.bukkit.persistence.PersistentDataType;
 import java.util.*;
 
 
-public class ElectricGoldRefinery extends SlimefunItem implements InventoryBlock, EnergyNetComponent {
+public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetComponent {
     private static final int[] BORDER = { 2, 3, 4, 5, 6, 7, 8, 14, 23, 32, 41, 47, 48, 49, 50, 51, 52, 53 };
     private static final int[] BORDER_IN = { 11, 12, 13, 20, 22, 29, 31, 38 , 39, 40 };
     private static final int[] BORDER_OUT = { 15, 16, 17, 24, 26, 33, 35, 42, 43, 44 };
@@ -58,7 +57,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements InventoryBlock
         });
 
 
-        new BlockMenuPreset(getID(), "&6Electric Gold Refinery") {
+        new BlockMenuPreset(getId(), "&6Electric Gold Refinery") {
 
             @Override
             public void init() {
@@ -125,7 +124,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements InventoryBlock
             public boolean canOpen(Block b, Player p) {
                 return p.hasPermission("slimefun.inventory.bypass")
                         || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(),
-                        ProtectableAction.ACCESS_INVENTORIES
+                        ProtectableAction.INTERACT_BLOCK
                 );
             }
 
@@ -169,7 +168,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements InventoryBlock
             }
         };
 
-        registerBlockHandler(getID(), (p, b, stack, reason) -> {
+        registerBlockHandler(getId(), (p, b, stack, reason) -> {
             BlockMenu inv = BlockStorage.getInventory(b);
 
             if (inv != null) {
@@ -185,12 +184,10 @@ public class ElectricGoldRefinery extends SlimefunItem implements InventoryBlock
         return Comparator.comparingInt(slot -> menu.getItemInSlot(slot).getAmount());
     }
 
-    @Override
     public int[] getInputSlots() {
         return new int[] { 21, 30 };
     }
 
-    @Override
     public int[] getOutputSlots() {
         return new int[] {25, 34};
     }
@@ -349,7 +346,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements InventoryBlock
             for (int i = 0; i < goldDustList.size(); i++)
             {
                 if (goldDustList.get(i).getAmount() == 0) {
-                    continue;
+                   continue;
                 } else if (goldDustList.get(i).getAmount() >= goldCost) {
                     menu.consumeItem(inputSlots[i], goldCost);
                     break;
