@@ -12,7 +12,6 @@ import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.interfaces.InventoryBlock;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -35,15 +34,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
-public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyNetComponent {
+public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
     private static final int[] BORDER = {3, 4, 5, 27, 28, 29, 33, 34, 35, 36, 37, 38, 42, 43, 44};
     private static final int[] BORDER_IN = {0, 1, 2, 6, 7, 8, 9, 11, 12, 14, 15, 17, 18, 19, 20, 24, 25, 26};
     private static final int[] BORDER_OUT = {21, 22, 23, 30, 32, 39, 40, 41};
@@ -63,7 +57,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
         });
 
 
-        new BlockMenuPreset(getID(), "&6Potion Mixer") {
+        new BlockMenuPreset(getId(), "&6Potion Mixer") {
 
             @Override
             public void init() {
@@ -73,7 +67,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
             public boolean canOpen(Block b, Player p) {
                 return p.hasPermission("slimefun.inventory.bypass")
                         || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(),
-                        ProtectableAction.ACCESS_INVENTORIES
+                        ProtectableAction.INTERACT_BLOCK
                 );
             }
 
@@ -95,7 +89,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
                     }
                 }
 
-                Collections.sort(slots, compareSlots(menu));
+                slots.sort(compareSlots(menu));
 
                 int[] array = new int[slots.size()];
 
@@ -107,7 +101,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
             }
         };
 
-        registerBlockHandler(getID(), (p, b, stack, reason) -> {
+        registerBlockHandler(getId(), (p, b, stack, reason) -> {
             BlockMenu inv = BlockStorage.getInventory(b);
 
             if (inv != null) {
@@ -123,12 +117,10 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
         return Comparator.comparingInt(slot -> menu.getItemInSlot(slot).getAmount());
     }
 
-    @Override
     public int[] getInputSlots() {
         return new int[] { 10, 16 };
     }
 
-    @Override
     public int[] getOutputSlots() {
         return new int[] {31};
     }
@@ -420,7 +412,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
                     potionMeta.addCustomEffect(effect, false);
                 }
 
-                List<String> lore = new ArrayList<String>() {{add("Not useable in Brewing Stand");}};
+                List<String> lore = new ArrayList<String>() {{add("Not usable in Brewing Stand");}};
                 potionMeta.setBasePotionData(new PotionData(PotionType.UNCRAFTABLE, false, false));
                 switch(potion1.getType()){
                     case POTION:
@@ -481,7 +473,7 @@ public class PotionMixer extends SlimefunItem implements InventoryBlock, EnergyN
 
                 @Override
                 public boolean onClick(InventoryClickEvent e, Player p, int slot, ItemStack cursor, ClickAction action) {
-                    return cursor == null || cursor.getType() == null || cursor.getType() == Material.AIR;
+                    return cursor == null || cursor.getType() == Material.AIR;
                 }
             });
         }
