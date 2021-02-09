@@ -2,6 +2,7 @@
 FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Slimefun/Slimefun4).
 
 ### [Download](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/)
+[![Build Status](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/badge.svg)](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master)
 
 ## Tools
 * Electric Wind Staff
