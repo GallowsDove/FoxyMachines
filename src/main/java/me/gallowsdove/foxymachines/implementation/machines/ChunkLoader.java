@@ -49,5 +49,4 @@ public class ChunkLoader extends SlimefunItem {
             }
         };
     }
-
 }
