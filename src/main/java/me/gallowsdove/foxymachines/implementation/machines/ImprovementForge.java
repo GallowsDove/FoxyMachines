@@ -1,6 +1,7 @@
 package me.gallowsdove.foxymachines.implementation.machines;
 
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
@@ -25,6 +26,7 @@ import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
@@ -103,17 +105,6 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
                 return array;
             }
         };
-
-        registerBlockHandler(getId(), (p, b, stack, reason) -> {
-            BlockMenu inv = BlockStorage.getInventory(b);
-
-            if (inv != null) {
-                inv.dropItems(b.getLocation(), getOutputSlots());
-                inv.dropItems(b.getLocation(), getInputSlots());
-            }
-
-            return true;
-        });
     }
 
     private Comparator<Integer> compareSlots(DirtyChestMenu menu) {
@@ -188,6 +179,21 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         registerRecipe(new MachineRecipe(seconds, new ItemStack[] { input }, new ItemStack[] { output }));
     }
 
+    private BlockBreakHandler onBreak() {
+        return new BlockBreakHandler(false, false) {
+            @Override
+            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+                Block b = e.getBlock();
+                BlockMenu inv = BlockStorage.getInventory(b);
+
+                if (inv != null) {
+                    inv.dropItems(b.getLocation(), getOutputSlots());
+                    inv.dropItems(b.getLocation(), getInputSlots());
+                }
+            }
+        };
+    }
+
     @Override
     public void preRegister() {
         addItemHandler(new BlockTicker() {
@@ -201,7 +207,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
             public boolean isSynchronized() {
                 return false;
             }
-        });
+        }, onBreak());
     }
 
     protected void tick(Block b) {

@@ -1,5 +1,6 @@
 package me.gallowsdove.foxymachines;
 
+import me.gallowsdove.foxymachines.implementation.machines.*;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricWindStaff;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaff;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaffII;
@@ -7,10 +8,6 @@ import me.gallowsdove.foxymachines.implementation.weapons.HealingBow;
 import me.gallowsdove.foxymachines.implementation.materials.ReinforcedString;
 import me.gallowsdove.foxymachines.implementation.materials.ImprovementCore;
 import me.gallowsdove.foxymachines.implementation.materials.StabilizedBlisteringBlock;
-import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
-import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
-import me.gallowsdove.foxymachines.implementation.machines.ChunkLoader;
-import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
 import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import org.bukkit.NamespacedKey;
 

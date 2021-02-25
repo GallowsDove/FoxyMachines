@@ -142,4 +142,12 @@ public final class Items{
             "&7A stable material."
     );
 
+    public static final SlimefunItemStack PERMANENTLY_POWERED_RAIL = new SlimefunItemStack(
+            "PERMANENTLY_POWERED_RAIL",
+            Material.POWERED_RAIL,
+            "Permanently Powered Rail",
+            "",
+            "&7An active powered rail."
+    );
+
 }
