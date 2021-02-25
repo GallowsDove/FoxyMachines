@@ -42,6 +42,7 @@ public class ChunkLoader extends SlimefunItem {
                 NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
                 Player p = Bukkit.getPlayer(UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner")));
                 Integer i = p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) - 1;
+
                 p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
 
                 b.getChunk().setForceLoaded(false);
