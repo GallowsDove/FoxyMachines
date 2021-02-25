@@ -15,3 +15,4 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Potion Mixer
 * Electric Gold Refinery
 * Chunk Loader
+* Boosted Rails

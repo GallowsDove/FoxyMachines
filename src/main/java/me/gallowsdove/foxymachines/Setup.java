@@ -1,15 +1,18 @@
 package me.gallowsdove.foxymachines;
 
+import io.github.thebusybiscuit.slimefun4.core.researching.Research;
+import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import me.gallowsdove.foxymachines.implementation.machines.*;
-import me.gallowsdove.foxymachines.implementation.tools.ElectricWindStaff;
+import me.gallowsdove.foxymachines.implementation.materials.ImprovementCore;
+import me.gallowsdove.foxymachines.implementation.materials.ReinforcedString;
+import me.gallowsdove.foxymachines.implementation.materials.StabilizedBlisteringBlock;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaff;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaffII;
+import me.gallowsdove.foxymachines.implementation.tools.ElectricWindStaff;
 import me.gallowsdove.foxymachines.implementation.weapons.HealingBow;
-import me.gallowsdove.foxymachines.implementation.materials.ReinforcedString;
-import me.gallowsdove.foxymachines.implementation.materials.ImprovementCore;
-import me.gallowsdove.foxymachines.implementation.materials.StabilizedBlisteringBlock;
-import io.github.thebusybiscuit.slimefun4.core.researching.Research;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
 
 
 final class ItemSetup {
@@ -34,6 +37,26 @@ final class ItemSetup {
         new PotionMixer().register(FoxyMachines.getInstance());
         new ElectricGoldRefinery().register(FoxyMachines.getInstance());
         new ChunkLoader().register(FoxyMachines.getInstance());
+        new BoostedRail(Items.BOOSTED_RAIL, new ItemStack[] {
+                SlimefunItems.LEAD_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.LEAD_INGOT,
+                SlimefunItems.LEAD_INGOT, new ItemStack(Material.STICK), SlimefunItems.LEAD_INGOT,
+                SlimefunItems.LEAD_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.LEAD_INGOT}, 4)
+        .register(FoxyMachines.getInstance());
+        new BoostedRail(Items.BOOSTED_ACTIVATOR_RAIL, new ItemStack[] {
+                SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT,
+                SlimefunItems.BRASS_INGOT, new ItemStack(Material.REPEATER), SlimefunItems.BRASS_INGOT,
+                SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT}, 4)
+        .register(FoxyMachines.getInstance());
+        new BoostedRail(Items.BOOSTED_DETECTOR_RAIL, new ItemStack[] {
+                SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT,
+                SlimefunItems.BRASS_INGOT, new ItemStack(Material.HEAVY_WEIGHTED_PRESSURE_PLATE), SlimefunItems.BRASS_INGOT,
+                SlimefunItems.BRASS_INGOT, SlimefunItems.COPPER_WIRE, SlimefunItems.BRASS_INGOT}, 4)
+                .register(FoxyMachines.getInstance());
+        new BoostedRail(Items.BOOSTED_POWERED_RAIL, new ItemStack[] {
+                SlimefunItems.GOLD_24K, SlimefunItems.COPPER_WIRE, SlimefunItems.GOLD_24K,
+                SlimefunItems.GOLD_24K, SlimefunItems.ELECTRO_MAGNET, SlimefunItems.GOLD_24K,
+                SlimefunItems.GOLD_24K, SlimefunItems.COPPER_WIRE, SlimefunItems.GOLD_24K}, 4)
+                .register(FoxyMachines.getInstance());
     }
 }
 
@@ -87,6 +110,10 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "stabilized_blistering_block"),
                 6669675, "What a material", 26)
                 .addItems(Items.STABILIZED_BLISTERING_BLOCK)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "boosted_rail"),
+                6669676, "Faster, Better, Stronger", 16)
+                .addItems(Items.BOOSTED_RAIL, Items.BOOSTED_ACTIVATOR_RAIL, Items.BOOSTED_DETECTOR_RAIL, Items.BOOSTED_POWERED_RAIL)
                 .register();
     }
 }

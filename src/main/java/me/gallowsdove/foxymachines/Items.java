@@ -142,12 +142,37 @@ public final class Items{
             "&7A stable material."
     );
 
-    public static final SlimefunItemStack PERMANENTLY_POWERED_RAIL = new SlimefunItemStack(
-            "PERMANENTLY_POWERED_RAIL",
-            Material.POWERED_RAIL,
-            "Permanently Powered Rail",
+    public static final SlimefunItemStack BOOSTED_RAIL = new SlimefunItemStack(
+            "BOOSTED_RAIL",
+            Material.RAIL,
+            "&fBoosted Rail",
             "",
-            "&7An active powered rail."
+            "&7Supports 2.5x the speed."
     );
+
+    public static final SlimefunItemStack BOOSTED_ACTIVATOR_RAIL = new SlimefunItemStack(
+            "BOOSTED_ACTIVATOR_RAIL",
+            Material.ACTIVATOR_RAIL,
+            "&fBoosted Activator Rail",
+            "",
+            "&7Supports 2.5x the speed."
+    );
+
+    public static final SlimefunItemStack BOOSTED_DETECTOR_RAIL = new SlimefunItemStack(
+            "BOOSTED_DETECTOR_RAIL",
+            Material.DETECTOR_RAIL,
+            "&fBoosted Detector Rail",
+            "",
+            "&7Supports 2.5x the speed."
+    );
+
+    public static final SlimefunItemStack BOOSTED_POWERED_RAIL = new SlimefunItemStack(
+            "BOOSTED_POWERED_RAIL",
+            Material.POWERED_RAIL,
+            "&fBoosted Powered Rail",
+            "",
+            "&7Supports 2.5x the speed."
+    );
+
 
 }
