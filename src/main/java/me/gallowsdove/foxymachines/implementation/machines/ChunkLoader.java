@@ -35,9 +35,9 @@ public class ChunkLoader extends SlimefunItem {
     }
 
     private BlockBreakHandler onBreak() {
-        return new BlockBreakHandler() {
+        return new BlockBreakHandler(false, false) {
             @Override
-            public boolean onBlockBreak(BlockBreakEvent e, ItemStack item, int fortune, List<ItemStack> drops) {
+            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
                 Block b = e.getBlock();
                 NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
                 Player p = Bukkit.getPlayer(UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner")));
@@ -46,7 +46,6 @@ public class ChunkLoader extends SlimefunItem {
 
                 b.getChunk().setForceLoaded(false);
                 BlockStorage.clearBlockInfo(b);
-                return true;
             }
         };
     }
