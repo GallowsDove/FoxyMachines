@@ -1,7 +1,6 @@
 package me.gallowsdove.foxymachines.listeners;
 
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -16,7 +15,7 @@ public class BerryBushListener implements Listener {
 
 
         if ( b != null && b.getType() == Material.SWEET_BERRY_BUSH) {
-            if (BlockStorage.getLocationInfo(b.getLocation(), "trimmed") == "true") {
+            if (BlockStorage.getLocationInfo(b.getLocation(), "trimmed").equals("true")) {
                 e.setCancelled(true);
             }
         }
