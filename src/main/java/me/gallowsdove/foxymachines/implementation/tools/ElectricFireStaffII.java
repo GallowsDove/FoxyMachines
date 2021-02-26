@@ -28,7 +28,7 @@ public class ElectricFireStaffII extends SlimefunItem implements Rechargeable {
         return 200;
     }
 
-    protected ItemUseHandler getItemUseHandler() {
+    protected ItemUseHandler onUse() {
         return e -> {
             Player p = e.getPlayer();
             ItemStack item = e.getItem();
@@ -43,8 +43,6 @@ public class ElectricFireStaffII extends SlimefunItem implements Rechargeable {
 
     @Override
     public void preRegister() {
-        super.preRegister();
-
-        addItemHandler(getItemUseHandler());
+        addItemHandler(onUse());
     }
 }
