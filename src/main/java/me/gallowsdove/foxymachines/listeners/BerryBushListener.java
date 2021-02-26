@@ -1,5 +1,7 @@
 package me.gallowsdove.foxymachines.listeners;
 
+import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -7,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
+import org.bukkit.event.player.PlayerShearEntityEvent;
 
 public class BerryBushListener implements Listener {
     @EventHandler
@@ -28,6 +31,13 @@ public class BerryBushListener implements Listener {
         if (b.getType() == Material.SWEET_BERRY_BUSH && BlockStorage.getLocationInfo(b.getLocation(), "trimmed") != null) {
             BlockStorage.addBlockInfo(b.getLocation(), "trimmed", null);
             BlockStorage.clearBlockInfo(b.getLocation());
+        }
+    }
+
+    @EventHandler
+    private void onSheepShear(PlayerShearEntityEvent e) {
+        if (SlimefunUtils.isItemSimilar(e.getItem(), Items.BERRY_BUSH_TRIMMER.getItem().getItem(), true)) {
+            e.setCancelled(true);
         }
     }
 }
