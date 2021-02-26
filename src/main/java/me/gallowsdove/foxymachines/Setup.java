@@ -6,6 +6,7 @@ import me.gallowsdove.foxymachines.implementation.machines.*;
 import me.gallowsdove.foxymachines.implementation.materials.ImprovementCore;
 import me.gallowsdove.foxymachines.implementation.materials.ReinforcedString;
 import me.gallowsdove.foxymachines.implementation.materials.StabilizedBlisteringBlock;
+import me.gallowsdove.foxymachines.implementation.tools.BerryBushTrimmer;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaff;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaffII;
 import me.gallowsdove.foxymachines.implementation.tools.ElectricWindStaff;
@@ -57,6 +58,7 @@ final class ItemSetup {
                 SlimefunItems.GOLD_24K, SlimefunItems.ELECTRO_MAGNET, SlimefunItems.GOLD_24K,
                 SlimefunItems.GOLD_24K, SlimefunItems.COPPER_WIRE, SlimefunItems.GOLD_24K}, 4)
                 .register(FoxyMachines.getInstance());
+        new BerryBushTrimmer().register(FoxyMachines.getInstance());
     }
 }
 
@@ -114,6 +116,10 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "boosted_rail"),
                 6669676, "Faster, Better, Stronger", 16)
                 .addItems(Items.BOOSTED_RAIL, Items.BOOSTED_ACTIVATOR_RAIL, Items.BOOSTED_DETECTOR_RAIL, Items.BOOSTED_POWERED_RAIL)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "berry_bush_trimmer"),
+                6669677, "Stay safe!", 20)
+                .addItems(Items.BERRY_BUSH_TRIMMER)
                 .register();
     }
 }

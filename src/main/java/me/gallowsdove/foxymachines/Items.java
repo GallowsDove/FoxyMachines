@@ -174,5 +174,13 @@ public final class Items{
             "&7Supports 2.5x the speed."
     );
 
+    public static final SlimefunItemStack BERRY_BUSH_TRIMMER = new SlimefunItemStack(
+            "BERRY_BUSH_TRIMMER",
+            Material.SHEARS,
+            "&eSweet Berry Bush Trimmer",
+            "",
+            "&7Removes thorns from sweet berry bushes."
+    );
+
 
 }
