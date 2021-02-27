@@ -18,7 +18,7 @@ public class BerryBushListener implements Listener {
 
 
         if ( b != null && b.getType() == Material.SWEET_BERRY_BUSH) {
-            if (BlockStorage.getLocationInfo(b.getLocation(), "trimmed").equals("true")) {
+            if (BlockStorage.getLocationInfo(b.getLocation(), "trimmed") != null) {
                 e.setCancelled(true);
             }
         }
