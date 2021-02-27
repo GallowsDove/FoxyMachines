@@ -8,6 +8,7 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Electric Wind Staff
 * Electric Fire Staff
 * Electric Fire Staff II
+* Berry Bush Trimmer
 ## Weapons
 * Healing Bow
 ## Machines
