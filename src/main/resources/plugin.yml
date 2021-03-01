@@ -21,3 +21,9 @@ version: ${project.version}
 
 ## This is the minimum minecraft version required to run your plugin.
 api-version: 1.16
+
+## Permissions
+permissions:
+  foxymachines.bypass-chunk-loader-limit:
+    description: Allows a player with the permission to place an unlimited amount of chunk loaders
+    default: op

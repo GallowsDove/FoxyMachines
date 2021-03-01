@@ -1,2 +1,6 @@
+# max-chunk-loaders: default: 8
+# maximum amount of chunk loaders allowed per player, set to 0 for infinite.
+
 options:
   auto-update: true
+  max-chunk-loaders: 8
