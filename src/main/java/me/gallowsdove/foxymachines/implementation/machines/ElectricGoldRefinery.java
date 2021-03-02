@@ -48,9 +48,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
     public static final int ENERGY_CONSUMPTION = 36;
     public static final int CAPACITY = 512;
 
-    @Nonnull
     public static Map<Block, MachineRecipe> processing = new HashMap<>();
-    @Nonnull
     public static Map<Block, Integer> progress = new HashMap<>();
 
     public ElectricGoldRefinery() {
@@ -133,12 +131,12 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
             }
 
             @Override
-            public int[] getSlotsAccessedByItemTransport(ItemTransportFlow flow) {
+            public int[] getSlotsAccessedByItemTransport(@Nonnull ItemTransportFlow flow) {
                 return new int[0];
             }
 
             @Override
-            public int[] getSlotsAccessedByItemTransport(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
+            public int[] getSlotsAccessedByItemTransport(@Nonnull DirtyChestMenu menu, @Nonnull ItemTransportFlow flow, @Nonnull ItemStack item) {
                 if (flow == ItemTransportFlow.WITHDRAW) {
                     return getOutputSlots();
                 }
@@ -173,7 +171,6 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
         };
     }
 
-
     public int[] getInputSlots() {
         return new int[] { 21, 30 };
     }
@@ -197,22 +194,17 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
         return ENERGY_CONSUMPTION;
     }
 
-    @Nonnull
     public ItemStack getProgressBar() {
         return new ItemStack(Material.GOLDEN_CHESTPLATE);
     }
 
-    @Nullable
-    public MachineRecipe getProcessing(@Nonnull Block b) {
+    public MachineRecipe getProcessing(Block b) {
         return processing.get(b);
     }
 
-    public boolean isProcessing(@Nonnull Block b) {
+    public boolean isProcessing(Block b) {
         return getProcessing(b) != null;
     }
-
-
-
 
     private BlockBreakHandler onBreak() {
         return new BlockBreakHandler(false, false) {
@@ -234,7 +226,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
         addItemHandler(new BlockTicker() {
 
             @Override
-            public void tick(Block b, SlimefunItem sf, Config data) {
+            public void tick(@Nonnull Block b, @Nonnull SlimefunItem sf, @Nonnull Config data) {
                 ElectricGoldRefinery.this.tick(b);
             }
 
@@ -285,8 +277,8 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
     }
 
     @Nullable
-    protected MachineRecipe findNextRecipe(@Nonnull BlockMenu menu, @Nonnull String g) {
-        if (Integer.parseInt(g) == 11) {
+    protected MachineRecipe findNextRecipe(@Nonnull BlockMenu menu, @Nullable String g) {
+        if (g == null || Integer.parseInt(g) == 11) {
             return null;
         }
 
@@ -361,7 +353,6 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
         for (int i = 0; i < GOLDS.length; i++) {
             ItemStack itemStack = GOLDS[i].clone();
             ItemMeta itemMeta = itemStack.getItemMeta();
-            assert itemMeta != null;
             Byte value = 1;
             itemMeta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, value);
             itemStack.setItemMeta(itemMeta);
