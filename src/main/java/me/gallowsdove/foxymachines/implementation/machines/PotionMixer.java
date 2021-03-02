@@ -166,7 +166,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         addItemHandler(new BlockTicker() {
 
             @Override
-            public void tick(@Nonnull Block b, @Nonnull SlimefunItem sf, @Nonnull Config data) {
+            public void tick(@Nonnull Block b, SlimefunItem sf, Config data) {
                 PotionMixer.this.tick(b);
             }
 
