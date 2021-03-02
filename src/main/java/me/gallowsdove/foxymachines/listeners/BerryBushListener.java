@@ -11,9 +11,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 
+import javax.annotation.Nonnull;
+
 public class BerryBushListener implements Listener {
     @EventHandler
-    private void onBerryBushDamage(EntityDamageByBlockEvent e) {
+    private void onBerryBushDamage(@Nonnull EntityDamageByBlockEvent e) {
         Block b = e.getDamager();
 
 
@@ -26,7 +28,7 @@ public class BerryBushListener implements Listener {
 
     // TODO improve, why does this even work
     @EventHandler
-    private void onBushBreak(BlockBreakEvent e) {
+    private void onBushBreak(@Nonnull BlockBreakEvent e) {
         Block b = e.getBlock();
         if (b.getType() == Material.SWEET_BERRY_BUSH && BlockStorage.getLocationInfo(b.getLocation(), "trimmed") != null) {
             BlockStorage.addBlockInfo(b.getLocation(), "trimmed", null);
@@ -35,7 +37,7 @@ public class BerryBushListener implements Listener {
     }
 
     @EventHandler
-    private void onSheepShear(PlayerShearEntityEvent e) {
+    private void onSheepShear(@Nonnull PlayerShearEntityEvent e) {
         if (SlimefunUtils.isItemSimilar(e.getItem(), Items.BERRY_BUSH_TRIMMER.getItem().getItem(), true)) {
             e.setCancelled(true);
         }

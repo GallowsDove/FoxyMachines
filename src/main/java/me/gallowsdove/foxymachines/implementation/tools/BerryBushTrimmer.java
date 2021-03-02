@@ -15,6 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import javax.annotation.Nonnull;
+
 public class BerryBushTrimmer extends SlimefunItem {
     public BerryBushTrimmer() {
         super(Items.category, Items.BERRY_BUSH_TRIMMER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -29,10 +31,12 @@ public class BerryBushTrimmer extends SlimefunItem {
         addItemHandler(onItemUse(), onToolUse());
     }
 
+    @Nonnull
     private ToolUseHandler onToolUse() {
         return (e, tool, fortune, drops) -> e.setCancelled(true);
     }
 
+    @Nonnull
     private ItemUseHandler onItemUse() {
         return e -> {
             if (e.getClickedBlock().isPresent() && e.getClickedBlock().get().getType() == Material.SWEET_BERRY_BUSH) {

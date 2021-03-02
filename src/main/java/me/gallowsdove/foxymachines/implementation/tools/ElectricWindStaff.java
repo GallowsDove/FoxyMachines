@@ -11,6 +11,8 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+
 
 public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
 
@@ -25,10 +27,11 @@ public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
     }
 
     @Override
-    public float getMaxItemCharge(ItemStack item) {
+    public float getMaxItemCharge(@Nonnull ItemStack item) {
         return 100;
     }
 
+    @Nonnull
     protected ItemUseHandler onUse() {
         return e -> {
             Player p = e.getPlayer();

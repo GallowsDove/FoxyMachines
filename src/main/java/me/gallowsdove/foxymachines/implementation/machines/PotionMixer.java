@@ -36,6 +36,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.potion.PotionType;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 
@@ -48,8 +50,6 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
 
     public static Map<Block, MachineRecipe> processing = new HashMap<>();
     public static Map<Block, Integer> progress = new HashMap<>();
-
-    protected final List<MachineRecipe> recipes = new ArrayList<>();
 
     public PotionMixer() {
         super(Items.category, Items.POTION_MIXER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -66,7 +66,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                 constructMenu(this);
             }
 
-            public boolean canOpen(Block b, Player p) {
+            public boolean canOpen(@Nonnull Block b, @Nonnull Player p) {
                 return p.hasPermission("slimefun.inventory.bypass")
                         || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(),
                         ProtectableAction.INTERACT_BLOCK
@@ -74,12 +74,12 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
             }
 
             @Override
-            public int[] getSlotsAccessedByItemTransport(ItemTransportFlow flow) {
+            public int[] getSlotsAccessedByItemTransport(@Nonnull ItemTransportFlow flow) {
                 return new int[0];
             }
 
             @Override
-            public int[] getSlotsAccessedByItemTransport(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
+            public int[] getSlotsAccessedByItemTransport(@Nonnull DirtyChestMenu menu, @Nonnull ItemTransportFlow flow, @Nonnull ItemStack item) {
                 if (flow == ItemTransportFlow.WITHDRAW) {
                     return getOutputSlots();
                 }
@@ -116,6 +116,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         return new int[] {31};
     }
 
+    @Nonnull
     @Override
     public EnergyNetComponentType getEnergyComponentType() {
         return EnergyNetComponentType.CONSUMER;
@@ -130,56 +131,25 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         return ENERGY_CONSUMPTION;
     }
 
-    public String getMachineIdentifier() {
-        return "POTION_MIXER";
-    }
-
-    public List<MachineRecipe> getMachineRecipes() {
-        return recipes;
-    }
-
-    public List<ItemStack> getDisplayRecipes() {
-        List<ItemStack> displayRecipes = new ArrayList<>(recipes.size() * 2);
-
-        for (MachineRecipe recipe : recipes) {
-            if (recipe.getInput().length != 1) continue;
-
-            displayRecipes.add(recipe.getInput()[0]);
-            displayRecipes.add(recipe.getOutput()[0]);
-        }
-
-        return displayRecipes;
-    }
-
+    @Nonnull
     public ItemStack getProgressBar() {
         return new ItemStack(Material.GOLDEN_HOE);
     }
 
-    public MachineRecipe getProcessing(Block b) {
+    @Nullable
+    public MachineRecipe getProcessing(@Nonnull Block b) {
         return processing.get(b);
     }
 
-    public boolean isProcessing(Block b) {
+    public boolean isProcessing(@Nonnull Block b) {
         return getProcessing(b) != null;
     }
 
-    public void registerRecipe(MachineRecipe recipe) {
-        recipe.setTicks(recipe.getTicks());
-        recipes.add(recipe);
-    }
-
-    public void registerRecipe(int seconds, ItemStack[] input, ItemStack[] output) {
-        registerRecipe(new MachineRecipe(seconds, input, output));
-    }
-
-    public void registerRecipe(int seconds, ItemStack input, ItemStack output) {
-        registerRecipe(new MachineRecipe(seconds, new ItemStack[] { input }, new ItemStack[] { output }));
-    }
-
+    @Nonnull
     private BlockBreakHandler onBreak() {
         return new BlockBreakHandler(false, false) {
             @Override
-            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+            public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> drops) {
                 Block b = e.getBlock();
                 BlockMenu inv = BlockStorage.getInventory(b);
 
@@ -196,7 +166,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         addItemHandler(new BlockTicker() {
 
             @Override
-            public void tick(Block b, SlimefunItem sf, Config data) {
+            public void tick(@Nonnull Block b, @Nonnull SlimefunItem sf, @Nonnull Config data) {
                 PotionMixer.this.tick(b);
             }
 
@@ -207,7 +177,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         }, onBreak());
     }
 
-    protected void tick(Block b) {
+    protected void tick(@Nonnull Block b) {
         BlockMenu inv = BlockStorage.getInventory(b);
 
         if (isProcessing(b)) {
@@ -246,6 +216,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         }
     }
 
+    @Nonnull
     protected PotionEffect[] getCustomEffectsFromBaseData(PotionData potionData, boolean lingering) {
         PotionType type = potionData.getType();
         boolean extended = potionData.isExtended();
@@ -365,7 +336,8 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         return new PotionEffect[] {};
     }
 
-    protected MachineRecipe findNextRecipe(BlockMenu menu) {
+    @Nullable
+    protected MachineRecipe findNextRecipe(@Nonnull BlockMenu menu) {
         int[] slots = getInputSlots();
         ItemStack potion1 = menu.getItemInSlot(slots[0]);
         ItemStack potion2 = menu.getItemInSlot(slots[1]);
@@ -386,8 +358,12 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                 PotionMeta potionMeta = (PotionMeta) potion1.getItemMeta();
                 PotionMeta potion2Meta = (PotionMeta) potion2.getItemMeta();
 
+                assert potionMeta != null : "Potion Meta shouldn't be null. Please report this on github";
+                assert potion2Meta != null : "Potion Meta shouldn't be null. Please report this on github";
+
                 List<PotionEffect> potion1Effects = new ArrayList<>(potionMeta.getCustomEffects());
                 List<PotionEffect> potion2Effects = potion2Meta.getCustomEffects();
+
 
                 for (int i = 0; i < potion2Effects.size(); i++) {
                     for (int j = 0; j < potion1Effects.size(); j++) {
@@ -418,7 +394,9 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                     potionMeta.addCustomEffect(effect, false);
                 }
 
-                List<String> lore = new ArrayList<String>() {{add("Not usable in Brewing Stand");}};
+                List<String> lore = new ArrayList<>() {{
+                    add("Not usable in Brewing Stand");
+                }};
                 potionMeta.setBasePotionData(new PotionData(PotionType.UNCRAFTABLE, false, false));
                 switch(potion1.getType()){
                     case POTION:
@@ -454,7 +432,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         return null;
     }
 
-    protected void constructMenu(BlockMenuPreset preset) {
+    protected void constructMenu(@Nonnull BlockMenuPreset preset) {
         for (int i : BORDER) {
             preset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
         }
@@ -473,12 +451,12 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
             preset.addMenuClickHandler(i, new AdvancedMenuClickHandler() {
 
                 @Override
-                public boolean onClick(Player p, int slot, ItemStack cursor, ClickAction action) {
+                public boolean onClick(@Nonnull Player p, int slot, @Nonnull ItemStack cursor, @Nonnull ClickAction action) {
                     return false;
                 }
 
                 @Override
-                public boolean onClick(InventoryClickEvent e, Player p, int slot, ItemStack cursor, ClickAction action) {
+                public boolean onClick(@Nonnull InventoryClickEvent e, @Nonnull Player p, int slot, @Nullable ItemStack cursor, @Nonnull ClickAction action) {
                     return cursor == null || cursor.getType() == Material.AIR;
                 }
             });

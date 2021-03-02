@@ -10,6 +10,8 @@ import org.bukkit.entity.LargeFireball;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+
 
 public class ElectricFireStaffII extends SlimefunItem implements Rechargeable {
 
@@ -24,10 +26,11 @@ public class ElectricFireStaffII extends SlimefunItem implements Rechargeable {
     }
 
     @Override
-    public float getMaxItemCharge(ItemStack item) {
+    public float getMaxItemCharge(@Nonnull ItemStack item) {
         return 200;
     }
 
+    @Nonnull
     protected ItemUseHandler onUse() {
         return e -> {
             Player p = e.getPlayer();

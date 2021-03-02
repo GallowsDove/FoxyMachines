@@ -16,9 +16,11 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.annotation.Nonnull;
+
 public class ChunkLoaderListener implements Listener {
     @EventHandler
-    public void onChunkLoaderPlace(BlockPlaceEvent e) {
+    public void onChunkLoaderPlace(@Nonnull BlockPlaceEvent e) {
 
         if(e.getBlock().getType() != Material.END_ROD) {
             return;

@@ -10,6 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import javax.annotation.Nonnull;
+
 public class HealingBow extends SlimefunBow {
 
     public HealingBow() {
@@ -20,6 +22,7 @@ public class HealingBow extends SlimefunBow {
         });
     }
 
+    @Nonnull
     @Override
     public BowShootHandler onShoot() {
         return (e, n) -> {

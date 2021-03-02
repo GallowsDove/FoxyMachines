@@ -9,6 +9,8 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+
 
 public class ReinforcedString extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
@@ -20,6 +22,7 @@ public class ReinforcedString extends SimpleSlimefunItem<ItemUseHandler> impleme
         });
     }
 
+    @Nonnull
     @Override
     public ItemUseHandler getItemHandler() {
         return e -> e.cancel();

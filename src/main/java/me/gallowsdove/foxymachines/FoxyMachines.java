@@ -8,6 +8,8 @@ import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import me.mrCookieSlime.Slimefun.cscorelib2.updater.GitHubBuildsUpdater;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.annotation.Nonnull;
+
 public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
     private static FoxyMachines instance;
 
@@ -34,16 +36,19 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
         // Logic for disabling the plugin...
     }
 
+    @Nonnull
     @Override
     public String getBugTrackerURL() {
         return "https://github.com/GallowsDove/FoxyMachines/issues";
     }
 
+    @Nonnull
     @Override
     public JavaPlugin getJavaPlugin() {
         return this;
     }
 
+    @Nonnull
     public static FoxyMachines getInstance() {
         return instance;
     }

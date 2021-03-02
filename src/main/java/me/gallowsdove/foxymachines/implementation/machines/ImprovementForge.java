@@ -30,6 +30,8 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 
@@ -42,8 +44,6 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
 
     public static Map<Block, MachineRecipe> processing = new HashMap<>();
     public static Map<Block, Integer> progress = new HashMap<>();
-
-    protected final List<MachineRecipe> recipes = new ArrayList<>();
 
     public static final Material[][] tools = {
             {Material.WOODEN_SWORD, Material.WOODEN_SHOVEL, Material.WOODEN_PICKAXE, Material.WOODEN_AXE, Material.WOODEN_HOE, Material.WOODEN_SHOVEL, Material.LEATHER_BOOTS, Material.LEATHER_LEGGINGS, Material.LEATHER_CHESTPLATE, Material.LEATHER_HELMET},
@@ -69,7 +69,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
                 constructMenu(this);
             }
 
-            public boolean canOpen(Block b, Player p) {
+            public boolean canOpen(@Nonnull Block b, @Nonnull Player p) {
                 return p.hasPermission("slimefun.inventory.bypass")
                         || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(),
                         ProtectableAction.INTERACT_BLOCK
@@ -77,12 +77,12 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
             }
 
             @Override
-            public int[] getSlotsAccessedByItemTransport(ItemTransportFlow flow) {
+            public int[] getSlotsAccessedByItemTransport(@Nonnull ItemTransportFlow flow) {
                 return new int[0];
             }
 
             @Override
-            public int[] getSlotsAccessedByItemTransport(DirtyChestMenu menu, ItemTransportFlow flow, ItemStack item) {
+            public int[] getSlotsAccessedByItemTransport(@Nonnull DirtyChestMenu menu, @Nonnull ItemTransportFlow flow, @Nonnull ItemStack item) {
                 if (flow == ItemTransportFlow.WITHDRAW) {
                     return getOutputSlots();
                 }
@@ -107,7 +107,8 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         };
     }
 
-    private Comparator<Integer> compareSlots(DirtyChestMenu menu) {
+    @Nonnull
+    private Comparator<Integer> compareSlots(@Nonnull DirtyChestMenu menu) {
         return Comparator.comparingInt(slot -> menu.getItemInSlot(slot).getAmount());
     }
 
@@ -119,6 +120,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         return new int[] {24, 25};
     }
 
+    @Nonnull
     @Override
     public EnergyNetComponentType getEnergyComponentType() {
         return EnergyNetComponentType.CONSUMER;
@@ -133,56 +135,25 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         return ENERGY_CONSUMPTION;
     }
 
-    public String getMachineIdentifier() {
-        return "IMPROVEMENT_FORGE";
-    }
-
-    public List<MachineRecipe> getMachineRecipes() {
-        return recipes;
-    }
-
-    public List<ItemStack> getDisplayRecipes() {
-        List<ItemStack> displayRecipes = new ArrayList<>(recipes.size() * 2);
-
-        for (MachineRecipe recipe : recipes) {
-            if (recipe.getInput().length != 1) continue;
-
-            displayRecipes.add(recipe.getInput()[0]);
-            displayRecipes.add(recipe.getOutput()[0]);
-        }
-
-        return displayRecipes;
-    }
-
+    @Nonnull
     public ItemStack getProgressBar() {
         return new ItemStack(Material.GOLDEN_CHESTPLATE);
     }
 
-    public MachineRecipe getProcessing(Block b) {
+    @Nullable
+    public MachineRecipe getProcessing(@Nonnull Block b) {
         return processing.get(b);
     }
 
-    public boolean isProcessing(Block b) {
+    public boolean isProcessing(@Nonnull Block b) {
         return getProcessing(b) != null;
     }
 
-    public void registerRecipe(MachineRecipe recipe) {
-        recipe.setTicks(recipe.getTicks());
-        recipes.add(recipe);
-    }
-
-    public void registerRecipe(int seconds, ItemStack[] input, ItemStack[] output) {
-        registerRecipe(new MachineRecipe(seconds, input, output));
-    }
-
-    public void registerRecipe(int seconds, ItemStack input, ItemStack output) {
-        registerRecipe(new MachineRecipe(seconds, new ItemStack[] { input }, new ItemStack[] { output }));
-    }
-
+    @Nonnull
     private BlockBreakHandler onBreak() {
         return new BlockBreakHandler(false, false) {
             @Override
-            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+            public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> drops) {
                 Block b = e.getBlock();
                 BlockMenu inv = BlockStorage.getInventory(b);
 
@@ -199,7 +170,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         addItemHandler(new BlockTicker() {
 
             @Override
-            public void tick(Block b, SlimefunItem sf, Config data) {
+            public void tick(@Nonnull Block b, @Nonnull SlimefunItem sf, @Nonnull Config data) {
                 ImprovementForge.this.tick(b);
             }
 
@@ -210,7 +181,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         }, onBreak());
     }
 
-    protected void tick(Block b) {
+    protected void tick(@Nonnull Block b) {
         BlockMenu inv = BlockStorage.getInventory(b);
 
         if (isProcessing(b)) {
@@ -249,7 +220,8 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         }
     }
 
-    protected MachineRecipe findNextRecipe(BlockMenu menu) {
+    @Nullable
+    protected MachineRecipe findNextRecipe(@Nonnull BlockMenu menu) {
         for (int slot : getInputSlots()) {
             ItemStack improvementCore = menu.getItemInSlot(slot == getInputSlots()[0] ? getInputSlots()[1] : getInputSlots()[0]);
             ItemStack item = menu.getItemInSlot(slot);
@@ -264,7 +236,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
 
                     for (int i = 0; i < tools.length - 1; i++) {
                         for (int j = 0; j < tools[0].length; j++) {
-                            if (tools[i][j] == item.getType()) {
+                            if (tools[i][j] == type) {
                                 tier = i;
                                 index = j;
                             }
@@ -296,7 +268,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         return null;
     }
 
-    protected void constructMenu(BlockMenuPreset preset) {
+    protected void constructMenu(@Nonnull BlockMenuPreset preset) {
         for (int i : BORDER) {
             preset.addItem(i, ChestMenuUtils.getBackground(), ChestMenuUtils.getEmptyClickHandler());
         }

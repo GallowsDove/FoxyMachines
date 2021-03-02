@@ -12,10 +12,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BoostedRail extends SlimefunItem implements Placeable {
-    public BoostedRail(SlimefunItemStack item, ItemStack[] recipe, int amount) {
+    public BoostedRail(@Nonnull SlimefunItemStack item, @Nonnull ItemStack[] recipe, int amount) {
         super(Items.category, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, new SlimefunItemStack(item, amount));
     }
 
@@ -24,6 +25,7 @@ public class BoostedRail extends SlimefunItem implements Placeable {
         addItemHandler(onBreak(), onPlace());
     }
 
+    @Nonnull
     private BlockBreakHandler onBreak() {
         return new BlockBreakHandler(false, false) {
             @Override
@@ -33,6 +35,7 @@ public class BoostedRail extends SlimefunItem implements Placeable {
         };
     }
 
+    @Nonnull
     private BlockPlaceHandler onPlace() {
         return new BlockPlaceHandler(false) {
             @Override

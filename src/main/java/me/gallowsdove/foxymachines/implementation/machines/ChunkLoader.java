@@ -17,6 +17,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +36,7 @@ public class ChunkLoader extends SlimefunItem {
         addItemHandler(onBreak(), onPlace());
     }
 
+    @Nonnull
     private BlockBreakHandler onBreak() {
         return new BlockBreakHandler(false, false) {
             @Override
@@ -51,6 +53,7 @@ public class ChunkLoader extends SlimefunItem {
         };
     }
 
+    @Nonnull
     private BlockPlaceHandler onPlace() {
         return new BlockPlaceHandler(false) {
             @Override

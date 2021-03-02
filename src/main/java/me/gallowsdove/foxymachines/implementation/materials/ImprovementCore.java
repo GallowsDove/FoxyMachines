@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 
+import javax.annotation.Nonnull;
 
 
 public class ImprovementCore extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
@@ -20,6 +21,7 @@ public class ImprovementCore extends SimpleSlimefunItem<ItemUseHandler> implemen
         });
     }
 
+    @Nonnull
     @Override
     public ItemUseHandler getItemHandler() {
         return e -> e.cancel();
