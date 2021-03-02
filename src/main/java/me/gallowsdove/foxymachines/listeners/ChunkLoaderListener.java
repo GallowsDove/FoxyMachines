@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,6 +13,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -21,8 +23,7 @@ import javax.annotation.Nonnull;
 public class ChunkLoaderListener implements Listener {
     @EventHandler
     public void onChunkLoaderPlace(@Nonnull BlockPlaceEvent e) {
-
-        if(e.getBlock().getType() != Material.END_ROD) {
+        if(e.getBlock().getType() != Material.BEACON) {
             return;
         }
 
@@ -61,6 +62,10 @@ public class ChunkLoaderListener implements Listener {
             e.setCancelled(true);
             return;
         }
+
+        p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
+        b.getChunk().setForceLoaded(true);
+        BlockStorage.addBlockInfo(b, "owner", p.getUniqueId().toString());
     }
 }
 

@@ -1,7 +1,8 @@
 package me.gallowsdove.foxymachines.implementation.machines;
 
+import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
-import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
@@ -9,11 +10,11 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -33,45 +34,50 @@ public class ChunkLoader extends SlimefunItem {
 
     @Override
     public void preRegister() {
-        addItemHandler(onBreak(), onPlace());
+        addItemHandler(onBreak(), onBlockUse());
     }
 
     @Nonnull
     private BlockBreakHandler onBreak() {
         return new BlockBreakHandler(false, false) {
             @Override
-            public void onPlayerBreak(BlockBreakEvent e, ItemStack item, List<ItemStack> drops) {
+            public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> drops) {
                 Block b = e.getBlock();
-                NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
-                Player p = Bukkit.getPlayer(UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner")));
-                Integer i = p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) - 1;
-                p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
+                Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> {
+                    b.setType(Material.GLASS);
 
-                b.getChunk().setForceLoaded(false);
-                BlockStorage.clearBlockInfo(b);
+                    if (BlockStorage.getLocationInfo(b.getLocation(), "owner") != null) {
+
+                        NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
+
+
+                        Player p = Bukkit.getPlayer(UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner")));
+
+                        Integer i = p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) - 1;
+                        p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
+
+                        b.getChunk().setForceLoaded(false);
+                        BlockStorage.clearBlockInfo(b);
+                    }
+                });
+
+                if (BlockStorage.getLocationInfo(b.getLocation(), "owner") != null) {
+                    NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
+                    Player p = Bukkit.getPlayer(UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner")));
+
+                    Integer i = p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) - 1;
+                    p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
+
+                    b.getChunk().setForceLoaded(false);
+                    BlockStorage.clearBlockInfo(b);
+                }
             }
         };
     }
 
     @Nonnull
-    private BlockPlaceHandler onPlace() {
-        return new BlockPlaceHandler(false) {
-            @Override
-            public void onPlayerPlace(BlockPlaceEvent e) {
-                Player p = e.getPlayer();
-                Block b = e.getBlockPlaced();
-
-                NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "chunkloaders");
-
-                int i = 1;
-                if (p.getPersistentDataContainer().has(key, PersistentDataType.INTEGER)) {
-                    i = p.getPersistentDataContainer().get(key, PersistentDataType.INTEGER) + 1;
-                }
-
-                p.getPersistentDataContainer().set(key, PersistentDataType.INTEGER, i);
-                b.getChunk().setForceLoaded(true);
-                BlockStorage.addBlockInfo(b, "owner", p.getUniqueId().toString());
-            }
-        };
+    private BlockUseHandler onBlockUse() {
+        return PlayerRightClickEvent::cancel;
     }
+
 }

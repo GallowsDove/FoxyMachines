@@ -3,17 +3,24 @@ package me.gallowsdove.foxymachines;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.ItemFlag;
+import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
 import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
-import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
+import me.mrCookieSlime.Slimefun.Objects.Category;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
+import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
+import org.bukkit.inventory.meta.BannerMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.Arrays;
 
 
 public final class Items{
@@ -31,6 +38,7 @@ public final class Items{
             "",
             "&c&o&8\u21E8 &e\u26A1 &70 / 100 J"
     );
+
     static {
         ELECTRIC_WIND_STAFF.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
         ItemMeta meta = ELECTRIC_WIND_STAFF.getItemMeta();
@@ -128,7 +136,7 @@ public final class Items{
 
     public static final SlimefunItemStack CHUNK_LOADER = new SlimefunItemStack(
             "CHUNK_LOADER",
-            Material.END_ROD,
+            Material.BEACON,
             "&bChunk Loader",
             "",
             "&7Keeps chunk loaded."
