@@ -75,6 +75,8 @@ public class SwordListener implements Listener {
                         entity.getWorld().strikeLightningEffect(entity.getLocation());
                         entity.damage(10);
                     }
+
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 80, 0, false, false));
                 }
             }
         }

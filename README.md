@@ -12,11 +12,18 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Electric Fire Staff
 * Electric Fire Staff II
 * Berry Bush Trimmer
+* Poseidon's Fishing Rod
+* Remote Controller
 ## Weapons
 * Healing Bow
+* Cursed Sword
+* Celestial Sword
 ## Machines
 * Improvement Forge
 * Potion Mixer
 * Electric Gold Refinery
 * Chunk Loader
 * Boosted Rails
+* Forcefield Dome
+## Multiblocks
+* Sacrificial Altar

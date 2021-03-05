@@ -15,7 +15,6 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 
@@ -322,6 +321,10 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "purified_bone"),
                 6669690, "More Lumps, More Magic", 22)
                 .addItems(Items.PURIFIED_BONE, Items.PURE_BONE_DUST)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "blood_infused_skull"),
+                6669691, "Idk what to write here anymore", 16)
+                .addItems(Items.BLOOD_INFUSED_SKULL)
                 .register();
     }
 }
