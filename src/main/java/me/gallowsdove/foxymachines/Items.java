@@ -370,7 +370,8 @@ public final class Items{
             "&cCursed Sword",
             "&7Life Steal I",
             "",
-            "&7Confuses enemies."
+            "&7Confuses enemies. Increases damage.",
+            "&7Can negatively affect wielder."
     );
 
     public static final SlimefunItemStack CELESTIAL_SWORD = new SlimefunItemStack(

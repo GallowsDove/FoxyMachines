@@ -38,15 +38,32 @@ public class SwordListener implements Listener {
                     effects.add(new PotionEffect(PotionEffectType.CONFUSION, 100, 3, false, false));
                     effects.add(new PotionEffect(PotionEffectType.WITHER, 80, 1, false, false));
 
-                    double health = humanoid.getHealth() + 1.0D;
+                    double health = humanoid.getHealth() + 1.25D;
                     double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
                     humanoid.setHealth(Math.min(health, maxHealth));
 
                     entity.addPotionEffects(effects);
 
+                    e.setDamage(e.getDamage() * 1.25);
+
                     for (int i = 0; i < 10; i++) {
                         entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
                                 random.nextDouble(-1, 1), random.nextDouble(1.6, 2), random.nextDouble(-1, 1), 0);
+                    }
+
+                    if (random.nextInt(1000) < 25) {
+                        int result = random.nextInt(100);
+                        if (result < 20) {
+                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 10, false, false));
+                        } else if (result < 40) {
+                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 10, false, false));
+                        } else if (result < 60) {
+                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, 2, false, false));
+                        } else if (result < 80) {
+                            humanoid.damage(e.getDamage() / 2);
+                        } else {
+                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 150, 2, false, false));
+                        }
                     }
                 }
             } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
