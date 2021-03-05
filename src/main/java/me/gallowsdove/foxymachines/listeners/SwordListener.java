@@ -3,6 +3,7 @@ package me.gallowsdove.foxymachines.listeners;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.Items;
 import org.bukkit.Bukkit;
+import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
@@ -22,6 +23,7 @@ public class SwordListener implements Listener {
     @EventHandler
     private void onDamage(EntityDamageByEntityEvent e) {
         if (e.getDamager() instanceof HumanEntity) {
+            ThreadLocalRandom random = ThreadLocalRandom.current();
             HumanEntity humanoid = (HumanEntity) e.getDamager();
             ItemStack item = ((HumanEntity) (e.getDamager())).getInventory().getItemInMainHand();
 
@@ -41,6 +43,11 @@ public class SwordListener implements Listener {
                     humanoid.setHealth(Math.min(health, maxHealth));
 
                     entity.addPotionEffects(effects);
+
+                    for (int i = 0; i < 10; i++) {
+                        entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
+                                random.nextDouble(-1, 1), random.nextDouble(1.6, 2), random.nextDouble(-1, 1), 0);
+                    }
                 }
             } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
                 if (e.getEntity() instanceof LivingEntity) {
@@ -71,7 +78,7 @@ public class SwordListener implements Listener {
                         }
                     }
 
-                    if (ThreadLocalRandom.current().nextInt(100) < 15) {
+                    if (random.nextInt(100) < 15) {
                         entity.getWorld().strikeLightningEffect(entity.getLocation());
                         entity.damage(10);
                     }

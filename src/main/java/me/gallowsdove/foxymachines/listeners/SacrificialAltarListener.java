@@ -55,8 +55,11 @@ public class SacrificialAltarListener implements Listener {
                 }
             }
 
-            entity.getWorld().playEffect(entity.getLocation(), Effect.MOBSPAWNER_FLAMES, 10);
-            entity.getWorld().spawnParticle(Particle.SOUL, entity.getLocation(), 50);
+            for (int i = 0; i < 16; i++) {
+                entity.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, entity.getLocation(), 1,
+                        random.nextDouble(-1, 1), random.nextDouble(1.2, 2), random.nextDouble(-1, 1), 0);
+            }
+            entity.getWorld().spawnParticle(Particle.SOUL, entity.getLocation(), 40);
         }
     }
 
