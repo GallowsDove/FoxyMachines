@@ -22,60 +22,57 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SwordListener implements Listener {
     @EventHandler
     private void onDamage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof HumanEntity) {
-            ThreadLocalRandom random = ThreadLocalRandom.current();
-            HumanEntity humanoid = (HumanEntity) e.getDamager();
-            ItemStack item = ((HumanEntity) (e.getDamager())).getInventory().getItemInMainHand();
+        if (!e.isCancelled()) {
+            if (e.getDamager() instanceof HumanEntity) {
+                ThreadLocalRandom random = ThreadLocalRandom.current();
+                HumanEntity humanoid = (HumanEntity) e.getDamager();
+                ItemStack item = ((HumanEntity) (e.getDamager())).getInventory().getItemInMainHand();
 
-            if (SlimefunUtils.isItemSimilar(item, Items.CURSED_SWORD, false, false)) {
-                if (e.getEntity() instanceof LivingEntity) {
-                    LivingEntity entity = (LivingEntity) e.getEntity();
+                if (SlimefunUtils.isItemSimilar(item, Items.CURSED_SWORD, false, false)) {
+                    if (e.getEntity() instanceof LivingEntity) {
+                        LivingEntity entity = (LivingEntity) e.getEntity();
 
-                    ArrayList<PotionEffect> effects = new ArrayList<>();
+                        ArrayList<PotionEffect> effects = new ArrayList<>();
 
-                    effects.add(new PotionEffect(PotionEffectType.SLOW, 80, 1, false, false));
-                    effects.add(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, false, false));
-                    effects.add(new PotionEffect(PotionEffectType.CONFUSION, 100, 3, false, false));
-                    effects.add(new PotionEffect(PotionEffectType.WITHER, 80, 1, false, false));
+                        effects.add(new PotionEffect(PotionEffectType.SLOW, 80, 1, false, false));
+                        effects.add(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, false, false));
+                        effects.add(new PotionEffect(PotionEffectType.CONFUSION, 100, 3, false, false));
+                        effects.add(new PotionEffect(PotionEffectType.WITHER, 80, 1, false, false));
 
-                    double health = humanoid.getHealth() + 1.25D;
-                    double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
-                    humanoid.setHealth(Math.min(health, maxHealth));
+                        double health = humanoid.getHealth() + 1.25D;
+                        double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+                        humanoid.setHealth(Math.min(health, maxHealth));
 
-                    entity.addPotionEffects(effects);
+                        entity.addPotionEffects(effects);
 
-                    e.setDamage(e.getDamage() * 1.25);
+                        e.setDamage(e.getDamage() * 1.25);
 
-                    for (int i = 0; i < 10; i++) {
-                        entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
-                                random.nextDouble(-1, 1), random.nextDouble(1.6, 2), random.nextDouble(-1, 1), 0);
-                    }
+                        for (int i = 0; i < 10; i++) {
+                            entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
+                                    random.nextDouble(-1, 1), random.nextDouble(1.6, 2), random.nextDouble(-1, 1), 0);
+                        }
 
-                    if (random.nextInt(1000) < 25) {
-                        int result = random.nextInt(100);
-                        if (result < 20) {
-                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 10, false, false));
-                        } else if (result < 40) {
-                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 10, false, false));
-                        } else if (result < 60) {
-                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, 2, false, false));
-                        } else if (result < 80) {
-                            humanoid.damage(e.getDamage() / 2);
-                        } else {
-                            humanoid.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 150, 2, false, false));
+                        if (random.nextInt(1000) < 25) {
+                            int result = random.nextInt(100);
+                            if (result < 20) {
+                                humanoid.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 40, 10, false, false));
+                            } else if (result < 40) {
+                                humanoid.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 60, 10, false, false));
+                            } else if (result < 60) {
+                                humanoid.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 80, 2, false, false));
+                            } else if (result < 80) {
+                                humanoid.damage(e.getDamage() / 2);
+                            } else {
+                                humanoid.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 150, 2, false, false));
+                            }
                         }
                     }
-                }
-            } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
-                if (e.getEntity() instanceof LivingEntity) {
-                    LivingEntity entity = (LivingEntity) e.getEntity();
+                } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
+                    if (e.getEntity() instanceof LivingEntity) {
+                        LivingEntity entity = (LivingEntity) e.getEntity();
 
-                    double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.2;
-                    if (damageDiff >= 0) {
-
-                        EntityDamageEvent event = new EntityDamageEvent(entity, DamageCause.ENTITY_ATTACK, damageDiff);
-                        Bukkit.getServer().getPluginManager().callEvent(event);
-                        if (!e.isCancelled()) {
+                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.2;
+                        if (damageDiff >= 0) {
                             if (entity.getAbsorptionAmount() >= 0) {
                                 if (entity.getAbsorptionAmount() - damageDiff > 0) {
                                     entity.setAbsorptionAmount(entity.getAbsorptionAmount() - damageDiff);
@@ -93,14 +90,14 @@ public class SwordListener implements Listener {
                                 }
                             }
                         }
-                    }
 
-                    if (random.nextInt(100) < 15) {
-                        entity.getWorld().strikeLightningEffect(entity.getLocation());
-                        entity.damage(10);
-                    }
+                        if (random.nextInt(100) < 15) {
+                            entity.getWorld().strikeLightningEffect(entity.getLocation());
+                            entity.damage(10);
+                        }
 
-                    entity.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 80, 0, false, false));
+                        entity.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 80, 0, false, false));
+                    }
                 }
             }
         }
