@@ -2,6 +2,8 @@ package me.gallowsdove.foxymachines;
 
 import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.implementation.items.armor.LongFallBoots;
+import io.github.thebusybiscuit.slimefun4.implementation.items.armor.SlimefunArmorPiece;
 import me.gallowsdove.foxymachines.implementation.machines.*;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleMaterial;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPiece;
@@ -16,6 +18,8 @@ import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 
 final class ItemSetup {
@@ -99,6 +103,26 @@ final class ItemSetup {
                 null, null, null,
                 null, null, null
                }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.AQUATIC_HELMET_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+                Items.AQUATIC_NETHERITE_INGOT, Items.AQUATIC_NETHERITE_INGOT, Items.AQUATIC_NETHERITE_INGOT,
+                Items.AQUATIC_NETHERITE_INGOT, null, Items.AQUATIC_NETHERITE_INGOT,
+                null, null, null
+                }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.RESISTANT_CHESTPLATE_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+                Items.DAMIENIUM, null, Items.DAMIENIUM,
+                Items.DEMONIC_INGOT, Items.DEMONIC_INGOT, Items.DEMONIC_INGOT,
+                Items.DEMONIC_INGOT, Items.DEMONIC_INGOT, Items.DEMONIC_INGOT
+                }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.FIERY_LEGGINGS_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+                Items.DEMONIC_INGOT, Items.DAMIENIUM, Items.DEMONIC_INGOT,
+                Items.DEMONIC_INGOT, null, Items.DEMONIC_INGOT,
+                Items.DAMIENIUM, null, Items.DAMIENIUM
+                }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.LIGHT_BOOTS_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+                null, null, null,
+                Items.SWEETENED_SWEET_INGOT, null, Items.SWEETENED_SWEET_INGOT,
+                Items.DAMIENIUM, null, Items.DAMIENIUM
+        }, 1).register(FoxyMachines.getInstance());
         new SimpleMaterial(Items.POSEIDONS_BLESSING, FoxyRecipeType.FISHING, new ItemStack[] {
                 null, null, null,
                 null, Items.POSEIDONS_FISHING_ROD, null,
@@ -139,6 +163,11 @@ final class ItemSetup {
                 null, null, null,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.BUCKET_OF_BLOOD, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+                Items.BLOOD, Items.BLOOD, Items.BLOOD,
+                Items.BLOOD, new ItemStack(Material.BUCKET), Items.BLOOD,
+                Items.BLOOD, Items.BLOOD, Items.BLOOD
+        }, 1).register(FoxyMachines.getInstance());
         new SacrificialAltarPiece(Items.SACRIFICIAL_ALTAR_BLACKSTONE_BRICKS, new ItemStack[]{
                 new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS),
                 new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), SlimefunItems.REINFORCED_PLATE, new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS),
@@ -179,6 +208,48 @@ final class ItemSetup {
                 Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
                 Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
                 }).register(FoxyMachines.getInstance());
+        new SlimefunArmorPiece(Items.category, Items.AQUATIC_HELMET, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                null, null, null,
+                null, null, null,
+                null, null, null},
+                new PotionEffect[] { new PotionEffect(PotionEffectType.WATER_BREATHING, 300, 0, false, false, false),
+                new PotionEffect(PotionEffectType.NIGHT_VISION, 500, 0, false, false, false)})
+                .register(FoxyMachines.getInstance());
+        new SlimefunArmorPiece(Items.category, Items.RESISTANT_CHESTPLATE, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                null, null, null,
+                null, null, null,
+                null, null, null},
+                new PotionEffect[] { new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 0, false, false, false),
+                        new PotionEffect(PotionEffectType.REGENERATION, 300, 1, false, false, false)})
+                .register(FoxyMachines.getInstance());
+        new SlimefunArmorPiece(Items.category, Items.FIERY_LEGGINGS, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                null, null, null,
+                null, null, null,
+                null, null, null},
+                new PotionEffect[] { new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 300, 0, false, false, false)})
+                .register(FoxyMachines.getInstance());
+        new LongFallBoots(Items.category, Items.LIGHT_BOOTS, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                null, null, null,
+                null, null, null,
+                null, null, null},
+                new PotionEffect[] { new PotionEffect(PotionEffectType.SPEED, 300, 0, false, false, false),
+                        new PotionEffect(PotionEffectType.JUMP, 300, 1, false, false, false)})
+                .register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.CELESTIAL_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5,
+                Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
+                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
+        }).register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.CELESTIAL_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5,
+                Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
+                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
+        }).register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.CELESTIAL_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5,
+                Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
+                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
+        }).register(FoxyMachines.getInstance());
         new ImprovementForge().register(FoxyMachines.getInstance());
         new PotionMixer().register(FoxyMachines.getInstance());
         new ElectricGoldRefinery().register(FoxyMachines.getInstance());
@@ -307,7 +378,7 @@ final class ResearchSetup {
                 .addItems(Items.POSEIDONS_FISHING_ROD)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "fishing_materials"),
-                6669687, "Better Fishing", 32)
+                6669687, "Better Fishing", 26)
                 .addItems(Items.POSEIDONS_BLESSING)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "swords"),
@@ -323,8 +394,16 @@ final class ResearchSetup {
                 .addItems(Items.PURIFIED_BONE, Items.PURE_BONE_DUST)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "blood_infused_skull"),
-                6669691, "Idk what to write here anymore", 16)
+                6669691, "Bloodier", 16)
                 .addItems(Items.BLOOD_INFUSED_SKULL)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "armor"),
+                6669692, "Better Armor", 40)
+                .addItems(Items.AQUATIC_HELMET, Items.RESISTANT_CHESTPLATE, Items.FIERY_LEGGINGS, Items.LIGHT_BOOTS)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "bloody_bucket"),
+                6669693, "Bloody Bucket", 20)
+                .addItems(Items.BUCKET_OF_BLOOD)
                 .register();
     }
 }

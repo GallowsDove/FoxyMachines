@@ -38,6 +38,7 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
         getServer().getPluginManager().registerEvents(new SacrificialAltarListener(), this);
         getServer().getPluginManager().registerEvents(new SwordListener(), this);
         getServer().getPluginManager().registerEvents(new PoseidonsFishingRodListener(), this);
+        getServer().getPluginManager().registerEvents(new ArmorListener(), this);
 
         ItemSetup.INSTANCE.init();
         ResearchSetup.INSTANCE.init();

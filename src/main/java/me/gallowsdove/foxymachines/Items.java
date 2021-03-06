@@ -345,6 +345,12 @@ public final class Items{
             "&bPure Bone Dust"
     );
 
+    public static final SlimefunItemStack BUCKET_OF_BLOOD = new SlimefunItemStack(
+            "BUCKET_OF_BLOOD",
+            Material.LAVA_BUCKET,
+            "&cBucket of Blood"
+    );
+
     public static final SlimefunItemStack POSEIDONS_FISHING_ROD = new SlimefunItemStack(
             "POSEIDONS_FISHING_ROD",
             Material.FISHING_ROD,
@@ -396,4 +402,87 @@ public final class Items{
             "&6Magical Lump &7- &eV",
             "",
             "&c&oTier: V");
+
+    public static final SlimefunItemStack AQUATIC_HELMET = new SlimefunItemStack(
+            "AQUATIC_HELMET",
+            Material.NETHERITE_HELMET,
+            "&bAquatic Helmet",
+            "&7Water Breathing",
+            "&7Darkvision"
+    );
+    static {
+        AQUATIC_HELMET.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
+        AQUATIC_HELMET.addUnsafeEnchantment(Enchantment.WATER_WORKER, 1);
+        AQUATIC_HELMET.addUnsafeEnchantment(Enchantment.OXYGEN, 5);
+        AQUATIC_HELMET.addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, 5);
+    }
+
+
+    public static final SlimefunItemStack RESISTANT_CHESTPLATE = new SlimefunItemStack(
+            "RESISTANT_CHESTPLATE",
+            Material.NETHERITE_CHESTPLATE,
+            "&aResistant Chestplate",
+            "&7Resistance I",
+            "&7Regeneration II"
+    );
+    static {
+        RESISTANT_CHESTPLATE.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
+    }
+
+    public static final SlimefunItemStack FIERY_LEGGINGS = new SlimefunItemStack(
+            "FIERY_LEGGINGS",
+            Material.NETHERITE_LEGGINGS,
+            "&cFiery Leggings",
+            "&7Fire Aura II"
+    );
+    static {
+        FIERY_LEGGINGS.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
+        FIERY_LEGGINGS.addUnsafeEnchantment(Enchantment.THORNS, 6);
+    }
+
+    public static final SlimefunItemStack LIGHT_BOOTS = new SlimefunItemStack(
+            "LIGHT_BOOTS",
+            Material.NETHERITE_BOOTS,
+            "&eLight Boots",
+            "&7Jump I",
+            "&7Speed I",
+            "&7Lightweight"
+    );
+    static {
+        LIGHT_BOOTS.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
+        LIGHT_BOOTS.addUnsafeEnchantment(Enchantment.PROTECTION_FALL, 5);
+        LIGHT_BOOTS.addUnsafeEnchantment(Enchantment.SOUL_SPEED, 5);
+    }
+
+    public static final SlimefunItemStack AQUATIC_HELMET_FRAME = new SlimefunItemStack(
+            "HELMET_FRAME",
+            Material.CHAINMAIL_HELMET,
+            "&fAquatic Helmet Frame",
+            "",
+            "&7Crafting Material"
+    );
+
+    public static final SlimefunItemStack RESISTANT_CHESTPLATE_FRAME = new SlimefunItemStack(
+            "RESISTANT_CHESTPLATE_FRAME",
+            Material.CHAINMAIL_CHESTPLATE,
+            "&fResistant Chestplate Frame",
+            "",
+            "&7Crafting Material"
+    );
+
+    public static final SlimefunItemStack FIERY_LEGGINGS_FRAME = new SlimefunItemStack(
+            "FIERY_LEGGINGS_FRAME",
+            Material.CHAINMAIL_LEGGINGS,
+            "&fFiery Leggings Frame",
+            "",
+            "&7Crafting Material"
+    );
+
+    public static final SlimefunItemStack LIGHT_BOOTS_FRAME = new SlimefunItemStack(
+            "LIGHT_BOOTS_FRAME",
+            Material.CHAINMAIL_BOOTS,
+            "&fLight Boots Frame",
+            "",
+            "&7Crafting Material"
+    );
 }

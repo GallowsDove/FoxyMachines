@@ -26,7 +26,7 @@ public class SwordListener implements Listener {
             if (e.getDamager() instanceof HumanEntity) {
                 ThreadLocalRandom random = ThreadLocalRandom.current();
                 HumanEntity humanoid = (HumanEntity) e.getDamager();
-                ItemStack item = ((HumanEntity) (e.getDamager())).getInventory().getItemInMainHand();
+                ItemStack item = humanoid.getInventory().getItemInMainHand();
 
                 if (SlimefunUtils.isItemSimilar(item, Items.CURSED_SWORD, false, false)) {
                     if (e.getEntity() instanceof LivingEntity) {
