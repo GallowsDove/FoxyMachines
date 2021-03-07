@@ -40,7 +40,7 @@ public class SwordListener implements Listener {
                         ArrayList<PotionEffect> effects = new ArrayList<>();
 
                         effects.add(new PotionEffect(PotionEffectType.SLOW, 80, 1, false, false));
-                        effects.add(new PotionEffect(PotionEffectType.BLINDNESS, 80, 2, false, false));
+                        effects.add(new PotionEffect(PotionEffectType.BLINDNESS, 80, 20, false, false));
                         effects.add(new PotionEffect(PotionEffectType.CONFUSION, 100, 3, false, false));
                         effects.add(new PotionEffect(PotionEffectType.WITHER, 80, 1, false, false));
 
@@ -48,9 +48,30 @@ public class SwordListener implements Listener {
                         double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
                         humanoid.setHealth(Math.min(health, maxHealth));
 
+                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.08;
+
+                        if (damageDiff >= 0) {
+                            if (entity.getAbsorptionAmount() >= 0) {
+                                if (entity.getAbsorptionAmount() - damageDiff > 0) {
+                                    entity.setAbsorptionAmount(entity.getAbsorptionAmount() - damageDiff);
+                                    damageDiff = 0;
+                                } else {
+                                    entity.setAbsorptionAmount(0);
+                                    damageDiff = damageDiff - entity.getAbsorptionAmount();
+                                }
+                            }
+                            if (damageDiff > 0) {
+                                if (entity.getHealth() - damageDiff >= 0) {
+                                    entity.setHealth(entity.getHealth() - damageDiff);
+                                } else {
+                                    entity.setHealth(0);
+                                }
+                            }
+                        }
+
                         entity.addPotionEffects(effects);
 
-                        e.setDamage(e.getDamage() * 1.25);
+                        e.setDamage(e.getDamage() * 1.5);
 
                         for (int i = 0; i < 10; i++) {
                             entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
@@ -72,7 +93,7 @@ public class SwordListener implements Listener {
                             }
                         }
                     } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
-                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.2;
+                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.19;
 
                         if (damageDiff >= 0) {
                             if (entity.getAbsorptionAmount() >= 0) {
@@ -102,8 +123,8 @@ public class SwordListener implements Listener {
 
                     } else if (SlimefunUtils.isItemSimilar(item, Items.ELUCIDATOR, false, false)) {
 
-                        e.setDamage(e.getDamage() * 2);
-                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.15;
+                        e.setDamage(e.getDamage() * 1.88);
+                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.1;
 
                         if (damageDiff >= 0) {
                             if (entity.getAbsorptionAmount() >= 0) {
