@@ -18,6 +18,12 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Healing Bow
 * Cursed Sword
 * Celestial Sword
+* Elucidator
+## Armor
+* Aquatic Helmet
+* Resistant Chestplate
+* Fiery Leggings
+* Light Boots
 ## Machines
 * Improvement Forge
 * Potion Mixer
