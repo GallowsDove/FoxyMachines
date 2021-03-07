@@ -243,6 +243,11 @@ final class ItemSetup {
                 Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
                 Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
                 }).register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.ELUCIDATOR, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.EQUANIMOUS_GEM, Items.CURSED_SWORD, Items.EQUANIMOUS_GEM,
+                Items.BUCKET_OF_BLOOD, Items.DEMONIC_PLATE, Items.BUCKET_OF_BLOOD,
+                Items.EQUANIMOUS_GEM, Items.CELESTIAL_SWORD, Items.EQUANIMOUS_GEM
+        }).register(FoxyMachines.getInstance());
         new SlimefunArmorPiece(Items.category, Items.AQUATIC_HELMET, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
                 Items.TROPICAL_FISH_SCALE, Items.AQUATIC_HELMET_FRAME, Items.TROPICAL_FISH_SCALE,
@@ -255,7 +260,7 @@ final class ItemSetup {
                 Items.POLAR_FOX_HIDE, Items.RESISTANT_CHESTPLATE_FRAME, Items.POLAR_FOX_HIDE,
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM},
                 new PotionEffect[] { new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 0, false, false, false),
-                        new PotionEffect(PotionEffectType.REGENERATION, 300, 1, false, false, false)})
+                        new PotionEffect(PotionEffectType.REGENERATION, 300, 0, false, false, false)})
                 .register(FoxyMachines.getInstance());
         new SlimefunArmorPiece(Items.category, Items.FIERY_LEGGINGS, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
@@ -429,6 +434,10 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "equanimous_gem"),
                 6669694, "Balanced, as things should be", 36)
                 .addItems(Items.EQUANIMOUS_GEM)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "ultimate_sword"),
+                6669695, "The Ultimate Sword", 52)
+                .addItems(Items.ELUCIDATOR)
                 .register();
     }
 }

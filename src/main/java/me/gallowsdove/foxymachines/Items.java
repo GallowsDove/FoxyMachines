@@ -388,6 +388,19 @@ public final class Items{
             "&7Ignores 20% of Resistances."
     );
 
+    public static final SlimefunItemStack ELUCIDATOR = new SlimefunItemStack(
+            "ELUCIDATOR",
+            Material.NETHERITE_SWORD,
+            "&bElucidator",
+            "&7Damage III",
+            "&7Life Steal II",
+            "&7Overheal"
+    );
+    static {
+        ELUCIDATOR.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
+        ELUCIDATOR.addUnsafeEnchantment(Enchantment.LOOT_BONUS_MOBS, 5);
+    }
+
     public static final SlimefunItemStack MAGIC_LUMP_4 = new SlimefunItemStack(
             "MAGIC_LUMP_4",
             Material.GOLD_NUGGET,

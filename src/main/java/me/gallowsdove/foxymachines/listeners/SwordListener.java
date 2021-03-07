@@ -33,10 +33,10 @@ public class SwordListener implements Listener {
                 HumanEntity humanoid = (HumanEntity) e.getDamager();
                 ItemStack item = humanoid.getInventory().getItemInMainHand();
 
-                if (SlimefunUtils.isItemSimilar(item, Items.CURSED_SWORD, false, false)) {
-                    if (e.getEntity() instanceof LivingEntity) {
-                        LivingEntity entity = (LivingEntity) e.getEntity();
+                if (e.getEntity() instanceof LivingEntity) {
+                    LivingEntity entity = (LivingEntity) e.getEntity();
 
+                    if (SlimefunUtils.isItemSimilar(item, Items.CURSED_SWORD, false, false)) {
                         ArrayList<PotionEffect> effects = new ArrayList<>();
 
                         effects.add(new PotionEffect(PotionEffectType.SLOW, 80, 1, false, false));
@@ -71,12 +71,9 @@ public class SwordListener implements Listener {
                                 humanoid.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 150, 2, false, false));
                             }
                         }
-                    }
-                } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
-                    if (e.getEntity() instanceof LivingEntity) {
-                        LivingEntity entity = (LivingEntity) e.getEntity();
-
+                    } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
                         double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.2;
+
                         if (damageDiff >= 0) {
                             if (entity.getAbsorptionAmount() >= 0) {
                                 if (entity.getAbsorptionAmount() - damageDiff > 0) {
@@ -102,6 +99,42 @@ public class SwordListener implements Listener {
                         }
 
                         entity.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 80, 0, false, false));
+
+                    } else if (SlimefunUtils.isItemSimilar(item, Items.ELUCIDATOR, false, false)) {
+
+                        e.setDamage(e.getDamage() * 2);
+                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.15;
+
+                        if (damageDiff >= 0) {
+                            if (entity.getAbsorptionAmount() >= 0) {
+                                if (entity.getAbsorptionAmount() - damageDiff > 0) {
+                                    entity.setAbsorptionAmount(entity.getAbsorptionAmount() - damageDiff);
+                                    damageDiff = 0;
+                                } else {
+                                    entity.setAbsorptionAmount(0);
+                                    damageDiff = damageDiff - entity.getAbsorptionAmount();
+                                }
+                            }
+                            if (damageDiff > 0) {
+                                if (entity.getHealth() - damageDiff >= 0) {
+                                    entity.setHealth(entity.getHealth() - damageDiff);
+                                } else {
+                                    entity.setHealth(0);
+                                }
+                            }
+                        }
+
+                        double health = humanoid.getHealth() + 1.5D;
+                        double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+
+                        if (health > maxHealth) {
+                            humanoid.setHealth(maxHealth);
+                            if (humanoid.getAbsorptionAmount() < 12) {
+                                humanoid.setAbsorptionAmount(Math.min(humanoid.getAbsorptionAmount() + (health - maxHealth) / 2, 12));
+                            }
+                        } else {
+                            humanoid.setHealth(health);
+                        }
                     }
                 }
             }

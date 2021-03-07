@@ -14,6 +14,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDropItemEvent;
+import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import javax.annotation.Nonnull;
@@ -108,6 +109,15 @@ public class SacrificialAltarListener implements Listener {
         if (!array.isEmpty()) {
             if (SlimefunUtils.isItemSimilar(array.get(0).getItemStack(), Items.SACRIFICIAL_ALTAR_SOUL_TORCH, false, false)) {
                 BlockStorage.clearBlockInfo(e.getBlock());
+            }
+        }
+    }
+
+    @EventHandler
+    private void onWaterTorchDestroy(BlockFromToEvent e) {
+        if (e.getToBlock().getType() == Material.SOUL_TORCH) {
+            if (BlockStorage.hasBlockInfo(e.getToBlock())) {
+                e.setCancelled(true);
             }
         }
     }
