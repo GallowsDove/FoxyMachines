@@ -143,6 +143,26 @@ final class ItemSetup {
                 null, new CustomItem(Material.PLAYER_HEAD, "&ePlayer Drop"), null,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.TROPICAL_FISH_SCALE, FoxyRecipeType.SACRIFICIAL_ALTAR, new ItemStack[] {
+                null, null, null,
+                null, new CustomItem(Material.TROPICAL_FISH, "&eTropical Fish Drop"), null,
+                null, null, null
+                }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.POLAR_FOX_HIDE, FoxyRecipeType.SACRIFICIAL_ALTAR, new ItemStack[] {
+                null, null, null,
+                null, new CustomItem(Material.POLAR_BEAR_SPAWN_EGG, "&ePolar Fox Drop"), null,
+                null, null, null
+                }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.MAGMA_ESSENCE, FoxyRecipeType.SACRIFICIAL_ALTAR, new ItemStack[] {
+                null, null, null,
+                null, new CustomItem(Material.MAGMA_CUBE_SPAWN_EGG, "&eMagma Cube Drop"), null,
+                null, null, null
+                }, 1).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.PARROT_FEATHER, FoxyRecipeType.SACRIFICIAL_ALTAR, new ItemStack[] {
+                null, null, null,
+                null, new CustomItem(Material.PARROT_SPAWN_EGG, "&eParrot Drop"), null,
+                null, null, null
+                }, 1).register(FoxyMachines.getInstance());
         new SimpleMaterial(Items.UNHOLY_WITHER_SKELETON_BONE, FoxyRecipeType.SACRIFICIAL_ALTAR, new ItemStack[] {
                 null, null, null,
                 null, new CustomItem(Material.WITHER_SKELETON_SPAWN_EGG, "&eWither Skeleton Drop"), null,
@@ -177,6 +197,11 @@ final class ItemSetup {
                 null, null, null,
                 null, Items.CELESTIAL_SWORD, null,
                 null, null, null
+                }).register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.EQUANIMOUS_GEM, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.CURSED_SHARD, Items.CELESTIAL_SHARD, Items.CURSED_SHARD,
+                Items.CELESTIAL_SHARD, new ItemStack(Material.EMERALD), Items.CELESTIAL_SHARD,
+                Items.CURSED_SHARD, Items.CELESTIAL_SHARD, Items.CURSED_SHARD
                 }).register(FoxyMachines.getInstance());
         new SacrificialAltarPiece(Items.SACRIFICIAL_ALTAR_BLACKSTONE_BRICKS, new ItemStack[]{
                 new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS),
@@ -219,29 +244,29 @@ final class ItemSetup {
                 Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
                 }).register(FoxyMachines.getInstance());
         new SlimefunArmorPiece(Items.category, Items.AQUATIC_HELMET, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
-                null, null, null,
-                null, null, null,
-                null, null, null},
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
+                Items.TROPICAL_FISH_SCALE, Items.AQUATIC_HELMET_FRAME, Items.TROPICAL_FISH_SCALE,
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM},
                 new PotionEffect[] { new PotionEffect(PotionEffectType.WATER_BREATHING, 300, 0, false, false, false),
                 new PotionEffect(PotionEffectType.NIGHT_VISION, 500, 0, false, false, false)})
                 .register(FoxyMachines.getInstance());
         new SlimefunArmorPiece(Items.category, Items.RESISTANT_CHESTPLATE, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
-                null, null, null,
-                null, null, null,
-                null, null, null},
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
+                Items.POLAR_FOX_HIDE, Items.RESISTANT_CHESTPLATE_FRAME, Items.POLAR_FOX_HIDE,
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM},
                 new PotionEffect[] { new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 0, false, false, false),
                         new PotionEffect(PotionEffectType.REGENERATION, 300, 1, false, false, false)})
                 .register(FoxyMachines.getInstance());
         new SlimefunArmorPiece(Items.category, Items.FIERY_LEGGINGS, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
-                null, null, null,
-                null, null, null,
-                null, null, null},
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
+                Items.MAGMA_ESSENCE, Items.FIERY_LEGGINGS_FRAME, Items.MAGMA_ESSENCE,
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM},
                 new PotionEffect[] { new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 300, 0, false, false, false)})
                 .register(FoxyMachines.getInstance());
         new LongFallBoots(Items.category, Items.LIGHT_BOOTS, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
-                null, null, null,
-                null, null, null,
-                null, null, null},
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
+                Items.PARROT_FEATHER, Items.LIGHT_BOOTS_FRAME, Items.PARROT_FEATHER,
+                Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM},
                 new PotionEffect[] { new PotionEffect(PotionEffectType.SPEED, 300, 0, false, false, false),
                         new PotionEffect(PotionEffectType.JUMP, 300, 1, false, false, false)})
                 .register(FoxyMachines.getInstance());
@@ -354,7 +379,8 @@ final class ResearchSetup {
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "sacrificial_altar_drops"),
                 6669682, "Profit", 28)
-                .addItems(Items.CURSED_RABBIT_PAW, Items.HUMAN_SKULL, Items.BLOOD, Items.UNHOLY_WITHER_SKELETON_BONE)
+                .addItems(Items.CURSED_RABBIT_PAW, Items.HUMAN_SKULL, Items.BLOOD, Items.UNHOLY_WITHER_SKELETON_BONE,
+                        Items.POLAR_FOX_HIDE, Items.MAGMA_ESSENCE, Items.TROPICAL_FISH_SCALE, Items.PARROT_FEATHER)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "demonic_plate"),
                 6669683, "Demonic plate", 16)
@@ -393,12 +419,16 @@ final class ResearchSetup {
                 .addItems(Items.BLOOD_INFUSED_SKULL)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "armor"),
-                6669692, "Better Armor", 40)
+                6669692, "Better Armor", 42)
                 .addItems(Items.AQUATIC_HELMET, Items.RESISTANT_CHESTPLATE, Items.FIERY_LEGGINGS, Items.LIGHT_BOOTS)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "bloody_bucket"),
                 6669693, "Bloody Bucket", 20)
                 .addItems(Items.BUCKET_OF_BLOOD)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "equanimous_gem"),
+                6669694, "Balanced, as things should be", 36)
+                .addItems(Items.EQUANIMOUS_GEM)
                 .register();
     }
 }

@@ -8,6 +8,7 @@ import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Fox;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -40,6 +41,44 @@ public class SacrificialAltarListener implements Listener {
                             entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.UNHOLY_WITHER_SKELETON_BONE, 2));
                         } else {
                             entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.UNHOLY_WITHER_SKELETON_BONE, 1));
+                        }
+                    }
+                    break;
+                case FOX:
+                    if (((Fox) entity).getFoxType() == Fox.Type.SNOW) {
+                        if (random.nextInt(100) < 75) {
+                            if (random.nextInt(100) < 33) {
+                                entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.POLAR_FOX_HIDE, 2));
+                            } else {
+                                entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.POLAR_FOX_HIDE, 1));
+                            }
+                        }
+                    }
+                    break;
+                case MAGMA_CUBE:
+                    if (random.nextInt(100) < 50) {
+                        if (random.nextInt(100) < 25) {
+                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.MAGMA_ESSENCE, 2));
+                        } else {
+                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.MAGMA_ESSENCE, 1));
+                        }
+                    }
+                    break;
+                case PARROT:
+                    if (random.nextInt(100) < 75) {
+                        if (random.nextInt(100) < 33) {
+                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.PARROT_FEATHER, 2));
+                        } else {
+                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.PARROT_FEATHER, 1));
+                        }
+                    }
+                    break;
+                case TROPICAL_FISH:
+                    if (random.nextInt(100) < 75) {
+                        if (random.nextInt(100) < 33) {
+                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.TROPICAL_FISH_SCALE, 2));
+                        } else {
+                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.TROPICAL_FISH_SCALE, 1));
                         }
                     }
                     break;

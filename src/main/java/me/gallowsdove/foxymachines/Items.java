@@ -190,7 +190,8 @@ public final class Items{
             Material.OBSERVER,
             "&4Forcefield Dome",
             "",
-            "&7When powered, creates a protective barrier 32 blocks in diameter",
+            "&7When powered, creates a protective barrier",
+            "&7with a 32-block radius.",
             "&7Will revert once unpowered or broken",
             "",
             LorePreset.energyPerSecond(ForcefieldDome.ENERGY_CONSUMPTION)
@@ -318,8 +319,6 @@ public final class Items{
             "daa4e2294df370b9a50cb924cdda78f740b0fbaf5a687106178505c80a79addc",
             "&cBlood Infused Skull"
     );
-
-
 
     public static final SlimefunItemStack BLOOD = new SlimefunItemStack(
             "BLOOD",
@@ -496,5 +495,35 @@ public final class Items{
             "CELESTIAL_SHARD",
             Material.PRISMARINE_SHARD,
             "&eCelestial Shard"
+    );
+
+    public static final SlimefunItemStack EQUANIMOUS_GEM = new SlimefunItemStack(
+            "EQUANIMOUS_GEM",
+            Material.EMERALD,
+            "&aEquanimous Gem"
+    );
+
+    public static final SlimefunItemStack POLAR_FOX_HIDE = new SlimefunItemStack(
+            "POLAR_FOX_HIDE",
+            Material.SNOWBALL,
+            "&fPolar Fox Hide"
+    );
+
+    public static final SlimefunItemStack MAGMA_ESSENCE = new SlimefunItemStack(
+            "MAGMA_ESSENCE",
+            Material.MAGMA_CREAM,
+            "&cMagma Essence"
+    );
+
+    public static final SlimefunItemStack TROPICAL_FISH_SCALE = new SlimefunItemStack(
+            "TROPICAL_FISH_SCALE",
+            Material.TROPICAL_FISH_SPAWN_EGG,
+            "&bTropical Fish Scale"
+    );
+
+    public static final SlimefunItemStack PARROT_FEATHER = new SlimefunItemStack(
+            "PARROT_FEATHER",
+            Material.FEATHER,
+            "&aParrot Feather"
     );
 }
