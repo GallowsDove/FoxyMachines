@@ -22,7 +22,5 @@ public class FoxyRecipeType {
                     "&e&oUse &c/foxy altar &e&oto view the multiblock."));
     public static RecipeType FISHING = new RecipeType(new NamespacedKey(FoxyMachines.getInstance(), "fishing"),
             new CustomItem(Material.FISHING_ROD, "&bFishing", "", "&e&oGet this as a fishing loot."));
-    public static RecipeType QUEST = new RecipeType(new NamespacedKey(FoxyMachines.getInstance(), "quest"),
-            new CustomItem(Material.MOJANG_BANNER_PATTERN, "&6Quest Reward", "", "&e&oGet this by completing the quest with the sword.",
-                    "&e&oUse &c/foxy quest &e&oto view your current quest."));
+    public static RecipeType QUEST = new RecipeType(new NamespacedKey(FoxyMachines.getInstance(), "quest"), QUEST_ITEM);
 }

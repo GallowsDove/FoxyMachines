@@ -28,7 +28,11 @@ public class QuestUtils {
             new Line("I need a ", " liver."),
             new Line("I've heard that ", " blood is tasty..."),
             new Line("", " heart, hmmm..."),
-            new Line("I would slay God himself for some ", " flesh."));
+            new Line("I would slay God himself for some ", " flesh."),
+            new Line("I could be devouring a ", " whole day."),
+            new Line("I've been waiting for too long. Too long or a day to kill a ", "."),
+            new Line("", "'s blood shall be spilled"),
+            new Line("My curse shall devour ", "'s soul"));
     private static final List<Line> CELESTIAL_LINES = List.of(
             new Line("I love all beings... except ", ", I hate those."),
             new Line("All life must be in balance, what's why I need to kill a ", "."),
@@ -36,7 +40,11 @@ public class QuestUtils {
             new Line("I'm sorry, but please get me some ", ". No questions."),
             new Line("Celestial sword requires a celestial sacrifice. A ", "."),
             new Line("My next victim should be ", ", just as God intended."),
-            new Line("And the next in line is ... ", "!"));
+            new Line("And the next in line is ... ", "!"),
+            new Line("The God wants a ", " dead."),
+            new Line("For God and honour, go slay a ", "."),
+            new Line("Go, get that ", "! For justice!"),
+            new Line("The stars have aligned. I can clearly see the ", " that shall die by my blade"));
 
     @ParametersAreNonnullByDefault
     public static void sendQuestLine(Player p, SlimefunItemStack item) {
