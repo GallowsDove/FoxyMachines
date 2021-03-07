@@ -167,7 +167,17 @@ final class ItemSetup {
                 Items.BLOOD, Items.BLOOD, Items.BLOOD,
                 Items.BLOOD, new ItemStack(Material.BUCKET), Items.BLOOD,
                 Items.BLOOD, Items.BLOOD, Items.BLOOD
-        }, 1).register(FoxyMachines.getInstance());
+                }, 1).register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.CURSED_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
+                null, null, null,
+                null, Items.CURSED_SWORD, null,
+                null, null, null
+                }).register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.CELESTIAL_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
+                null, null, null,
+                null, Items.CELESTIAL_SWORD, null,
+                null, null, null
+                }).register(FoxyMachines.getInstance());
         new SacrificialAltarPiece(Items.SACRIFICIAL_ALTAR_BLACKSTONE_BRICKS, new ItemStack[]{
                 new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS),
                 new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS), SlimefunItems.REINFORCED_PLATE, new ItemStack(Material.POLISHED_BLACKSTONE_BRICKS),
@@ -235,21 +245,6 @@ final class ItemSetup {
                 new PotionEffect[] { new PotionEffect(PotionEffectType.SPEED, 300, 0, false, false, false),
                         new PotionEffect(PotionEffectType.JUMP, 300, 1, false, false, false)})
                 .register(FoxyMachines.getInstance());
-        new SlimefunItem(Items.category, Items.CELESTIAL_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5,
-                Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
-                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
-        }).register(FoxyMachines.getInstance());
-        new SlimefunItem(Items.category, Items.CELESTIAL_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5,
-                Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
-                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
-        }).register(FoxyMachines.getInstance());
-        new SlimefunItem(Items.category, Items.CELESTIAL_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5,
-                Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
-                Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
-        }).register(FoxyMachines.getInstance());
         new ImprovementForge().register(FoxyMachines.getInstance());
         new PotionMixer().register(FoxyMachines.getInstance());
         new ElectricGoldRefinery().register(FoxyMachines.getInstance());

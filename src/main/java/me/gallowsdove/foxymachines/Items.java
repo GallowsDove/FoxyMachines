@@ -485,4 +485,16 @@ public final class Items{
             "",
             "&7Crafting Material"
     );
+
+    public static final SlimefunItemStack CURSED_SHARD = new SlimefunItemStack(
+            "CURSED_SHARD",
+            Material.NETHERITE_SCRAP,
+            "&cCursed Shard"
+    );
+
+    public static final SlimefunItemStack CELESTIAL_SHARD = new SlimefunItemStack(
+            "CELESTIAL_SHARD",
+            Material.PRISMARINE_SHARD,
+            "&eCelestial Shard"
+    );
 }

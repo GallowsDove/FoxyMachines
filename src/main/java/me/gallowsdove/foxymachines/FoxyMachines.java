@@ -5,9 +5,11 @@ import io.github.mooy1.infinitylib.bstats.bukkit.Metrics;
 import io.github.mooy1.infinitylib.command.CommandManager;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import lombok.SneakyThrows;
+import me.gallowsdove.foxymachines.commands.QuestCommand;
 import me.gallowsdove.foxymachines.commands.SacrificialAltarCommand;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.listeners.*;
+import me.gallowsdove.foxymachines.tickers.QuestTicker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,7 +28,8 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
 
         PluginUtils.setup("foxymachines", this, "GallowsDove/FoxyMachines/master", getFile());
 
-        CommandManager.setup("foxymachines", "foxymachines.info", "/fm, /foxy", new SacrificialAltarCommand());
+        CommandManager.setup("foxymachines", "foxymachines.info", "/fm, /foxy",
+                new SacrificialAltarCommand(), new QuestCommand());
 
         Metrics metrics = PluginUtils.setupMetrics(10568);
 
@@ -46,6 +49,7 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
         this.folderPath = getDataFolder().getAbsolutePath() + File.separator + "data-storage" + File.separator;
         ForcefieldDome.loadDomeLocations();
         Bukkit.getScheduler().runTask(this, () -> ForcefieldDome.INSTANCE.setupDomes());
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new QuestTicker(), 10, 120);
     }
 
     @SneakyThrows

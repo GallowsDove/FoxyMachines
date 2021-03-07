@@ -2,17 +2,22 @@ package me.gallowsdove.foxymachines.listeners;
 
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.Items;
-import org.bukkit.Bukkit;
+import me.gallowsdove.foxymachines.utils.QuestUtils;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
+import org.bukkit.ChatColor;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.persistence.PersistentDataContainer;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -98,6 +103,34 @@ public class SwordListener implements Listener {
 
                         entity.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 80, 0, false, false));
                     }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    private void onSwordKill(EntityDeathEvent e) {
+        if (e.getEntity().getKiller() != null) {
+            Player p = e.getEntity().getKiller();
+
+            PlayerInventory inventory = p.getInventory();
+            PersistentDataContainer container = p.getPersistentDataContainer();
+
+            if (!container.has(QuestUtils.KEY, PersistentDataType.INTEGER)) {
+                return;
+            }
+
+            int id = container.get(QuestUtils.KEY, PersistentDataType.INTEGER);
+
+            if (e.getEntity().getType() == QuestUtils.toEntityType(id)) {
+                if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CURSED_SWORD, false, false)) {
+                    inventory.addItem(new SlimefunItemStack(Items.CURSED_SHARD, 1));
+                    p.sendMessage(ChatColor.RED + "The Cursed Sword is pleased.");
+                    container.set(QuestUtils.KEY, PersistentDataType.INTEGER, ThreadLocalRandom.current().nextInt(52));
+                } else if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CELESTIAL_SWORD, false, false)) {
+                    inventory.addItem(new SlimefunItemStack(Items.CELESTIAL_SHARD, 1));
+                    p.sendMessage(ChatColor.YELLOW + "The Celestial Sword is pleased.");
+                    container.set(QuestUtils.KEY, PersistentDataType.INTEGER, ThreadLocalRandom.current().nextInt(52));
                 }
             }
         }
