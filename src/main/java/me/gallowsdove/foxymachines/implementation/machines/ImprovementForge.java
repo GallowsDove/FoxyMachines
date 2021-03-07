@@ -258,7 +258,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
                         menu.consumeItem(inputSlot);
                     }
 
-                    return new MachineRecipe(60, new ItemStack[] { improvementCore, item }, new ItemStack[] { improvedItem });
+                    return new MachineRecipe(45, new ItemStack[] { improvementCore, item }, new ItemStack[] { improvedItem });
                 }
 
                 break;
