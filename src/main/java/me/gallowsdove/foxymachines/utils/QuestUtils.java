@@ -23,7 +23,7 @@ public class QuestUtils {
     private static final List<Line> CURSED_LINES = List.of(
             new Line("I would love to kill a ", ", so tasty!"),
             new Line("Give me a ", ", now!"),
-            new Line("Surely you can help me kill a ", "."),
+            new Line("Surely you can help me slay a ", "."),
             new Line("I want blood....  ", " blood."),
             new Line("I need a ", " liver."),
             new Line("I've heard that ", " blood is tasty..."),
