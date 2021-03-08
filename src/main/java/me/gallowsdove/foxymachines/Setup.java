@@ -439,5 +439,9 @@ final class ResearchSetup {
                 6669695, "The Ultimate Sword", 52)
                 .addItems(Items.ELUCIDATOR)
                 .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "armor_frame"),
+                6669693, "Armor Frame", 24)
+                .addItems(Items.AQUATIC_HELMET_FRAME, Items.RESISTANT_CHESTPLATE_FRAME, Items.FIERY_LEGGINGS_FRAME, Items.LIGHT_BOOTS_FRAME)
+                .register();
     }
 }
