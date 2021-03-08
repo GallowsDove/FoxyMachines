@@ -178,7 +178,7 @@ final class ItemSetup {
                 new ItemStack(Material.POPPY), Items.UNHOLY_WITHER_SKELETON_BONE, new ItemStack(Material.RED_TULIP),
                 new ItemStack(Material.LILY_OF_THE_VALLEY), new ItemStack(Material.PINK_TULIP), new ItemStack(Material.CORNFLOWER)
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.PURE_BONE_DUST, RecipeType.GRIND_STONE, new ItemStack[] {
+        new SimpleMaterial(Items.PURE_BONE_DUST, RecipeType.COMPRESSOR, new ItemStack[] {
                 new SlimefunItemStack(Items.PURIFIED_BONE, 6), null, null,
                 null, null, null,
                 null, null, null
