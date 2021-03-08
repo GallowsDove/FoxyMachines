@@ -440,7 +440,7 @@ final class ResearchSetup {
                 .addItems(Items.ELUCIDATOR)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "armor_frame"),
-                6669693, "Armor Frame", 24)
+                6669696, "Armor Frame", 24)
                 .addItems(Items.AQUATIC_HELMET_FRAME, Items.RESISTANT_CHESTPLATE_FRAME, Items.FIERY_LEGGINGS_FRAME, Items.LIGHT_BOOTS_FRAME)
                 .register();
     }
