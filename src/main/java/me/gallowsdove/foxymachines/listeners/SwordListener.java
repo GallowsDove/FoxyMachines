@@ -124,7 +124,7 @@ public class SwordListener implements Listener {
                     } else if (SlimefunUtils.isItemSimilar(item, Items.ELUCIDATOR, false, false)) {
 
                         e.setDamage(e.getDamage() * 1.88);
-                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.1;
+                        double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.8;
 
                         if (damageDiff >= 0) {
                             if (entity.getAbsorptionAmount() >= 0) {
