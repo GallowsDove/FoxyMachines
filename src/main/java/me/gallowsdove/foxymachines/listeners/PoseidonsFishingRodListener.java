@@ -5,13 +5,14 @@ import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.entity.Item;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PoseidonsFishingRodListener implements Listener {
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     private void onPlayerFish(PlayerFishEvent e) {
         if (e.getCaught() instanceof Item) {
             Item item = (Item) e.getCaught();
