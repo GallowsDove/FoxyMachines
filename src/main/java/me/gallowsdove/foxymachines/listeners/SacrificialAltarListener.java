@@ -103,7 +103,7 @@ public class SacrificialAltarListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void onSoulTorchDrop(BlockDropItemEvent e) {
         List<Item> array = e.getItems();
         if (!array.isEmpty()) {
@@ -113,7 +113,7 @@ public class SacrificialAltarListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void onWaterTorchDestroy(BlockFromToEvent e) {
         if (e.getToBlock().getType() == Material.SOUL_TORCH) {
             if (BlockStorage.hasBlockInfo(e.getToBlock())) {

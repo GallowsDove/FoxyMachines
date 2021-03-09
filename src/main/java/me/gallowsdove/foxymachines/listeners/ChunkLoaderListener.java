@@ -21,7 +21,7 @@ import org.bukkit.persistence.PersistentDataType;
 import javax.annotation.Nonnull;
 
 public class ChunkLoaderListener implements Listener {
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     public void onChunkLoaderPlace(@Nonnull BlockPlaceEvent e) {
         if(e.getBlock().getType() != Material.BEACON) {
             return;

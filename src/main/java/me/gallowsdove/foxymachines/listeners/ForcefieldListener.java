@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockBurnEvent;
@@ -22,7 +23,7 @@ import javax.annotation.Nonnull;
 import java.util.UUID;
 
 public class ForcefieldListener implements Listener {
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onPlayerBreak(@Nonnull BlockBreakEvent e) {
         Block b = e.getBlock();
 
@@ -33,7 +34,7 @@ public class ForcefieldListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onExplosionBreak(@Nonnull BlockExplodeEvent e) {
         Block b = e.getBlock();
 
@@ -44,7 +45,7 @@ public class ForcefieldListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onBurnBreak(@Nonnull BlockBurnEvent e) {
         Block b = e.getBlock();
 
@@ -55,7 +56,7 @@ public class ForcefieldListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onFadeBreak(@Nonnull BlockFadeEvent e) {
         Block b = e.getBlock();
 
@@ -66,7 +67,7 @@ public class ForcefieldListener implements Listener {
         }
     }
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void onPlayerTeleport(@Nonnull PlayerTeleportEvent e) {
         if (e.getCause() == TeleportCause.ENDER_PEARL || e.getCause() == TeleportCause.CHORUS_FRUIT) {
             Location l = e.getTo();

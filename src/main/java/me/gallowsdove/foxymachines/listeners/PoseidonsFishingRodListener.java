@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerFishEvent;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PoseidonsFishingRodListener implements Listener {
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     private void onPlayerFish(PlayerFishEvent e) {
         if (e.getCaught() instanceof Item) {
             Item item = (Item) e.getCaught();

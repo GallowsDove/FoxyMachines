@@ -9,7 +9,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class RemoteControllerListener implements Listener {
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void onNametagEvent(PlayerInteractEntityEvent e)  {
         ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 

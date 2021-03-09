@@ -14,7 +14,7 @@ import java.util.Set;
 public class BoostedRailListener implements Listener {
     private static final Set<Material> RAILS = Set.of(Material.RAIL, Material.ACTIVATOR_RAIL, Material.DETECTOR_RAIL, Material.POWERED_RAIL);
 
-    @EventHandler
+    @EventHandler(ignoreCancelled = true)
     private void onRailUse(@Nonnull VehicleMoveEvent e) {
         if (e.getVehicle() instanceof Minecart) {
             Minecart cart = (Minecart) e.getVehicle();
