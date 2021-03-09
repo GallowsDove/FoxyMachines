@@ -4,6 +4,7 @@ import io.github.mooy1.infinitylib.presets.LorePreset;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
+import io.github.thebusybiscuit.slimefun4.utils.itemstack.ColoredFireworkStar;
 import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
@@ -11,6 +12,7 @@ import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
@@ -539,4 +541,14 @@ public final class Items{
             Material.FEATHER,
             "&aParrot Feather"
     );
+
+    public static final SlimefunItemStack UNBREAKABLE_RUNE = new SlimefunItemStack(
+            "UNBREAKABLE_RUNE",
+            new ColoredFireworkStar(
+                    Color.fromRGB(0, 188, 0),
+                    "&7Ancient Rune &8&l[&2&lUnbreakable&8&l]",
+                    "",
+                    "&eDrop this rune onto a dropped item to",
+                    "&emake it &2unbreakable"
+            ));
 }

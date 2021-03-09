@@ -224,6 +224,7 @@ final class ItemSetup {
                 null, new ItemStack(Material.BLAZE_ROD), null
                 }, 1).register(FoxyMachines.getInstance());
         new SacrificialAltarPressurePlate().register(FoxyMachines.getInstance());
+        new UnbreakableRune().register(FoxyMachines.getInstance());
         new SlimefunItem(Items.category, Items.POSEIDONS_FISHING_ROD, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null, null, Items.AQUATIC_NETHERITE_INGOT,
                 null, Items.AQUATIC_NETHERITE_INGOT, Items.REINFORCED_STRING,
@@ -442,6 +443,10 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "armor_frame"),
                 6669696, "Armor Frame", 24)
                 .addItems(Items.AQUATIC_HELMET_FRAME, Items.RESISTANT_CHESTPLATE_FRAME, Items.FIERY_LEGGINGS_FRAME, Items.LIGHT_BOOTS_FRAME)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "unbreakable_rune"),
+                6669697, "Who needs anvil?", 32)
+                .addItems(Items.UNBREAKABLE_RUNE)
                 .register();
     }
 }
