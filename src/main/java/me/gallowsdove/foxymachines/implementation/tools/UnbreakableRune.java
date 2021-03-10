@@ -22,19 +22,6 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
 
-/**
- * The Fireproof Rune prevents items from
- * burning in lava or fire
- * Heavily based off of the Soulbound Rune
- *
- * @author NCBPFluffyBear
- * <p>
- * Worked on Soulbound Rune:
- * @author Linox
- * @author Walshy
- * @author TheBusyBiscuit
- */
-
 public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
     private static final double RANGE = 1.5;
@@ -42,9 +29,9 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
     public UnbreakableRune() {
         super(Items.category, Items.UNBREAKABLE_RUNE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.DAMIENIUM, Items.MAGIC_LUMP_4, Items.DAMIENIUM,
-                Items.MAGIC_LUMP_4, SlimefunItems.ESSENCE_OF_AFTERLIFE, Items.MAGIC_LUMP_4,
-                Items.DAMIENIUM, Items.MAGIC_LUMP_4, Items.DAMIENIUM
+                Items.DAMIENIUM, Items.MAGIC_LUMP_5, Items.DAMIENIUM,
+                SlimefunItems.ESSENCE_OF_AFTERLIFE, SlimefunItems.EARTH_RUNE , SlimefunItems.ESSENCE_OF_AFTERLIFE,
+                Items.DAMIENIUM, Items.MAGIC_LUMP_5, Items.DAMIENIUM
         });
     }
 

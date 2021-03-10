@@ -1,5 +1,6 @@
 package me.gallowsdove.foxymachines.listeners;
 
+import io.github.mooy1.infinitylib.PluginUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
@@ -106,6 +107,7 @@ public class SacrificialAltarListener implements Listener {
     @EventHandler(ignoreCancelled = true)
     private void onSoulTorchDrop(BlockDropItemEvent e) {
         List<Item> array = e.getItems();
+
         if (!array.isEmpty()) {
             if (SlimefunUtils.isItemSimilar(array.get(0).getItemStack(), Items.SACRIFICIAL_ALTAR_SOUL_TORCH, false, false)) {
                 BlockStorage.clearBlockInfo(e.getBlock());

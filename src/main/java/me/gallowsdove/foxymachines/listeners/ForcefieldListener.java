@@ -1,5 +1,6 @@
 package me.gallowsdove.foxymachines.listeners;
 
+import io.github.mooy1.infinitylib.PluginUtils;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.utils.SimpleLocation;
@@ -9,17 +10,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.FallingBlock;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockExplodeEvent;
-import org.bukkit.event.block.BlockFadeEvent;
+import org.bukkit.event.block.*;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import javax.annotation.Nonnull;
+import java.util.Set;
 import java.util.UUID;
 
 public class ForcefieldListener implements Listener {
@@ -57,7 +58,33 @@ public class ForcefieldListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    private void onLeavesDecay(@Nonnull LeavesDecayEvent e) {
+        Block b = e.getBlock();
+
+        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+            Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
+            BlockStorage.addBlockInfo(b, "forcefield", null);
+            BlockStorage.clearBlockInfo(b);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onFadeBreak(@Nonnull BlockFadeEvent e) {
+        Block b = e.getBlock();
+
+        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+            Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
+            BlockStorage.addBlockInfo(b, "forcefield", null);
+            BlockStorage.clearBlockInfo(b);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    private void onBlockDropEvent(@Nonnull EntityChangeBlockEvent e) {
+        if (!(e.getEntity() instanceof FallingBlock)) {
+            return;
+        }
+
         Block b = e.getBlock();
 
         if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {

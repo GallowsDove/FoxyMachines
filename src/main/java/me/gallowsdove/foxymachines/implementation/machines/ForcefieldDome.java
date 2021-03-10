@@ -33,11 +33,15 @@ import java.io.*;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public final class ForcefieldDome extends SlimefunItem implements EnergyNetComponent {
 
     public static final int ENERGY_CONSUMPTION = 6000;
+
+    private static final Set<Material> MATERIALS_TO_REPLACE = Set.of(Material.AIR, Material.CAVE_AIR, Material.WATER,
+            Material.LAVA);
 
     public static ArrayList<SimpleLocation> domeLocations = new ArrayList<>();
 
@@ -164,7 +168,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
         for (Block block : domeBlocks) {
             UUID uuid = UUID.fromString(BlockStorage.getLocationInfo(b.getLocation(), "owner"));
             if (SlimefunPlugin.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(uuid), block, ProtectableAction.BREAK_BLOCK)) {
-                if (block.getType() == Material.AIR || block.getType() == Material.CAVE_AIR) {
+                if (MATERIALS_TO_REPLACE.contains(block.getType())) {
                     block.setType(Material.BARRIER);
                 } else if (block.getType() != Material.BARRIER) {
                     BlockStorage.addBlockInfo(block, "forcefield", "true");
