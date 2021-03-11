@@ -7,6 +7,8 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 ### [Download](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/)
 [![Build Status](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/badge.svg)](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master)
 
+#### Unwanted items can be disabled in items.yml
+
 ## Tools
 * Electric Wind Staff
 * Electric Fire Staff
