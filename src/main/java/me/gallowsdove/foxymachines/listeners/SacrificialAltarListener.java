@@ -89,7 +89,7 @@ public class SacrificialAltarListener implements Listener {
             }
 
             if (random.nextInt(100) < 33) {
-                if (random.nextInt(100) < 33) {
+                if (random.nextInt(100) < 25) {
                     entity.getWorld().dropItem(entity.getLocation(), new SlimefunItemStack(Items.BLOOD, 2));
                 } else {
                     entity.getWorld().dropItem(entity.getLocation(), new SlimefunItemStack(Items.BLOOD, 1));
