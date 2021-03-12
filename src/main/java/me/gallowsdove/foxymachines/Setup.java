@@ -273,7 +273,7 @@ final class ItemSetup {
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
                 Items.PARROT_FEATHER, Items.LIGHT_BOOTS_FRAME, Items.PARROT_FEATHER,
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM},
-                new PotionEffect[] { new PotionEffect(PotionEffectType.SPEED, 300, 0, false, false, false),
+                new PotionEffect[] { new PotionEffect(PotionEffectType.SPEED, 300, 1, false, false, false),
                         new PotionEffect(PotionEffectType.JUMP, 300, 1, false, false, false)})
                 .register(FoxyMachines.getInstance());
         new ImprovementForge().register(FoxyMachines.getInstance());
