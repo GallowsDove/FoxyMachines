@@ -27,10 +27,7 @@ public class ForcefieldListener implements Listener {
     private void onPlayerBreak(@Nonnull BlockBreakEvent e) {
         Block b = e.getBlock();
 
-        e.getPlayer().sendMessage("you broke a block");
-
         if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
-            e.getPlayer().sendMessage("you broke a barrier block");
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
             BlockStorage.addBlockInfo(b, "forcefield", null);
             BlockStorage.clearBlockInfo(b);
