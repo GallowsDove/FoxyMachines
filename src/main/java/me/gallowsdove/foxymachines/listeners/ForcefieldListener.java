@@ -1,6 +1,6 @@
 package me.gallowsdove.foxymachines.listeners;
 
-import io.github.mooy1.infinitylib.PluginUtils;
+import io.github.thebusybiscuit.slimefun4.api.events.ExplosiveToolBreakBlocksEvent;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.utils.SimpleLocation;
@@ -20,7 +20,6 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import javax.annotation.Nonnull;
-import java.util.Set;
 import java.util.UUID;
 
 public class ForcefieldListener implements Listener {
@@ -28,7 +27,10 @@ public class ForcefieldListener implements Listener {
     private void onPlayerBreak(@Nonnull BlockBreakEvent e) {
         Block b = e.getBlock();
 
+        e.getPlayer().sendMessage("you broke a block");
+
         if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+            e.getPlayer().sendMessage("you broke a barrier block");
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
             BlockStorage.addBlockInfo(b, "forcefield", null);
             BlockStorage.clearBlockInfo(b);
@@ -91,6 +93,17 @@ public class ForcefieldListener implements Listener {
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
             BlockStorage.addBlockInfo(b, "forcefield", null);
             BlockStorage.clearBlockInfo(b);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    private void onBlocksBreakByExplosiveToolEvent(@Nonnull ExplosiveToolBreakBlocksEvent e) {
+        for (Block b : e.getBlocks()) {
+            if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+                Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
+                BlockStorage.addBlockInfo(b, "forcefield", null);
+                BlockStorage.clearBlockInfo(b);
+            }
         }
     }
 
