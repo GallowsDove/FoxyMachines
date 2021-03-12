@@ -71,7 +71,14 @@ public class SwordListener implements Listener {
 
                     entity.addPotionEffects(effects);
 
-                    e.setDamage(e.getDamage() * 1.5);
+                    PotionEffect strength = humanoid.getPotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                    if (strength == null) {
+                        e.setDamage(e.getDamage() * 1.5);
+                    } else if (strength.getAmplifier() == 0) {
+                        e.setDamage(e.getDamage() * 1.25);
+                    } else if (strength.getAmplifier() == 1) {
+                        e.setDamage(e.getDamage() * 1.08);
+                    }
 
                     for (int i = 0; i < 10; i++) {
                         entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
@@ -123,7 +130,15 @@ public class SwordListener implements Listener {
 
                 } else if (SlimefunUtils.isItemSimilar(item, Items.ELUCIDATOR, false, false)) {
 
-                    e.setDamage(e.getDamage() * 1.88);
+                    PotionEffect strength = humanoid.getPotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                    if (strength == null) {
+                        e.setDamage(e.getDamage() * 1.88);
+                    } else if (strength.getAmplifier() == 0) {
+                        e.setDamage(e.getDamage() * 1.4);
+                    } else if (strength.getAmplifier() == 1) {
+                        e.setDamage(e.getDamage() * 1.1);
+                    }
+
                     double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.8;
 
                     if (damageDiff >= 0) {

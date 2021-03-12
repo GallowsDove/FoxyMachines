@@ -1,6 +1,6 @@
 package me.gallowsdove.foxymachines.implementation.tools;
 
-import io.github.mooy1.infinitylib.PluginUtils;
+import io.github.mooy1.infinitylib.core.PluginUtils;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemDropHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;

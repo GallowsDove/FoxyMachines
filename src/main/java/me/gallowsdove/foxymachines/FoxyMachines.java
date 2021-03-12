@@ -1,8 +1,8 @@
 package me.gallowsdove.foxymachines;
 
-import io.github.mooy1.infinitylib.PluginUtils;
 import io.github.mooy1.infinitylib.bstats.bukkit.Metrics;
 import io.github.mooy1.infinitylib.command.CommandManager;
+import io.github.mooy1.infinitylib.core.PluginUtils;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import lombok.SneakyThrows;
 import me.gallowsdove.foxymachines.commands.QuestCommand;
