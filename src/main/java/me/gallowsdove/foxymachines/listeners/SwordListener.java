@@ -48,7 +48,7 @@ public class SwordListener implements Listener {
                     double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
                     humanoid.setHealth(Math.min(health, maxHealth));
 
-                    double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.08;
+                    double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.05;
 
                     if (damageDiff >= 0) {
                         if (entity.getAbsorptionAmount() >= 0) {
@@ -71,14 +71,7 @@ public class SwordListener implements Listener {
 
                     entity.addPotionEffects(effects);
 
-                    PotionEffect strength = humanoid.getPotionEffect(PotionEffectType.INCREASE_DAMAGE);
-                    if (strength == null) {
-                        e.setDamage(e.getDamage() * 1.5);
-                    } else if (strength.getAmplifier() == 0) {
-                        e.setDamage(e.getDamage() * 1.25);
-                    } else if (strength.getAmplifier() == 1) {
-                        e.setDamage(e.getDamage() * 1.08);
-                    }
+                    e.setDamage(e.getDamage() * 1.4);
 
                     for (int i = 0; i < 10; i++) {
                         entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
@@ -100,7 +93,7 @@ public class SwordListener implements Listener {
                         }
                     }
                 } else if (SlimefunUtils.isItemSimilar(item, Items.CELESTIAL_SWORD, false, false)) {
-                    double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.19;
+                    double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.16;
 
                     if (damageDiff >= 0) {
                         if (entity.getAbsorptionAmount() >= 0) {
@@ -123,23 +116,17 @@ public class SwordListener implements Listener {
 
                     if (random.nextInt(100) < 15) {
                         entity.getWorld().strikeLightningEffect(entity.getLocation());
-                        entity.damage(10);
+                        entity.damage(8);
                     }
 
                     entity.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 80, 0, false, false));
 
                 } else if (SlimefunUtils.isItemSimilar(item, Items.ELUCIDATOR, false, false)) {
 
-                    PotionEffect strength = humanoid.getPotionEffect(PotionEffectType.INCREASE_DAMAGE);
-                    if (strength == null) {
-                        e.setDamage(e.getDamage() * 1.88);
-                    } else if (strength.getAmplifier() == 0) {
-                        e.setDamage(e.getDamage() * 1.4);
-                    } else if (strength.getAmplifier() == 1) {
-                        e.setDamage(e.getDamage() * 1.1);
-                    }
 
-                    double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.8;
+                    e.setDamage(e.getDamage() * 2);
+
+                    double damageDiff = (e.getDamage() - e.getFinalDamage()) * 0.06;
 
                     if (damageDiff >= 0) {
                         if (entity.getAbsorptionAmount() >= 0) {
