@@ -4,8 +4,13 @@ import io.github.thebusybiscuit.slimefun4.core.researching.Research;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.armor.LongFallBoots;
 import io.github.thebusybiscuit.slimefun4.implementation.items.armor.SlimefunArmorPiece;
+import me.gallowsdove.foxymachines.implementation.consumables.CustomMobSpawnEgg;
+import me.gallowsdove.foxymachines.implementation.consumables.SimpleConsumable;
+import me.gallowsdove.foxymachines.implementation.consumables.UnbreakableRune;
 import me.gallowsdove.foxymachines.implementation.machines.*;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleMaterial;
+import me.gallowsdove.foxymachines.implementation.mobs.Pixie;
+import me.gallowsdove.foxymachines.implementation.mobs.PixieQueen;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPiece;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPressurePlate;
 import me.gallowsdove.foxymachines.implementation.tools.*;
@@ -188,6 +193,17 @@ final class ItemSetup {
                 Items.BLOOD, new ItemStack(Material.BUCKET), Items.BLOOD,
                 Items.BLOOD, Items.BLOOD, Items.BLOOD
                 }, 1).register(FoxyMachines.getInstance());
+        new SimpleConsumable(Items.PIXIE_DUST, RecipeType.GRIND_STONE, new ItemStack[] {
+                Items.PIXIE_QUEEN_HEART, null, null,
+                null, null, null,
+                null, null, null
+                }, new PotionEffect[] {new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 400, 3)},
+                6).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.PIXIE_QUEEN_HEART, FoxyRecipeType.CUSTOM_MOB_DROP, new ItemStack[] {
+                null, null, null,
+                null, new CustomItem(Material.CREEPER_SPAWN_EGG, "&aPixie Queen", "&7Summon it using &aPixie Queen Spawn Egg"), null,
+                null, null, null
+                }, 1).register(FoxyMachines.getInstance());
         new SlimefunItem(Items.category, Items.CURSED_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
                 null, null, null,
                 null, Items.CURSED_SWORD, null,
@@ -246,7 +262,7 @@ final class ItemSetup {
                 }).register(FoxyMachines.getInstance());
         new SlimefunItem(Items.category, Items.ELUCIDATOR, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 Items.EQUANIMOUS_GEM, Items.CURSED_SWORD, Items.EQUANIMOUS_GEM,
-                Items.BUCKET_OF_BLOOD, Items.DEMONIC_PLATE, Items.BUCKET_OF_BLOOD,
+                Items.BUCKET_OF_BLOOD, Items.PIXIE_QUEEN_HEART, Items.BUCKET_OF_BLOOD,
                 Items.EQUANIMOUS_GEM, Items.CELESTIAL_SWORD, Items.EQUANIMOUS_GEM
         }).register(FoxyMachines.getInstance());
         new SlimefunArmorPiece(Items.category, Items.AQUATIC_HELMET, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
@@ -303,6 +319,15 @@ final class ItemSetup {
         new BerryBushTrimmer().register(FoxyMachines.getInstance());
         ForcefieldDome.INSTANCE.register(FoxyMachines.getInstance());
         new RemoteController().register(FoxyMachines.getInstance());
+
+        new CustomMobSpawnEgg("PIXIE_QUEEN", Items.PIXIE_QUEEN_SPAWN_EGG, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM,
+                Items.PARROT_FEATHER, new ItemStack(Material.EGG), Items.PARROT_FEATHER,
+                Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM
+        }).register(FoxyMachines.getInstance());
+
+        new PixieQueen();
+        new Pixie();
     }
 }
 
@@ -447,6 +472,14 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "unbreakable_rune"),
                 6669697, "Who needs anvil?", 32)
                 .addItems(Items.UNBREAKABLE_RUNE)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "pixie_queen"),
+                6669698, "A worthy opponent.", 52)
+                .addItems(Items.PIXIE_QUEEN_SPAWN_EGG, Items.PIXIE_QUEEN_HEART)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "pixie_dust"),
+                6669699, "Strength Boost.", 22)
+                .addItems(Items.PIXIE_DUST)
                 .register();
     }
 }

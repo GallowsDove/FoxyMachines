@@ -23,4 +23,6 @@ public class FoxyRecipeType {
     public static RecipeType FISHING = new RecipeType(new NamespacedKey(FoxyMachines.getInstance(), "fishing"),
             new CustomItem(Material.FISHING_ROD, "&bFishing", "", "&e&oGet this as a fishing loot."));
     public static RecipeType QUEST = new RecipeType(new NamespacedKey(FoxyMachines.getInstance(), "quest"), QUEST_ITEM);
+    public static RecipeType CUSTOM_MOB_DROP = new RecipeType(new NamespacedKey(FoxyMachines.getInstance(), "mob_drop"),
+            new CustomItem(Material.DIAMOND_SWORD, "&aUnique Mob Drop", "", "&e&oObtained by killing the specified mob."));
 }

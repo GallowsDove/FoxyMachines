@@ -551,4 +551,24 @@ public final class Items{
                     "&eDrop this rune onto a dropped item to",
                     "&emake it &2unbreakable"
             ));
+
+    public static final SlimefunItemStack PIXIE_QUEEN_SPAWN_EGG = new SlimefunItemStack(
+            "PIXIE_QUEEN_SPAWN_EGG",
+            Material.CREEPER_SPAWN_EGG,
+            "&aPixie Queen Spawn Egg"
+    );
+
+    public static final SlimefunItemStack PIXIE_QUEEN_HEART = new SlimefunItemStack(
+            "PIXIE_QUEEN_HEART",
+            Material.FERMENTED_SPIDER_EYE,
+            "&4Pixie Queen Heart"
+    );
+
+    public static final SlimefunItemStack PIXIE_DUST = new SlimefunItemStack(
+            "PIXIE_DUST",
+            Material.SUGAR,
+            "&ePixie Dust",
+            "",
+            "Strength IV"
+    );
 }
