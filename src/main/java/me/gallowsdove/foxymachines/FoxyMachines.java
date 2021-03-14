@@ -5,16 +5,19 @@ import io.github.mooy1.infinitylib.command.CommandManager;
 import io.github.mooy1.infinitylib.core.PluginUtils;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import lombok.SneakyThrows;
+import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.commands.QuestCommand;
 import me.gallowsdove.foxymachines.commands.SacrificialAltarCommand;
+import me.gallowsdove.foxymachines.commands.SummonCommand;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.listeners.*;
+import me.gallowsdove.foxymachines.tickers.MobTicker;
 import me.gallowsdove.foxymachines.tickers.QuestTicker;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.util.ArrayList;
 
 public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
     private static FoxyMachines instance;
@@ -28,34 +31,36 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
 
         PluginUtils.setup("foxymachines", this, "GallowsDove/FoxyMachines/master", getFile());
 
-        CommandManager.setup("foxymachines", "foxymachines.info", "/fm, /foxy",
-                new SacrificialAltarCommand(), new QuestCommand());
+        CommandManager.setup("foxymachines", "foxymachines.admin", "/fm, /foxy",
+                new SacrificialAltarCommand(), new QuestCommand(), new SummonCommand());
 
         Metrics metrics = PluginUtils.setupMetrics(10568);
 
-        getServer().getPluginManager().registerEvents(new ChunkLoaderListener(), this);
-        getServer().getPluginManager().registerEvents(new BoostedRailListener(), this);
-        getServer().getPluginManager().registerEvents(new BerryBushListener(), this);
-        getServer().getPluginManager().registerEvents(new ForcefieldListener(), this);
-        getServer().getPluginManager().registerEvents(new RemoteControllerListener(), this);
-        getServer().getPluginManager().registerEvents(new SacrificialAltarListener(), this);
-        getServer().getPluginManager().registerEvents(new SwordListener(), this);
-        getServer().getPluginManager().registerEvents(new PoseidonsFishingRodListener(), this);
-        getServer().getPluginManager().registerEvents(new ArmorListener(), this);
+        PluginUtils.registerListener(new ChunkLoaderListener());
+        PluginUtils.registerListener(new BoostedRailListener());
+        PluginUtils.registerListener(new BerryBushListener());
+        PluginUtils.registerListener(new ForcefieldListener());
+        PluginUtils.registerListener(new RemoteControllerListener());
+        PluginUtils.registerListener(new SacrificialAltarListener());
+        PluginUtils.registerListener(new SwordListener());
+        PluginUtils.registerListener(new PoseidonsFishingRodListener());
+        PluginUtils.registerListener(new ArmorListener());
 
         ItemSetup.INSTANCE.init();
         ResearchSetup.INSTANCE.init();
 
         this.folderPath = getDataFolder().getAbsolutePath() + File.separator + "data-storage" + File.separator;
         ForcefieldDome.loadDomeLocations();
-        Bukkit.getScheduler().runTask(this, () -> ForcefieldDome.INSTANCE.setupDomes());
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new QuestTicker(), 10, 120);
+        PluginUtils.runSync(() -> ForcefieldDome.INSTANCE.setupDomes());
+        PluginUtils.scheduleRepeatingSync(new QuestTicker(), 10, 240);
+        PluginUtils.scheduleRepeatingSync(new MobTicker(), 5);
     }
 
     @SneakyThrows
     @Override
     public void onDisable() {
         ForcefieldDome.saveDomeLocations();
+        CustomBoss.removeBossBars();
     }
 
     @Nonnull

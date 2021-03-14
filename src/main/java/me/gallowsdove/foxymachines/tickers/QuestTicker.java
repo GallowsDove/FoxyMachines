@@ -1,18 +1,14 @@
 package me.gallowsdove.foxymachines.tickers;
 
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
-import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.utils.QuestUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class QuestTicker implements Runnable{
-
-
     @Override
     public void run() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
