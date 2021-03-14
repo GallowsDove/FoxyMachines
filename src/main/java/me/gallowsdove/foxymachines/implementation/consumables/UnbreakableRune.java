@@ -1,4 +1,4 @@
-package me.gallowsdove.foxymachines.implementation.tools;
+package me.gallowsdove.foxymachines.implementation.consumables;
 
 import io.github.mooy1.infinitylib.core.PluginUtils;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemDropHandler;
