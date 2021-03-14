@@ -4,7 +4,6 @@ import io.github.thebusybiscuit.slimefun4.api.events.ExplosiveToolBreakBlocksEve
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.utils.SimpleLocation;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -27,10 +26,8 @@ public class ForcefieldListener implements Listener {
     private void onPlayerBreak(@Nonnull BlockBreakEvent e) {
         Block b = e.getBlock();
 
-        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+        if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
-            BlockStorage.addBlockInfo(b, "forcefield", null);
-            BlockStorage.clearBlockInfo(b);
         }
     }
 
@@ -38,10 +35,8 @@ public class ForcefieldListener implements Listener {
     private void onExplosionBreak(@Nonnull BlockExplodeEvent e) {
         Block b = e.getBlock();
 
-        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+        if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
-            BlockStorage.addBlockInfo(b, "forcefield", null);
-            BlockStorage.clearBlockInfo(b);
         }
     }
 
@@ -49,10 +44,8 @@ public class ForcefieldListener implements Listener {
     private void onBurnBreak(@Nonnull BlockBurnEvent e) {
         Block b = e.getBlock();
 
-        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+        if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
-            BlockStorage.addBlockInfo(b, "forcefield", null);
-            BlockStorage.clearBlockInfo(b);
         }
     }
 
@@ -60,10 +53,8 @@ public class ForcefieldListener implements Listener {
     private void onLeavesDecay(@Nonnull LeavesDecayEvent e) {
         Block b = e.getBlock();
 
-        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+        if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
-            BlockStorage.addBlockInfo(b, "forcefield", null);
-            BlockStorage.clearBlockInfo(b);
         }
     }
 
@@ -71,10 +62,8 @@ public class ForcefieldListener implements Listener {
     private void onFadeBreak(@Nonnull BlockFadeEvent e) {
         Block b = e.getBlock();
 
-        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+        if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
-            BlockStorage.addBlockInfo(b, "forcefield", null);
-            BlockStorage.clearBlockInfo(b);
         }
     }
 
@@ -86,20 +75,16 @@ public class ForcefieldListener implements Listener {
 
         Block b = e.getBlock();
 
-        if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+        if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
-            BlockStorage.addBlockInfo(b, "forcefield", null);
-            BlockStorage.clearBlockInfo(b);
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onBlocksBreakByExplosiveToolEvent(@Nonnull ExplosiveToolBreakBlocksEvent e) {
         for (Block b : e.getBlocks()) {
-            if (BlockStorage.getLocationInfo(b.getLocation(), "forcefield") != null) {
+            if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
                 Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
-                BlockStorage.addBlockInfo(b, "forcefield", null);
-                BlockStorage.clearBlockInfo(b);
             }
         }
     }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.persistence.PersistentDataContainer;
@@ -36,6 +37,17 @@ public class SimpleLocation {
     @Nonnull
     public Block toBlock() {
         return Bukkit.getServer().getWorld(UUID.fromString(this.worldUUID)).getBlockAt(this.x, this.y, this.z);
+    }
+
+    public SimpleLocation(@Nonnull Block b) {
+        this(b.getLocation());
+    }
+
+    public SimpleLocation(@Nonnull Location loc) {
+        this.worldUUID = loc.getWorld().getUID().toString();
+        this.x = loc.getBlockX();
+        this.y = loc.getBlockY();
+        this.z = loc.getBlockZ();
     }
 
     public void storePersistently(@Nonnull PersistentDataContainer container) {

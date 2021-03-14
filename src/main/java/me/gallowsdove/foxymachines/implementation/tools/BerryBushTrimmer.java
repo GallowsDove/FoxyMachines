@@ -1,12 +1,15 @@
 package me.gallowsdove.foxymachines.implementation.tools;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ToolUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
+import me.gallowsdove.foxymachines.utils.SimpleLocation;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
-import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -16,8 +19,13 @@ import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
+import java.io.*;
+import java.lang.reflect.Type;
+import java.util.HashSet;
 
 public class BerryBushTrimmer extends SlimefunItem {
+    public static HashSet<SimpleLocation> TRIMMED_BLOCKS = new HashSet<>();
+
     public BerryBushTrimmer() {
         super(Items.category, Items.BERRY_BUSH_TRIMMER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null, SlimefunItems.DAMASCUS_STEEL_INGOT, null,
@@ -43,9 +51,7 @@ public class BerryBushTrimmer extends SlimefunItem {
                 Block b = e.getClickedBlock().get();
                 Player p = e.getPlayer();
 
-                if (BlockStorage.getLocationInfo(b.getLocation(), "trimmed") == null) {
-                    BlockStorage.addBlockInfo(b, "trimmed", "true");
-
+                if (TRIMMED_BLOCKS.add(new SimpleLocation(b))) {
                     ItemStack shears = e.getItem();
                     ItemMeta shearsMeta = e.getItem().getItemMeta();
                     int damage = ((Damageable) shearsMeta).getDamage() + 4;
@@ -65,5 +71,46 @@ public class BerryBushTrimmer extends SlimefunItem {
 
             e.cancel();
         };
+    }
+
+    public static void saveTrimmedBlocks() throws IOException {
+        Gson gson = new Gson();
+
+        String pluginFolder = FoxyMachines.getInstance().folderPath;
+
+        File file = new File(pluginFolder + File.separator + "trimmeddata");
+        File filePath = new File(pluginFolder);
+
+        filePath.mkdirs();
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
+        writer.write(gson.toJson(TRIMMED_BLOCKS));
+        writer.close();
+    }
+
+    public static void loadTrimmedBlocks() throws IOException {
+        Gson gson = new Gson();
+
+        File file = new File(FoxyMachines.getInstance().folderPath + "trimmeddata");
+        File filePath = new File(FoxyMachines.getInstance().folderPath);
+
+        filePath.mkdirs();
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String json = reader.readLine();
+        reader.close();
+
+        Type type = new TypeToken<HashSet<SimpleLocation>>() {}.getType();
+        TRIMMED_BLOCKS = gson.fromJson(json, type);
+
+        if (TRIMMED_BLOCKS == null) {
+            TRIMMED_BLOCKS = new HashSet<>();
+        }
     }
 }

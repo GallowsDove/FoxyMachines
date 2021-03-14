@@ -31,12 +31,11 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 import java.io.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public final class ForcefieldDome extends SlimefunItem implements EnergyNetComponent {
+
+    public static HashSet<Block> FORCEFIELD_BLOCKS = new HashSet<>();
 
     public static final int ENERGY_CONSUMPTION = 6000;
 
@@ -91,7 +90,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                 BlockStorage.addBlockInfo(b, "owner", e.getPlayer().getUniqueId().toString());
                 BlockStorage.addBlockInfo(b, "active", "false");
                 BlockStorage.addBlockInfo(b, "cooldown", "false");
-                domeLocations.add(new SimpleLocation(b.getX(), b.getY(), b.getZ(), b.getWorld().getUID().toString()));
+                domeLocations.add(new SimpleLocation(b));
                 saveDomeLocations();
             }
         };
@@ -105,7 +104,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
             public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> list) {
                 Block b = e.getBlock();
                 setDomeInactive(b);
-                SimpleLocation loc = new SimpleLocation(b.getX(), b.getY(), b.getZ(), b.getWorld().getUID().toString());
+                SimpleLocation loc = new SimpleLocation(b);
                 if (domeLocations.contains(loc)) {
                     domeLocations.remove(loc);
                     saveDomeLocations();
@@ -171,7 +170,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                 if (MATERIALS_TO_REPLACE.contains(block.getType())) {
                     block.setType(Material.BARRIER);
                 } else if (block.getType() != Material.BARRIER) {
-                    BlockStorage.addBlockInfo(block, "forcefield", "true");
+                    FORCEFIELD_BLOCKS.add(block);
                 }
             }
         }
@@ -187,7 +186,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                 if (block.getType() == Material.BARRIER) {
                     block.setType(Material.AIR);
                 } else {
-                    BlockStorage.addBlockInfo(block, "forcefield", null);
+                    FORCEFIELD_BLOCKS.remove(block);
                 }
             }
         }

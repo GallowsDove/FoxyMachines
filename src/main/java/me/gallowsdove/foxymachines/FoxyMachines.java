@@ -10,6 +10,7 @@ import me.gallowsdove.foxymachines.commands.QuestCommand;
 import me.gallowsdove.foxymachines.commands.SacrificialAltarCommand;
 import me.gallowsdove.foxymachines.commands.SummonCommand;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
+import me.gallowsdove.foxymachines.implementation.tools.BerryBushTrimmer;
 import me.gallowsdove.foxymachines.listeners.*;
 import me.gallowsdove.foxymachines.tickers.MobTicker;
 import me.gallowsdove.foxymachines.tickers.QuestTicker;
@@ -17,7 +18,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.util.ArrayList;
 
 public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
     private static FoxyMachines instance;
@@ -50,6 +50,7 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
         ResearchSetup.INSTANCE.init();
 
         this.folderPath = getDataFolder().getAbsolutePath() + File.separator + "data-storage" + File.separator;
+        BerryBushTrimmer.loadTrimmedBlocks();
         ForcefieldDome.loadDomeLocations();
         PluginUtils.runSync(() -> ForcefieldDome.INSTANCE.setupDomes());
         PluginUtils.scheduleRepeatingSync(new QuestTicker(), 10, 240);
@@ -59,6 +60,7 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
     @SneakyThrows
     @Override
     public void onDisable() {
+        BerryBushTrimmer.saveTrimmedBlocks();
         ForcefieldDome.saveDomeLocations();
         CustomBoss.removeBossBars();
     }
