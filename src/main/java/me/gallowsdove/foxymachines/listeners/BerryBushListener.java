@@ -27,7 +27,6 @@ public class BerryBushListener implements Listener {
         }
     }
 
-    // TODO improve, why does this even work
     @EventHandler(ignoreCancelled = true)
     private void onBushBreak(@Nonnull BlockBreakEvent e) {
         Block b = e.getBlock();
