@@ -21,14 +21,14 @@ public class MobTicker implements Runnable{
                 if (mob != null) {
                     mob.onMobTick(entity);
                     if (mob instanceof CustomBoss) {
-                        if (tick == 20) {
+                        if (tick == 100) {
                             ((CustomBoss) mob).onBossPattern(entity);
                         }
                     }
                 }
             }
         }
-        if (tick == 20) {
+        if (tick == 100) {
             tick = 0;
         }
         tick++;

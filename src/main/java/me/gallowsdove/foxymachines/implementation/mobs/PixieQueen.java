@@ -59,7 +59,7 @@ public class PixieQueen extends CustomBoss {
     @Override
     public void onUniqueTick() {
         this.tick++;
-        if (this.tick == 20) {
+        if (this.tick == 100) {
             this.tick = 0;
         }
     }
@@ -103,7 +103,7 @@ public class PixieQueen extends CustomBoss {
 
             for (Entity player : entities) {
                 if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
-                    if (this.tick % 4 == 0)
+                    if (this.tick % 10 == 0)
                         pixieQueen.attack(player);
                 }
             }
@@ -114,17 +114,17 @@ public class PixieQueen extends CustomBoss {
                 if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
                     pixieQueen.setTarget((LivingEntity) player);
                     pixieQueen.setCharging(false);
-                    if ((this.tick + 1) % 2 == 0) {
+                    if ((this.tick + 2) % 3 == 0) {
                         // TODO find out why this sometimes produces error
                         try {
-                            pixieQueen.setVelocity(player.getLocation().toVector().subtract(entity.getLocation().toVector()).normalize().multiply(0.42));
+                            pixieQueen.setVelocity(player.getLocation().toVector().subtract(entity.getLocation().toVector()).normalize().multiply(0.32));
                         } catch (IllegalArgumentException e) { }
                     }
                 }
             }
         } else if (pattern == AttackPattern.SHOOT) {
             if (pixieQueen.getTarget() != null) {
-                if (this.tick % 2 == 0) {
+                if (this.tick % 5 == 0) {
                     Arrow arrow = entity.launchProjectile(Arrow.class);
                     arrow.setDamage(24);
                     arrow.setColor(Color.LIME);

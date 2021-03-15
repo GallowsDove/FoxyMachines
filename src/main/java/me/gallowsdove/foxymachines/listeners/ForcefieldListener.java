@@ -82,7 +82,7 @@ public class ForcefieldListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onBlocksBreakByExplosiveToolEvent(@Nonnull ExplosiveToolBreakBlocksEvent e) {
-        for (Block b : e.getBlocks()) {
+        for (Block b : e.getAdditionalBlocks()) {
             if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
                 Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> b.setType(Material.BARRIER));
             }

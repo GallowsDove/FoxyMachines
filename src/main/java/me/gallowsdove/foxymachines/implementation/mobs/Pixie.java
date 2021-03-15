@@ -18,7 +18,7 @@ public class Pixie extends CustomMob {
 
     @Override
     public void onSpawn(LivingEntity spawned) {
-        spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(20);
+        spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(24);
         spawned.setRemoveWhenFarAway(true);
     }
 

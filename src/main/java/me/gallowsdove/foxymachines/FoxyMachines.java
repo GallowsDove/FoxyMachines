@@ -54,7 +54,7 @@ public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
         ForcefieldDome.loadDomeLocations();
         PluginUtils.runSync(() -> ForcefieldDome.INSTANCE.setupDomes());
         PluginUtils.scheduleRepeatingSync(new QuestTicker(), 10, 240);
-        PluginUtils.scheduleRepeatingSync(new MobTicker(), 5);
+        PluginUtils.scheduleRepeatingSync(new MobTicker(), 2);
     }
 
     @SneakyThrows
