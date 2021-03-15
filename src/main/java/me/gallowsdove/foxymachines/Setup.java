@@ -9,8 +9,7 @@ import me.gallowsdove.foxymachines.implementation.consumables.SimpleConsumable;
 import me.gallowsdove.foxymachines.implementation.consumables.UnbreakableRune;
 import me.gallowsdove.foxymachines.implementation.machines.*;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleMaterial;
-import me.gallowsdove.foxymachines.implementation.mobs.Pixie;
-import me.gallowsdove.foxymachines.implementation.mobs.PixieQueen;
+import me.gallowsdove.foxymachines.implementation.mobs.*;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPiece;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPressurePlate;
 import me.gallowsdove.foxymachines.implementation.tools.*;
@@ -328,6 +327,9 @@ final class ItemSetup {
 
         new PixieQueen();
         new Pixie();
+        new RiddenSkeletonHorse();
+        new HeadlessHorseman();
+        new Helldog();
     }
 }
 

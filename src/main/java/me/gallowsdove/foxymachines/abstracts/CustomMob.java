@@ -7,6 +7,7 @@ import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
 import me.mrCookieSlime.Slimefun.cscorelib2.data.PersistentDataAPI;
 import org.apache.commons.lang.Validate;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Entity;
@@ -16,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
@@ -171,6 +173,24 @@ public abstract class CustomMob {
                 CustomMob customMob = CustomMob.getByEntity(e.getEntity());
                 if (customMob != null) {
                     customMob.onDamage(e);
+                }
+            }
+
+            @EventHandler(ignoreCancelled = true)
+            private void onNametagEvent(PlayerInteractEntityEvent e)  {
+                ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
+
+                if (item.getType() == Material.NAME_TAG) {
+                    if (CustomMob.getByEntity(e.getRightClicked()) != null) {
+                        e.setCancelled(true);
+                    }
+                }
+            }
+
+            @EventHandler(ignoreCancelled = true)
+            private void onCombust(EntityCombustEvent e)  {
+                if (CustomMob.getByEntity(e.getEntity()) != null) {
+                    e.setCancelled(true);
                 }
             }
         });

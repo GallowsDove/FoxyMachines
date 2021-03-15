@@ -13,6 +13,7 @@ import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.persistence.PersistentDataType;
@@ -37,7 +38,8 @@ public class PixieQueen extends CustomBoss {
     private int tick = 0;
 
     public PixieQueen() {
-        super("PIXIE_QUEEN", ChatColor.GREEN + "Pixie Queen", EntityType.VEX, 600);
+        super("PIXIE_QUEEN", ChatColor.GREEN + "Pixie Queen", EntityType.VEX, 800,
+                DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION, DamageCause.THORNS);
     }
 
     @Override
@@ -82,14 +84,19 @@ public class PixieQueen extends CustomBoss {
     public void onBossPattern(@Nonnull LivingEntity mob) {
         super.onBossPattern(mob);
 
-        short pattern = (short) ThreadLocalRandom.current().nextInt(4);
-        mob.getPersistentDataContainer().set(PATTERN_KEY, PersistentDataType.SHORT, pattern);
-
-        if (pattern == AttackPattern.SHOOT) {
+        short pattern = (short) ThreadLocalRandom.current().nextInt(7);
+        if (pattern < 2) {
+            pattern = AttackPattern.CHARGE;
+        } else if (pattern < 4) {
+            pattern = AttackPattern.SHOOT;
             mob.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 100));
-        } else if (pattern == AttackPattern.SUMMON) {
-            summonPixieSwarm(mob.getLocation());
+        } else if (pattern < 6) {
+            pattern = AttackPattern.SUMMON;
+        } else {
+            pattern = AttackPattern.IDLE;
         }
+
+        mob.getPersistentDataContainer().set(PATTERN_KEY, PersistentDataType.SHORT, pattern);
     }
 
     @Override
@@ -101,10 +108,11 @@ public class PixieQueen extends CustomBoss {
         if (pattern == AttackPattern.CHARGE) {
             Collection<Entity> entities = pixieQueen.getWorld().getNearbyEntities(pixieQueen.getLocation(), 1.6, 1.6, 1.6);
 
-            for (Entity player : entities) {
-                if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
-                    if (this.tick % 10 == 0)
+            if (this.tick % 10 == 0) {
+                for (Entity player : entities) {
+                    if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
                         pixieQueen.attack(player);
+                    }
                 }
             }
 
@@ -123,6 +131,7 @@ public class PixieQueen extends CustomBoss {
                 }
             }
         } else if (pattern == AttackPattern.SHOOT) {
+            pixieQueen.setCharging(false);
             if (pixieQueen.getTarget() != null) {
                 if (this.tick % 5 == 0) {
                     Arrow arrow = entity.launchProjectile(Arrow.class);
@@ -131,8 +140,12 @@ public class PixieQueen extends CustomBoss {
                     arrow.setGlowing(true);
                     arrow.setSilent(true);
                     arrow.setGravity(false);
-                    arrow.setVelocity(pixieQueen.getTarget().getLocation().toVector().subtract(entity.getLocation().toVector()).normalize().multiply(1.42));
+                    arrow.setVelocity(pixieQueen.getTarget().getLocation().toVector().subtract(pixieQueen.getLocation().toVector()).normalize().multiply(1.42));
                 }
+            }
+        } else if (pattern == AttackPattern.SUMMON) {
+            if (this.tick == 25) {
+                summonPixieSwarm(pixieQueen.getLocation());
             }
         }
     }
@@ -158,7 +171,7 @@ public class PixieQueen extends CustomBoss {
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
 
-        for (int i = 0; i < random.nextInt(2) + 2; i++) {
+        for (int i = 0; i < random.nextInt(2) + 3; i++) {
             mob.spawn(new Location(loc.getWorld(), loc.getX() + random.nextDouble(-2, 2),
                     loc.getY() + random.nextDouble(1.2, 2.4), loc.getZ() + random.nextDouble(-2, 2)));
         }

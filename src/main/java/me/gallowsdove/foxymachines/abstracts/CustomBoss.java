@@ -5,7 +5,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarFlag;
 import org.bukkit.boss.BarStyle;
@@ -14,6 +13,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import javax.annotation.Nonnull;
@@ -21,6 +21,7 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class CustomBoss extends CustomMob {
 
@@ -28,8 +29,11 @@ public abstract class CustomBoss extends CustomMob {
 
     private static final Map<LivingEntity, BossBar> instances = new HashMap<>();
 
-    public CustomBoss(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health) {
+    private final Set<DamageCause> resistances;
+
+    public CustomBoss(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health, @Nonnull DamageCause... resistances) {
         super(id, name, type, health);
+        this.resistances = Set.of(resistances);
     }
 
     protected static final class BossBarStyle {
@@ -67,6 +71,7 @@ public abstract class CustomBoss extends CustomMob {
     }
 
     @Override
+    @OverridingMethodsMustInvokeSuper
     public final void onHit(@Nonnull EntityDamageEvent e) {
         this.onBossDamaged(e);
 
@@ -74,14 +79,28 @@ public abstract class CustomBoss extends CustomMob {
             LivingEntity entity = (LivingEntity) e.getEntity();
             BossBar bossbar = getBossBarForEntity(entity);
 
-            double finalHealth = entity.getHealth() - e.getFinalDamage();
-            if (finalHealth > 0) {
-                bossbar.setProgress(finalHealth / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+            if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity) {
+                LivingEntity vehicle = (LivingEntity) entity.getVehicle();
+                double finalHealth = entity.getHealth() + vehicle.getHealth() - e.getFinalDamage();
+                if (finalHealth > 0) {
+                    bossbar.setProgress(finalHealth / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
+                            vehicle.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
+                }
+            } else {
+                double finalHealth = entity.getHealth() - e.getFinalDamage();
+                if (finalHealth > 0) {
+                    bossbar.setProgress(finalHealth / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+                }
             }
         }
     }
 
-    protected void onBossDamaged(@Nonnull EntityDamageEvent e) { }
+    @OverridingMethodsMustInvokeSuper
+    protected void onBossDamaged(@Nonnull EntityDamageEvent e) {
+        if (this.resistances.contains(e.getCause())) {
+            e.setCancelled(true);
+        }
+    }
 
     @Override
     @OverridingMethodsMustInvokeSuper
@@ -120,7 +139,13 @@ public abstract class CustomBoss extends CustomMob {
         BossBarStyle style = getBossBarStyle();
         BossBar bossbar = Bukkit.createBossBar(KEY, style.name, style.color, style.style, style.flags);
         bossbar.setVisible(true);
-        bossbar.setProgress(entity.getHealth() / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+        if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity) {
+            LivingEntity vehicle = (LivingEntity) entity.getVehicle();
+            bossbar.setProgress((entity.getHealth() + vehicle.getHealth()) / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
+                    vehicle.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
+        } else {
+            bossbar.setProgress(entity.getHealth() / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+        }
         instances.put(entity, bossbar);
         return bossbar;
     }
@@ -130,5 +155,10 @@ public abstract class CustomBoss extends CustomMob {
             bossbar.setVisible(false);
             bossbar.removeAll();
         }
+    }
+
+    public void updateBossBar(LivingEntity entity, double progress) {
+        BossBar bossbar = getBossBarForEntity(entity);
+        bossbar.setProgress(progress);
     }
 }
