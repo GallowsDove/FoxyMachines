@@ -260,6 +260,11 @@ final class ItemSetup {
         new ElectricFireStaff().register(FoxyMachines.getInstance());
         new ElectricFireStaffII().register(FoxyMachines.getInstance());
         new HealingBow().register(FoxyMachines.getInstance());
+        new SlimefunItem(Items.category, Items.ACRI_ARCUM, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.EQUANIMOUS_GEM, new ItemStack(Material.BOW), Items.EQUANIMOUS_GEM,
+                Items.BUCKET_OF_BLOOD, Items.VILE_PUMPKIN, Items.BUCKET_OF_BLOOD,
+                Items.EQUANIMOUS_GEM, new ItemStack(Material.BOW), Items.EQUANIMOUS_GEM
+                }).register(FoxyMachines.getInstance());
         new SlimefunItem(Items.category, Items.CURSED_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 Items.BLOOD, Items.CURSED_RABBIT_PAW, Items.BLOOD,
                 Items.MAGIC_LUMP_5, new ItemStack(Material.NETHERITE_SWORD), Items.MAGIC_LUMP_5,
@@ -506,6 +511,10 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "vile_seeds"),
                 6669701, "Health Boost.", 24)
                 .addItems(Items.VILE_SEEDS)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "acri_arcum"),
+                6669702, "Bow.", 46)
+                .addItems(Items.ACRI_ARCUM)
                 .register();
     }
 }

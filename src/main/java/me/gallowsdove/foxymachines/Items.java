@@ -591,4 +591,17 @@ public final class Items{
             "",
             "&7Health Boost V"
     );
+
+    public static final SlimefunItemStack ACRI_ARCUM = new SlimefunItemStack(
+            "ACRI_ARCUM",
+            Material.BOW,
+            "&eAcri Arcum",
+            "",
+            "&7Damage III",
+            "&7Armor Piercing II"
+    );
+    static {
+        ACRI_ARCUM.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 7);
+        ACRI_ARCUM.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
+    }
 }

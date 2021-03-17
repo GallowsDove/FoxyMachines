@@ -91,7 +91,7 @@ public class SwordListener implements Listener {
 
                         e.setDamage(e.getDamage() * 2);
 
-                        Utils.dealDamageBypassingArmor(entity, e.getDamage() - e.getFinalDamage() * 0.06);
+                        Utils.dealDamageBypassingArmor(entity, (e.getDamage() - e.getFinalDamage()) * 0.064);
 
                         double health = humanoid.getHealth() + 1.5D;
                         double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
