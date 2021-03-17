@@ -39,7 +39,9 @@ public class SimpleConsumable extends SimpleSlimefunItem<ItemUseHandler> {
                 } else {
                     item.setAmount(item.getAmount() - 1);
                 }
+                double health = p.getHealth();
                 p.addPotionEffects(Arrays.asList(effects));
+                p.setHealth(health);
                 p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
             }
         };

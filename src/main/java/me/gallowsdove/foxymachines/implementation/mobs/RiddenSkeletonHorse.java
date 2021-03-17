@@ -62,6 +62,8 @@ public class RiddenSkeletonHorse extends CustomMob {
 
     @Override
     protected void onDeath(@Nonnull EntityDeathEvent e) {
+        e.getDrops().clear();
+
         List<Entity> passengers = e.getEntity().getPassengers();
 
         for (Entity passenger: passengers) {

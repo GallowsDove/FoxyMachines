@@ -2,9 +2,11 @@ package me.gallowsdove.foxymachines.implementation.mobs;
 
 import io.github.mooy1.infinitylib.core.PluginUtils;
 import me.gallowsdove.foxymachines.FoxyMachines;
+import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import me.gallowsdove.foxymachines.utils.Utils;
+import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
@@ -55,7 +57,7 @@ public class HeadlessHorseman extends CustomBoss {
 
         EntityEquipment equipment = spawned.getEquipment();
         equipment.setArmorContents(new ItemStack[] { new ItemStack(Material.NETHERITE_BOOTS), new ItemStack(Material.NETHERITE_LEGGINGS),
-                new ItemStack(Material.NETHERITE_CHESTPLATE), null });
+                new ItemStack(Material.NETHERITE_CHESTPLATE), new ItemStack(Material.CARVED_PUMPKIN) });
 
         spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(28);
         spawned.getPersistentDataContainer().set(PATTERN_KEY, PersistentDataType.SHORT, AttackPattern.LIGHTNING);
@@ -189,8 +191,10 @@ public class HeadlessHorseman extends CustomBoss {
     public void onDeath(@Nonnull EntityDeathEvent e) {
         super.onDeath(e);
 
+        e.getDrops().clear();
         Location loc = e.getEntity().getLocation();
-        loc.getWorld().spawn(loc, ExperienceOrb.class).setExperience(1800 + ThreadLocalRandom.current().nextInt(800));
+        loc.getWorld().dropItemNaturally(loc, new SlimefunItemStack(Items.VILE_PUMPKIN, 1));
+        loc.getWorld().spawn(loc, ExperienceOrb.class).setExperience(2000 + ThreadLocalRandom.current().nextInt(800));
     }
 
     @Override

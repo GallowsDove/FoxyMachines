@@ -7,6 +7,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 
 import javax.annotation.Nonnull;
@@ -19,6 +20,11 @@ public class Pixie extends CustomMob {
     @Override
     public void onSpawn(@Nonnull LivingEntity spawned) {
         spawned.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(24);
+    }
+
+    @Override
+    public void onDeath(@Nonnull EntityDeathEvent e) {
+        e.getDrops().clear();
     }
 
     @Override

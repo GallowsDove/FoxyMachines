@@ -7,6 +7,7 @@ import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 
 import javax.annotation.Nonnull;
@@ -60,6 +61,11 @@ public class Helldog extends CustomMob {
                 }
             }
         }
+    }
+
+    @Override
+    public void onDeath(@Nonnull EntityDeathEvent e) {
+        e.getDrops().clear();
     }
 
     @Override
