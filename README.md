@@ -9,6 +9,9 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 
 #### Unwanted items can be disabled in items.yml
 
+## Bosses
+* Pixie Queen
+* Headless Horseman
 ## Tools
 * Electric Wind Staff
 * Electric Fire Staff
@@ -21,6 +24,7 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Cursed Sword
 * Celestial Sword
 * Elucidator
+* Acri Arcum
 ## Armor
 * Aquatic Helmet
 * Resistant Chestplate
@@ -35,3 +39,4 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Forcefield Dome
 ## Multiblocks
 * Sacrificial Altar
+
