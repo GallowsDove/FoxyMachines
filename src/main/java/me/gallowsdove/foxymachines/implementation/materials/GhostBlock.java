@@ -13,7 +13,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
@@ -66,18 +65,9 @@ public class GhostBlock extends SlimefunItem {
                         block.setInvulnerable(true);
                         block.getPersistentDataContainer().set(KEY, PersistentDataType.STRING, "true");
 
-                        ItemStack item;
-                        if (e.getHand() == EquipmentSlot.HAND) {
-                            item = p.getInventory().getItemInMainHand();
-                        } else {
-                            item = p.getInventory().getItemInOffHand();
-                        }
+                        ItemStack item = e.getInteractEvent().getItem();
 
-                        if (item.getAmount() == 1) {
-                            p.getInventory().setItemInMainHand(null);
-                        } else {
-                            item.setAmount(item.getAmount() - 1);
-                        }
+                        item.setAmount(item.getAmount() - 1);
                     }
                 }
             }
