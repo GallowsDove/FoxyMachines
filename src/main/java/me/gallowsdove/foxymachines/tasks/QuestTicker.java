@@ -1,4 +1,4 @@
-package me.gallowsdove.foxymachines.tickers;
+package me.gallowsdove.foxymachines.tasks;
 
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.Items;

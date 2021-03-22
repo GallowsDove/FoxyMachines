@@ -12,6 +12,11 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 ## Bosses
 * Pixie Queen
 * Headless Horseman
+
+## Other Mobs
+* Pixie
+* Helldog
+
 ## Tools
 * Electric Wind Staff
 * Electric Fire Staff
@@ -19,17 +24,21 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Berry Bush Trimmer
 * Poseidon's Fishing Rod
 * Remote Controller
+* Ghost Block Remover
+
 ## Weapons
 * Healing Bow
 * Cursed Sword
 * Celestial Sword
 * Elucidator
 * Acri Arcum
+
 ## Armor
 * Aquatic Helmet
 * Resistant Chestplate
 * Fiery Leggings
 * Light Boots
+
 ## Machines
 * Improvement Forge
 * Potion Mixer
@@ -37,6 +46,7 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 * Chunk Loader
 * Boosted Rails
 * Forcefield Dome
-## Multiblocks
-* Sacrificial Altar
 
+## Others
+* Sacrificial Altar
+* Ghost Blocks

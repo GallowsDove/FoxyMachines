@@ -8,6 +8,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
@@ -21,7 +22,7 @@ public class SimpleConsumable extends SimpleSlimefunItem<ItemUseHandler> {
 
     @ParametersAreNonnullByDefault
     public SimpleConsumable(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, PotionEffect[] effects, int amount) {
-        super(Items.category, item, recipeType, recipe, new SlimefunItemStack(item, amount));
+        super(Items.CATEGORY, item, recipeType, recipe, new SlimefunItemStack(item, amount));
         this.effects = effects;
     }
 
@@ -33,12 +34,20 @@ public class SimpleConsumable extends SimpleSlimefunItem<ItemUseHandler> {
             public void onRightClick(PlayerRightClickEvent e) {
                 e.cancel();
                 Player p = e.getPlayer();
-                ItemStack item = p.getInventory().getItemInMainHand();
+                ItemStack item;
+
+                if (e.getHand() == EquipmentSlot.HAND) {
+                    item = p.getInventory().getItemInMainHand();
+                } else {
+                    item = p.getInventory().getItemInOffHand();
+                }
+
                 if (item.getAmount() == 1) {
                     p.getInventory().setItemInMainHand(null);
                 } else {
                     item.setAmount(item.getAmount() - 1);
                 }
+
                 double health = p.getHealth();
                 p.addPotionEffects(Arrays.asList(effects));
                 p.setHealth(health);

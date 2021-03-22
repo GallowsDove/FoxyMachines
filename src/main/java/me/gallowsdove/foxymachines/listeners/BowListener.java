@@ -12,7 +12,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -25,14 +24,12 @@ public class BowListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void onShoot(@Nonnull EntityShootBowEvent e) {
-        if (e.getEntity() instanceof HumanEntity && e.getProjectile() instanceof Arrow) {
-            PlayerInventory inventory = ((HumanEntity) e.getEntity()).getInventory();
-            if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.ACRI_ARCUM, false, false)) {
-                Arrow arrow = (Arrow) e.getProjectile();
-                arrow.setVelocity(arrow.getVelocity().multiply(2));
-                arrow.setGlowing(true);
-                arrow.getPersistentDataContainer().set(KEY, PersistentDataType.SHORT, (short) 1);
-            }
+        if (e.getEntity() instanceof HumanEntity && e.getProjectile() instanceof Arrow &&
+                SlimefunUtils.isItemSimilar(e.getBow(), Items.ACRI_ARCUM, false, false)) {
+            Arrow arrow = (Arrow) e.getProjectile();
+            arrow.setVelocity(arrow.getVelocity().multiply(2));
+            arrow.setGlowing(true);
+            arrow.getPersistentDataContainer().set(KEY, PersistentDataType.SHORT, (short) 1);
         }
     }
 

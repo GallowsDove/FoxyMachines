@@ -22,9 +22,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public final class Items{
 
-    public static Category category = new Category(
+    public static Category CATEGORY = new Category(
             new NamespacedKey(FoxyMachines.getInstance(), "foxy_machines"),
             new CustomItem(Material.SHEARS, "&4Foxy Machines", "", "&a> Click to open"));
+
+    public static Category GHOST_BLOCKS_CATEGORY = new Category(
+            new NamespacedKey(FoxyMachines.getInstance(), "ghost_blocks"),
+            new CustomItem(Material.GLASS, "&5Ghost Blocks", "", "&a> Click to open"));
 
     public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
             "ELECTRIC_WIND_STAFF",
@@ -604,4 +608,12 @@ public final class Items{
         ACRI_ARCUM.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 7);
         ACRI_ARCUM.addUnsafeEnchantment(Enchantment.ARROW_INFINITE, 1);
     }
+
+    public static final SlimefunItemStack GHOST_BLOCK_REMOVER = new SlimefunItemStack(
+            "GHOST_BLOCK_REMOVER",
+            Material.CLOCK,
+            "&eGhost Block Remover",
+            "",
+            "&7Right click to remove a Ghost Block."
+    );
 }

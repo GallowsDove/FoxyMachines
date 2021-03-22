@@ -18,11 +18,16 @@ public class ElectricFireStaffII extends SlimefunItem implements Rechargeable {
     private static final float COST = 1.5F;
 
     public ElectricFireStaffII() {
-        super(Items.category, Items.ELECTRIC_FIRE_STAFF_II, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.CATEGORY, Items.ELECTRIC_FIRE_STAFF_II, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.CARBONADO, SlimefunItems.POWER_CRYSTAL, SlimefunItems.CARBONADO,
                 SlimefunItems.HEATING_COIL, Items.ELECTRIC_FIRE_STAFF, SlimefunItems.HEATING_COIL,
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.MEDIUM_CAPACITOR, SlimefunItems.REINFORCED_ALLOY_INGOT
         });
+    }
+
+    @Override
+    public void preRegister() {
+        addItemHandler(onUse());
     }
 
     @Override
@@ -41,11 +46,5 @@ public class ElectricFireStaffII extends SlimefunItem implements Rechargeable {
                 fireball.setVelocity(fireball.getVelocity().multiply(50));
             }
         };
-    }
-
-
-    @Override
-    public void preRegister() {
-        addItemHandler(onUse());
     }
 }

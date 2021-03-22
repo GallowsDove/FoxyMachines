@@ -1,4 +1,4 @@
-package me.gallowsdove.foxymachines.tickers;
+package me.gallowsdove.foxymachines.tasks;
 
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;

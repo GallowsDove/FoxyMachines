@@ -1,6 +1,10 @@
 # max-chunk-loaders: default: 8
 # maximum amount of chunk loaders allowed per player, set to 0 for infinite.
 
+# ghost-blocks-disabled: default: false
+# Disables Ghost Blocks without having to set them all to disabled in items.yml.
+
 options:
   auto-update: true
   max-chunk-loaders: 8
+  ghost-blocks-disabled: false

@@ -27,7 +27,7 @@ public class BerryBushTrimmer extends SlimefunItem {
     public static HashSet<SimpleLocation> TRIMMED_BLOCKS = new HashSet<>();
 
     public BerryBushTrimmer() {
-        super(Items.category, Items.BERRY_BUSH_TRIMMER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.CATEGORY, Items.BERRY_BUSH_TRIMMER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null, SlimefunItems.DAMASCUS_STEEL_INGOT, null,
                 SlimefunItems.DAMASCUS_STEEL_INGOT, null, SlimefunItems.DAMASCUS_STEEL_INGOT,
                 new ItemStack(Material.STICK), SlimefunItems.DAMASCUS_STEEL_INGOT, null

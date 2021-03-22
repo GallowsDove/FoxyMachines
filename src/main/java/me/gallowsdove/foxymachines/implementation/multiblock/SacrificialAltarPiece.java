@@ -19,7 +19,7 @@ import java.util.List;
 
 public class SacrificialAltarPiece extends SlimefunItem {
     public SacrificialAltarPiece(@Nonnull SlimefunItemStack item, @Nonnull ItemStack[] recipe, int amount) {
-        super(Items.category, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, new SlimefunItemStack(item, amount));
+        super(Items.CATEGORY, item, RecipeType.ENHANCED_CRAFTING_TABLE, recipe, new SlimefunItemStack(item, amount));
     }
 
     @Override

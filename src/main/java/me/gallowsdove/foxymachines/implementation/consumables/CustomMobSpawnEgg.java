@@ -21,7 +21,7 @@ public class CustomMobSpawnEgg extends SimpleSlimefunItem<ItemUseHandler> {
 
     @ParametersAreNonnullByDefault
     public CustomMobSpawnEgg(String id, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(Items.category, item, recipeType, recipe);
+        super(Items.CATEGORY, item, recipeType, recipe);
         this.id = id;
     }
 

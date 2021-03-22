@@ -28,7 +28,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
 
     public UnbreakableRune() {
-        super(Items.category, Items.UNBREAKABLE_RUNE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+        super(Items.CATEGORY, Items.UNBREAKABLE_RUNE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 Items.DAMIENIUM, Items.MAGIC_LUMP_5, Items.DAMIENIUM,
                 SlimefunItems.ESSENCE_OF_AFTERLIFE, SlimefunItems.LIGHTNING_RUNE , SlimefunItems.ESSENCE_OF_AFTERLIFE,
                 Items.DAMIENIUM, Items.MAGIC_LUMP_5, Items.DAMIENIUM

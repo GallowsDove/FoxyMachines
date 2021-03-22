@@ -15,7 +15,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 public class SimpleMaterial extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
     @ParametersAreNonnullByDefault
     public SimpleMaterial(SlimefunItemStack item, RecipeType type, ItemStack[] recipe, int amount) {
-        super(Items.category, item, type, recipe, new SlimefunItemStack(item, amount));
+        super(Items.CATEGORY, item, type, recipe, new SlimefunItemStack(item, amount));
     }
 
     @Nonnull
