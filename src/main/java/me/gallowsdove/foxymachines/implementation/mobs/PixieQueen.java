@@ -35,8 +35,6 @@ public class PixieQueen extends CustomBoss {
 
     private static final NamespacedKey PATTERN_KEY = new NamespacedKey(FoxyMachines.getInstance(), "pattern");
 
-    private int tick = 0;
-
     public PixieQueen() {
         super("PIXIE_QUEEN", ChatColor.GREEN + "Pixie Queen", EntityType.VEX, 800,
                 DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION, DamageCause.THORNS);
@@ -56,14 +54,6 @@ public class PixieQueen extends CustomBoss {
     @Override
     protected BossBarStyle getBossBarStyle() {
         return new BossBarStyle("Pixie Queen", BarColor.GREEN, BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
-    }
-
-    @Override
-    public void onUniqueTick() {
-        this.tick++;
-        if (this.tick == 100) {
-            this.tick = 0;
-        }
     }
 
     @Override
@@ -100,7 +90,7 @@ public class PixieQueen extends CustomBoss {
     }
 
     @Override
-    public void onMobTick(@Nonnull LivingEntity entity) {
+    public void onMobTick(@Nonnull LivingEntity entity, int tick) {
         Vex pixieQueen = (Vex) entity;
 
         short pattern = entity.getPersistentDataContainer().get(PATTERN_KEY, PersistentDataType.SHORT);
@@ -108,7 +98,7 @@ public class PixieQueen extends CustomBoss {
         if (pattern == AttackPattern.CHARGE) {
             Collection<Entity> entities = pixieQueen.getWorld().getNearbyEntities(pixieQueen.getLocation(), 1.6, 1.6, 1.6);
 
-            if (this.tick % 10 == 0) {
+            if (tick % 10 == 0) {
                 for (Entity player : entities) {
                     if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
                         pixieQueen.attack(player);
@@ -122,7 +112,7 @@ public class PixieQueen extends CustomBoss {
                 if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
                     pixieQueen.setTarget((LivingEntity) player);
                     pixieQueen.setCharging(false);
-                    if ((this.tick + 2) % 3 == 0) {
+                    if ((tick + 2) % 3 == 0) {
                         // TODO find out why this sometimes produces error
                         try {
                             pixieQueen.setVelocity(player.getLocation().toVector().subtract(entity.getLocation().toVector()).normalize().multiply(0.32));
@@ -133,7 +123,7 @@ public class PixieQueen extends CustomBoss {
         } else if (pattern == AttackPattern.SHOOT) {
             pixieQueen.setCharging(false);
             if (pixieQueen.getTarget() != null) {
-                if (this.tick % 5 == 0) {
+                if (tick % 5 == 0) {
                     Arrow arrow = entity.launchProjectile(Arrow.class);
                     arrow.setDamage(24);
                     arrow.setColor(Color.LIME);
@@ -144,7 +134,7 @@ public class PixieQueen extends CustomBoss {
                 }
             }
         } else if (pattern == AttackPattern.SUMMON) {
-            if (this.tick == 25) {
+            if (tick == 25) {
                 summonPixieSwarm(pixieQueen.getLocation());
             }
         }
@@ -158,11 +148,6 @@ public class PixieQueen extends CustomBoss {
         Location loc = e.getEntity().getLocation();
         loc.getWorld().dropItemNaturally(loc, new SlimefunItemStack(Items.PIXIE_QUEEN_HEART, 1));
         loc.getWorld().spawn(loc, ExperienceOrb.class).setExperience(1400 + ThreadLocalRandom.current().nextInt(600));
-    }
-
-    @Override
-    protected int getSpawnChance() {
-        return 0;
     }
 
     private void summonPixieSwarm(Location loc) {

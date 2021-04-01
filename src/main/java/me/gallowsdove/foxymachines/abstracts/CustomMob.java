@@ -1,6 +1,5 @@
 package me.gallowsdove.foxymachines.abstracts;
 
-import io.github.mooy1.infinitylib.core.PluginUtils;
 import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
@@ -53,17 +52,14 @@ public abstract class CustomMob {
     private final int health;
 
     public CustomMob(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health) {
-
         Validate.notNull(this.id = id);
         Validate.notNull(this.name = ChatColors.color(name));
         Validate.notNull(this.type = type);
         Validate.isTrue(type.isAlive(), "Entity type " + type + " is not alive!");
         Validate.isTrue((this.health = health) > 0);
-        Validate.isTrue(getSpawnChance() >= 0 && getSpawnChance() <= 100);
         Validate.notNull(getSpawnOffset());
 
         MOBS.put(id, this);
-
     }
 
     @Nonnull
@@ -83,11 +79,11 @@ public abstract class CustomMob {
         return entity;
     }
 
-    public void onUniqueTick() { }
+    public void onUniqueTick(int tick) { }
 
     protected void onSpawn(@Nonnull LivingEntity spawned) { }
 
-    public void onMobTick(@Nonnull LivingEntity mob) { }
+    public void onMobTick(@Nonnull LivingEntity mob, int tick) { }
 
     protected void onHit(@Nonnull EntityDamageEvent e) { }
 
@@ -103,22 +99,12 @@ public abstract class CustomMob {
 
     protected void onDamage(EntityDamageEvent e) { }
 
-    protected abstract int getSpawnChance();
-
-    protected int getMaxMobsPerGroup() {
-        return 1;
-    }
-
-    protected boolean getSpawnInLightLevel(int lightLevel) {
-        return lightLevel <= 7;
-    }
-
     protected Vector getSpawnOffset() {
         return new Vector();
     }
 
     static {
-        PluginUtils.registerListener(new Listener() {
+        FoxyMachines.getInstance().registerListener(new Listener() {
 
             @EventHandler
             public void onTarget(@Nonnull EntityTargetEvent e) {

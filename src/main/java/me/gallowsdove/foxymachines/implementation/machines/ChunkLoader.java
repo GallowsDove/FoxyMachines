@@ -43,7 +43,7 @@ public class ChunkLoader extends SlimefunItem {
             @Override
             public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> drops) {
                 Block b = e.getBlock();
-                Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> {
+                FoxyMachines.getInstance().runSync(() -> {
                     b.setType(Material.GLASS);
 
                     if (BlockStorage.getLocationInfo(b.getLocation(), "owner") != null) {

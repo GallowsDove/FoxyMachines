@@ -40,9 +40,4 @@ public class Pixie extends CustomMob {
             e.setCancelled(true);
         }
     }
-
-    @Override
-    protected int getSpawnChance() {
-        return 0;
-    }
 }

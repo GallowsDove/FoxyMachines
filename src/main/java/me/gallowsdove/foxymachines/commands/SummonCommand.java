@@ -1,19 +1,18 @@
 package me.gallowsdove.foxymachines.commands;
 
 
-import io.github.mooy1.infinitylib.command.AbstractCommand;
+import io.github.mooy1.infinitylib.commands.AbstractCommand;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 
 public final class SummonCommand extends AbstractCommand {
 
     public SummonCommand() {
-        super("summon", "Summons a custom mob", true);
+        super("summon", "Summons a custom mob", "foxymachines.admin");
     }
 
     @Override
@@ -30,13 +29,9 @@ public final class SummonCommand extends AbstractCommand {
         }
     }
 
-    @Nonnull
+
     @Override
-    public List<String> onTab(@Nonnull CommandSender commandSender, @Nonnull String[] strings) {
-        List<String> ids = new ArrayList<>();
-        if (strings.length == 2) {
-            ids.addAll(CustomMob.MOBS.keySet());
-        }
-        return ids;
+    public void onTab(@Nonnull CommandSender commandSender, @Nonnull String[] args, @Nonnull List<String> tabs) {
+        tabs.addAll(CustomMob.MOBS.keySet());
     }
 }

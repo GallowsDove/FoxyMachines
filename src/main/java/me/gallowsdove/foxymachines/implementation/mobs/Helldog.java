@@ -15,8 +15,6 @@ import java.util.Collection;
 
 public class Helldog extends CustomMob {
 
-    private int tick = 0;
-
     public Helldog() {
         super("HELLDOG", "Helldog", EntityType.WOLF, 52);
     }
@@ -32,27 +30,19 @@ public class Helldog extends CustomMob {
     }
 
     @Override
-    public void onUniqueTick() {
-        this.tick++;
-        if (this.tick == 100) {
-            this.tick = 0;
-        }
-    }
-
-    @Override
-    public void onMobTick(@Nonnull LivingEntity entity) {
+    public void onMobTick(@Nonnull LivingEntity entity, int tick) {
         Wolf helldog = (Wolf) entity;
 
         Collection<Entity> entities = helldog.getWorld().getNearbyEntities(helldog.getLocation(), 1.54, 1.54, 1.54);
 
         for (Entity player : entities) {
             if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
-                if (this.tick % 10 == 0)
+                if (tick % 10 == 0)
                     helldog.attack(player);
             }
         }
 
-        if (this.tick % 20 == 0) {
+        if (tick % 20 == 0) {
             entities = helldog.getWorld().getNearbyEntities(helldog.getLocation(), 16, 16, 16);
 
             for (Entity player : entities) {
@@ -80,10 +70,5 @@ public class Helldog extends CustomMob {
         if (!(e.getTarget() instanceof Player)) {
             e.setCancelled(true);
         }
-    }
-
-    @Override
-    protected int getSpawnChance() {
-        return 0;
     }
 }

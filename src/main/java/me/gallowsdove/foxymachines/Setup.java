@@ -40,6 +40,9 @@ final class ItemSetup {
 
         initialised = true;
 
+        Config cfg = new Config(FoxyMachines.getInstance());
+        boolean customMobs = cfg.getBoolean("custom-mobs");
+
         new SimpleMaterial(Items.MAGIC_LUMP_4, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.MAGIC_LUMP_3, SlimefunItems.MAGIC_LUMP_3, null,
                 SlimefunItems.MAGIC_LUMP_3, SlimefunItems.MAGIC_LUMP_3, null,
@@ -195,28 +198,32 @@ final class ItemSetup {
                 Items.BLOOD, new ItemStack(Material.BUCKET), Items.BLOOD,
                 Items.BLOOD, Items.BLOOD, Items.BLOOD
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleConsumable(Items.PIXIE_DUST, RecipeType.GRIND_STONE, new ItemStack[] {
-                Items.PIXIE_QUEEN_HEART, null, null,
-                null, null, null,
-                null, null, null
-                }, new PotionEffect[] {new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1600, 3, false, false)},
-                8).register(FoxyMachines.getInstance());
-        new SimpleConsumable(Items.VILE_SEEDS, RecipeType.GRIND_STONE, new ItemStack[] {
-                Items.VILE_PUMPKIN, null, null,
-                null, null, null,
-                null, null, null
-                }, new PotionEffect[] {new PotionEffect(PotionEffectType.HEALTH_BOOST, 2700, 4, false, false)},
-                6).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.PIXIE_QUEEN_HEART, FoxyRecipeType.CUSTOM_MOB_DROP, new ItemStack[] {
-                null, null, null,
-                null, new CustomItem(Material.CREEPER_SPAWN_EGG, "&aPixie Queen", "&7Summon it using &aPixie Queen Spawn Egg"), null,
-                null, null, null
-                }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.VILE_PUMPKIN, FoxyRecipeType.CUSTOM_MOB_DROP, new ItemStack[] {
-                null, null, null,
-                null, new CustomItem(Material.SPIDER_SPAWN_EGG, "&cHeadless Horseman", "&7Summon it using &cHeadless Horseman Spawn Egg"), null,
-                null, null, null
-                }, 1).register(FoxyMachines.getInstance());
+
+        if (customMobs) {
+            new SimpleConsumable(Items.PIXIE_DUST, RecipeType.GRIND_STONE, new ItemStack[]{
+                    Items.PIXIE_QUEEN_HEART, null, null,
+                    null, null, null,
+                    null, null, null
+                    }, new PotionEffect[]{new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1600, 3, false, false)},
+                    8).register(FoxyMachines.getInstance());
+            new SimpleConsumable(Items.VILE_SEEDS, RecipeType.GRIND_STONE, new ItemStack[]{
+                    Items.VILE_PUMPKIN, null, null,
+                    null, null, null,
+                    null, null, null
+                    }, new PotionEffect[]{new PotionEffect(PotionEffectType.HEALTH_BOOST, 2700, 4, false, false)},
+                    6).register(FoxyMachines.getInstance());
+            new SimpleMaterial(Items.PIXIE_QUEEN_HEART, FoxyRecipeType.CUSTOM_MOB_DROP, new ItemStack[]{
+                    null, null, null,
+                    null, new CustomItem(Material.CREEPER_SPAWN_EGG, "&aPixie Queen", "&7Summon it using &aPixie Queen Spawn Egg"), null,
+                    null, null, null
+                    }, 1).register(FoxyMachines.getInstance());
+            new SimpleMaterial(Items.VILE_PUMPKIN, FoxyRecipeType.CUSTOM_MOB_DROP, new ItemStack[]{
+                    null, null, null,
+                    null, new CustomItem(Material.SPIDER_SPAWN_EGG, "&cHeadless Horseman", "&7Summon it using &cHeadless Horseman Spawn Egg"), null,
+                    null, null, null
+                    }, 1).register(FoxyMachines.getInstance());
+        }
+
         new SlimefunItem(Items.CATEGORY, Items.CURSED_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
                 null, null, null,
                 null, Items.CURSED_SWORD, null,
@@ -263,11 +270,19 @@ final class ItemSetup {
         new ElectricFireStaff().register(FoxyMachines.getInstance());
         new ElectricFireStaffII().register(FoxyMachines.getInstance());
         new HealingBow().register(FoxyMachines.getInstance());
-        new SlimefunItem(Items.CATEGORY, Items.ACRI_ARCUM, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.EQUANIMOUS_GEM, new ItemStack(Material.BOW), Items.EQUANIMOUS_GEM,
-                Items.BUCKET_OF_BLOOD, Items.VILE_PUMPKIN, Items.BUCKET_OF_BLOOD,
-                Items.EQUANIMOUS_GEM, new ItemStack(Material.BOW), Items.EQUANIMOUS_GEM
-                }).register(FoxyMachines.getInstance());
+        if (customMobs) {
+            new SlimefunItem(Items.CATEGORY, Items.ACRI_ARCUM, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                    Items.EQUANIMOUS_GEM, new ItemStack(Material.BOW), Items.EQUANIMOUS_GEM,
+                    Items.BUCKET_OF_BLOOD, Items.VILE_PUMPKIN, Items.BUCKET_OF_BLOOD,
+                    Items.EQUANIMOUS_GEM, new ItemStack(Material.BOW), Items.EQUANIMOUS_GEM
+                    }).register(FoxyMachines.getInstance());
+        } else {
+            new SlimefunItem(Items.CATEGORY, Items.ACRI_ARCUM, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                    Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM,
+                    Items.BUCKET_OF_BLOOD, new ItemStack(Material.BOW), Items.BUCKET_OF_BLOOD,
+                    Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM
+                    }).register(FoxyMachines.getInstance());
+        }
         new SlimefunItem(Items.CATEGORY, Items.CURSED_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 Items.BLOOD, Items.CURSED_RABBIT_PAW, Items.BLOOD,
                 Items.MAGIC_LUMP_5, new ItemStack(Material.NETHERITE_SWORD), Items.MAGIC_LUMP_5,
@@ -278,11 +293,19 @@ final class ItemSetup {
                 Items.PURE_BONE_DUST, new ItemStack(Material.NETHERITE_SWORD), Items.PURE_BONE_DUST,
                 Items.MAGIC_LUMP_5, Items.POSEIDONS_BLESSING, Items.MAGIC_LUMP_5
                 }).register(FoxyMachines.getInstance());
-        new SlimefunItem(Items.CATEGORY, Items.ELUCIDATOR, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.EQUANIMOUS_GEM, Items.CURSED_SWORD, Items.EQUANIMOUS_GEM,
-                Items.BUCKET_OF_BLOOD, Items.PIXIE_QUEEN_HEART, Items.BUCKET_OF_BLOOD,
-                Items.EQUANIMOUS_GEM, Items.CELESTIAL_SWORD, Items.EQUANIMOUS_GEM
-        }).register(FoxyMachines.getInstance());
+        if (customMobs) {
+            new SlimefunItem(Items.CATEGORY, Items.ELUCIDATOR, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                    Items.EQUANIMOUS_GEM, Items.CURSED_SWORD, Items.EQUANIMOUS_GEM,
+                    Items.BUCKET_OF_BLOOD, Items.PIXIE_QUEEN_HEART, Items.BUCKET_OF_BLOOD,
+                    Items.EQUANIMOUS_GEM, Items.CELESTIAL_SWORD, Items.EQUANIMOUS_GEM
+                    }).register(FoxyMachines.getInstance());
+        } else {
+            new SlimefunItem(Items.CATEGORY, Items.ELUCIDATOR, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                    Items.EQUANIMOUS_GEM, Items.CURSED_SWORD, Items.EQUANIMOUS_GEM,
+                    Items.BUCKET_OF_BLOOD, Items.DEMONIC_PLATE, Items.BUCKET_OF_BLOOD,
+                    Items.EQUANIMOUS_GEM, Items.CELESTIAL_SWORD, Items.EQUANIMOUS_GEM
+                    }).register(FoxyMachines.getInstance());
+        }
         new SlimefunArmorPiece(Items.CATEGORY, Items.AQUATIC_HELMET, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
                 Items.TROPICAL_FISH_SCALE, Items.AQUATIC_HELMET_FRAME, Items.TROPICAL_FISH_SCALE,
@@ -339,31 +362,32 @@ final class ItemSetup {
         ForcefieldDome.INSTANCE.register(FoxyMachines.getInstance());
         new RemoteController().register(FoxyMachines.getInstance());
 
-        new CustomMobSpawnEgg("PIXIE_QUEEN", Items.PIXIE_QUEEN_SPAWN_EGG, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM,
-                Items.PARROT_FEATHER, new ItemStack(Material.EGG), Items.PARROT_FEATHER,
-                Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM
-                }).register(FoxyMachines.getInstance());
-        new CustomMobSpawnEgg("HEADLESS_HORSEMAN", Items.HEADLESS_HORSEMAN_SPAWN_EGG, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
-                Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM,
-                Items.CURSED_RABBIT_PAW, Items.PIXIE_QUEEN_HEART, Items.CURSED_RABBIT_PAW,
-                Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM
-                }).register(FoxyMachines.getInstance());
+        if (customMobs) {
+            new CustomMobSpawnEgg("PIXIE_QUEEN", Items.PIXIE_QUEEN_SPAWN_EGG, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                    Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM,
+                    Items.PARROT_FEATHER, new ItemStack(Material.EGG), Items.PARROT_FEATHER,
+                    Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM
+                    }).register(FoxyMachines.getInstance());
+            new CustomMobSpawnEgg("HEADLESS_HORSEMAN", Items.HEADLESS_HORSEMAN_SPAWN_EGG, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                    Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM,
+                    Items.CURSED_RABBIT_PAW, Items.PIXIE_QUEEN_HEART, Items.CURSED_RABBIT_PAW,
+                    Items.EQUANIMOUS_GEM, Items.DEMONIC_PLATE, Items.EQUANIMOUS_GEM
+                    }).register(FoxyMachines.getInstance());
 
-        new PixieQueen();
-        new Pixie();
-        new RiddenSkeletonHorse();
-        new HeadlessHorseman();
-        new Helldog();
+            new PixieQueen();
+            new Pixie();
+            new RiddenSkeletonHorse();
+            new HeadlessHorseman();
+            new Helldog();
+        }
 
-        Config cfg = new Config(FoxyMachines.getInstance());
-        if (!cfg.getBoolean("options.ghost-blocks-disabled")) {
+        if (cfg.getBoolean("ghost-blocks")) {
             for (Material material : Material.values()) {
                 if (material.isBlock() && material.isSolid() && material.isOccluding() && !GhostBlock.EXCLUDED.contains(material)) {
                     SlimefunItemStack stack = new SlimefunItemStack(
                             "GHOST_BLOCK_" + material.name().toUpperCase(),
                             material,
-                            "Ghost Block: &6" + StringUtils.capitalize(material.name().replace("_", " ").toLowerCase()),
+                            "&fGhost Block: &6" + StringUtils.capitalize(material.name().replace("_", " ").toLowerCase()),
                             "",
                             "&7An intangible block.");
 
@@ -384,6 +408,9 @@ final class ResearchSetup {
         if (initialised) return;
 
         initialised = true;
+
+        Config cfg = new Config(FoxyMachines.getInstance());
+        boolean customMobs = cfg.getBoolean("custom-mobs");
 
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "electric_wind_staff"),
                 6669666, "On the wind with the power of electricity", 22)
@@ -516,22 +543,24 @@ final class ResearchSetup {
                 6669697, "Who needs anvil?", 32)
                 .addItems(Items.UNBREAKABLE_RUNE)
                 .register();
-        new Research(new NamespacedKey(FoxyMachines.getInstance(), "pixie_queen"),
-                6669698, "A worthy opponent.", 52)
-                .addItems(Items.PIXIE_QUEEN_SPAWN_EGG, Items.PIXIE_QUEEN_HEART)
-                .register();
-        new Research(new NamespacedKey(FoxyMachines.getInstance(), "pixie_dust"),
-                6669699, "Strength Boost.", 22)
-                .addItems(Items.PIXIE_DUST)
-                .register();
-        new Research(new NamespacedKey(FoxyMachines.getInstance(), "headless_horseman"),
-                6669700, "Good luck", 56)
-                .addItems(Items.HEADLESS_HORSEMAN_SPAWN_EGG, Items.VILE_PUMPKIN)
-                .register();
-        new Research(new NamespacedKey(FoxyMachines.getInstance(), "vile_seeds"),
-                6669701, "Health Boost.", 24)
-                .addItems(Items.VILE_SEEDS)
-                .register();
+        if (customMobs) {
+            new Research(new NamespacedKey(FoxyMachines.getInstance(), "pixie_queen"),
+                    6669698, "A worthy opponent.", 52)
+                    .addItems(Items.PIXIE_QUEEN_SPAWN_EGG, Items.PIXIE_QUEEN_HEART)
+                    .register();
+            new Research(new NamespacedKey(FoxyMachines.getInstance(), "pixie_dust"),
+                    6669699, "Strength Boost.", 22)
+                    .addItems(Items.PIXIE_DUST)
+                    .register();
+            new Research(new NamespacedKey(FoxyMachines.getInstance(), "headless_horseman"),
+                    6669700, "Good luck", 56)
+                    .addItems(Items.HEADLESS_HORSEMAN_SPAWN_EGG, Items.VILE_PUMPKIN)
+                    .register();
+            new Research(new NamespacedKey(FoxyMachines.getInstance(), "vile_seeds"),
+                    6669701, "Health Boost.", 24)
+                    .addItems(Items.VILE_SEEDS)
+                    .register();
+        }
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "acri_arcum"),
                 6669702, "Bow.", 46)
                 .addItems(Items.ACRI_ARCUM)

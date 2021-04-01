@@ -128,7 +128,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                                 e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The dome has been activated.");
 
                                 BlockStorage.addBlockInfo(b, "cooldown", "true");
-                                Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () ->
+                                FoxyMachines.getInstance().runAsync(() ->
                                         BlockStorage.addBlockInfo(b, "cooldown", "false"), 200);
                             } else {
                                 e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You don't have enough energy.");
@@ -138,7 +138,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                             e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The dome has been deactivated.");
 
                             BlockStorage.addBlockInfo(b, "cooldown", "true");
-                            Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () ->
+                            FoxyMachines.getInstance().runAsync(() ->
                                     BlockStorage.addBlockInfo(b, "cooldown", "false"), 200);
                         }
                     } else {
@@ -202,7 +202,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                     p.sendMessage(ChatColor.LIGHT_PURPLE + "The dome has been activated.");
 
                     BlockStorage.addBlockInfo(b, "cooldown", "true");
-                    Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () ->
+                    FoxyMachines.getInstance().runAsync( () ->
                             BlockStorage.addBlockInfo(b, "cooldown", "false"), 200);
                 } else {
                     p.sendMessage(ChatColor.LIGHT_PURPLE + "You don't have enough energy.");
@@ -212,7 +212,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                 p.sendMessage(ChatColor.LIGHT_PURPLE + "The dome has been deactivated.");
 
                 BlockStorage.addBlockInfo(b, "cooldown", "true");
-                Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () ->
+                FoxyMachines.getInstance().runAsync( () ->
                         BlockStorage.addBlockInfo(b, "cooldown", "false"), 200);
             }
         } else {

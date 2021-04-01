@@ -1,10 +1,13 @@
 # max-chunk-loaders: default: 8
 # maximum amount of chunk loaders allowed per player, set to 0 for infinite.
 
-# ghost-blocks-disabled: default: false
-# Disables Ghost Blocks without having to set them all to disabled in items.yml.
+# ghost-blocks: default: true
+# Setting this to false will disable all Ghost Blocks without having to edit items.yml
 
-options:
-  auto-update: true
-  max-chunk-loaders: 8
-  ghost-blocks-disabled: false
+# custom-mobs:
+# Setting this to false will disable all custom mobs and bosses. Some recipes will be altered and some items will be removed.
+
+auto-update: true
+max-chunk-loaders: 8
+ghost-blocks: true
+custom-mobs: true

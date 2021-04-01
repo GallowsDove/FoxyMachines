@@ -37,3 +37,6 @@ permissions:
   foxymachines.admin:
     description: Allows player to use admin-specific commands.
     default: op
+  foxymachines.info:
+    description: Gives players access to basic FoxyMachines commands. Should never be revoked.
+    default: true

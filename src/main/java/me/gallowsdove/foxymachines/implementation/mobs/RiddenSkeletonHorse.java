@@ -72,9 +72,4 @@ public class RiddenSkeletonHorse extends CustomMob {
             }
         }
     }
-
-    @Override
-    protected int getSpawnChance() {
-        return 0;
-    }
 }

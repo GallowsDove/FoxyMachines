@@ -12,18 +12,16 @@ public class MobTicker implements Runnable{
     @Override
     public void run() {
         for (CustomMob mob : CustomMob.MOBS.values()) {
-            mob.onUniqueTick();
+            mob.onUniqueTick(tick);
         }
 
         for (World world: Bukkit.getWorlds()) {
             for (LivingEntity entity : world.getLivingEntities()) {
                 CustomMob mob = CustomMob.getByEntity(entity);
                 if (mob != null) {
-                    mob.onMobTick(entity);
-                    if (mob instanceof CustomBoss) {
-                        if (tick == 100) {
-                            ((CustomBoss) mob).onBossPattern(entity);
-                        }
+                    mob.onMobTick(entity, tick);
+                    if (mob instanceof CustomBoss && tick == 100) {
+                        ((CustomBoss) mob).onBossPattern(entity);
                     }
                 }
             }

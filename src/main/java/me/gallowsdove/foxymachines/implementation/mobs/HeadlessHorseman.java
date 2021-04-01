@@ -1,6 +1,5 @@
 package me.gallowsdove.foxymachines.implementation.mobs;
 
-import io.github.mooy1.infinitylib.core.PluginUtils;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
@@ -38,8 +37,6 @@ public class HeadlessHorseman extends CustomBoss {
 
     private static final NamespacedKey PATTERN_KEY = new NamespacedKey(FoxyMachines.getInstance(), "pattern");
 
-    private int tick = 0;
-
     public HeadlessHorseman() {
         super("HEADLESS_HORSEMAN", ChatColor.RED + "Headless Horseman", EntityType.SKELETON, 1,
                 DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION, DamageCause.THORNS);
@@ -67,14 +64,6 @@ public class HeadlessHorseman extends CustomBoss {
     @Override
     protected BossBarStyle getBossBarStyle() {
         return new BossBarStyle("Headless Horseman", BarColor.RED, BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
-    }
-
-    @Override
-    public void onUniqueTick() {
-        this.tick++;
-        if (this.tick == 100) {
-            this.tick = 0;
-        }
     }
 
     @Override
@@ -121,12 +110,12 @@ public class HeadlessHorseman extends CustomBoss {
     }
 
     @Override
-    public void onMobTick(@Nonnull LivingEntity entity) {
+    public void onMobTick(@Nonnull LivingEntity entity, int tick) {
         Skeleton headlessHorseman = (Skeleton) entity;
 
         short pattern = entity.getPersistentDataContainer().get(PATTERN_KEY, PersistentDataType.SHORT);
 
-        if ((this.tick + 4) % 5 == 0) {
+        if ((tick + 4) % 5 == 0) {
             Collection<Entity> entities = headlessHorseman.getWorld().getNearbyEntities(headlessHorseman.getLocation(), 30, 20, 30);
 
             for (Entity player : entities) {
@@ -139,7 +128,7 @@ public class HeadlessHorseman extends CustomBoss {
         if (pattern == AttackPattern.SHOOT) {
             if (headlessHorseman.getTarget() != null) {
                 Player target = (Player) headlessHorseman.getTarget();
-                if (this.tick % 5 == 0) {
+                if (tick % 5 == 0) {
                     Arrow arrow = entity.launchProjectile(Arrow.class);
                     arrow.setDamage(22);
                     arrow.setColor(Color.RED);
@@ -153,7 +142,7 @@ public class HeadlessHorseman extends CustomBoss {
             }
         } else if (pattern == AttackPattern.LIGHTNING) {
             if (headlessHorseman.getTarget() != null) {
-                if (this.tick % 8 == 0) {
+                if (tick % 8 == 0) {
                     Player player = (Player) headlessHorseman.getTarget();
                     Location loc = player.getLocation().clone();
                     Location l = headlessHorseman.getLocation();
@@ -162,7 +151,7 @@ public class HeadlessHorseman extends CustomBoss {
                             (loc.getY() - l.getY()) * (loc.getY() - l.getY()) +
                             (loc.getZ() - l.getZ()) * (loc.getZ() - l.getZ())) < 26) {
 
-                        PluginUtils.runSync(() -> {
+                        FoxyMachines.getInstance().runSync(() -> {
                             loc.getWorld().strikeLightningEffect(loc);
                             if (player.isValid()) {
                                 Location playerLoc = player.getLocation();
@@ -195,11 +184,6 @@ public class HeadlessHorseman extends CustomBoss {
         Location loc = e.getEntity().getLocation();
         loc.getWorld().dropItemNaturally(loc, new SlimefunItemStack(Items.VILE_PUMPKIN, 1));
         loc.getWorld().spawn(loc, ExperienceOrb.class).setExperience(2000 + ThreadLocalRandom.current().nextInt(800));
-    }
-
-    @Override
-    protected int getSpawnChance() {
-        return 0;
     }
 
     private void spawnHelldogs(Location loc) {

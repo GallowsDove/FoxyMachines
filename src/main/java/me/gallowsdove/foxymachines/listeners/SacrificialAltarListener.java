@@ -1,6 +1,5 @@
 package me.gallowsdove.foxymachines.listeners;
 
-import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -8,17 +7,14 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Fox;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockDropItemEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class SacrificialAltarListener implements Listener {
@@ -99,17 +95,6 @@ public class SacrificialAltarListener implements Listener {
                         random.nextDouble(-1, 1), random.nextDouble(1.2, 2), random.nextDouble(-1, 1), 0);
             }
             entity.getWorld().spawnParticle(Particle.SOUL, entity.getLocation(), 40);
-        }
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    private void onSoulTorchDrop(BlockDropItemEvent e) {
-        List<Item> array = e.getItems();
-
-        if (!array.isEmpty()) {
-            if (SlimefunUtils.isItemSimilar(array.get(0).getItemStack(), Items.SACRIFICIAL_ALTAR_SOUL_TORCH, false, false)) {
-                BlockStorage.clearBlockInfo(e.getBlock());
-            }
         }
     }
 

@@ -133,9 +133,9 @@
         </dependency>
 
         <dependency>
-            <groupId>io.github.mooy1</groupId>
-            <artifactId>InfinityLib</artifactId>
-            <version>6a0056a</version>
+            <groupId>com.github.Mooy1</groupId>
+            <artifactId>infinitylib</artifactId>
+            <version>857df4a9df</version>
             <scope>compile</scope>
         </dependency>
 

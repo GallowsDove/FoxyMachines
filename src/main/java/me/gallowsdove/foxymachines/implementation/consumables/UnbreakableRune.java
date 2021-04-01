@@ -1,10 +1,10 @@
 package me.gallowsdove.foxymachines.implementation.consumables;
 
-import io.github.mooy1.infinitylib.core.PluginUtils;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemDropHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import org.bukkit.ChatColor;
@@ -45,7 +45,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
                     return true;
                 }
 
-                PluginUtils.runSync(() -> activate(p, item), 20);
+                FoxyMachines.getInstance().runSync(() -> activate(p, item), 20);
 
                 return true;
             }
@@ -69,7 +69,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
             if (itemStack.getAmount() == 1) {
                 l.getWorld().strikeLightningEffect(l);
 
-                PluginUtils.runSync(() -> {
+                FoxyMachines.getInstance().runSync(() -> {
                     if (rune.isValid() && item.isValid() && itemStack.getAmount() == 1) {
 
                         l.getWorld().createExplosion(l, 0);
