@@ -4,6 +4,7 @@ import io.github.mooy1.infinitylib.AbstractAddon;
 import io.github.mooy1.infinitylib.commands.AbstractCommand;
 import lombok.SneakyThrows;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
+import me.gallowsdove.foxymachines.commands.KillallCommand;
 import me.gallowsdove.foxymachines.commands.QuestCommand;
 import me.gallowsdove.foxymachines.commands.SacrificialAltarCommand;
 import me.gallowsdove.foxymachines.commands.SummonCommand;
@@ -66,6 +67,7 @@ public class FoxyMachines extends AbstractAddon {
         ArrayList<AbstractCommand> commands = new ArrayList<AbstractCommand>(Arrays.asList(new QuestCommand(), new SacrificialAltarCommand()));
         if (getConfig().getBoolean("custom-mobs")) {
             commands.add(new SummonCommand());
+            commands.add(new KillallCommand());
         }
         return commands;
     }
