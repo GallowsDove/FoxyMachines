@@ -348,10 +348,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                     (potion1.getType() == Material.SPLASH_POTION && potion2.getType() == Material.SPLASH_POTION) ||
                     (potion1.getType() == Material.LINGERING_POTION && potion2.getType() == Material.LINGERING_POTION)){
 
-                boolean lingering = false;
-                if (potion1.getType() == Material.LINGERING_POTION) {
-                    lingering = true;
-                }
+                boolean lingering = potion1.getType() == Material.LINGERING_POTION;
                 ItemStack potion = potion1.clone();
                 potion.setAmount(1);
 

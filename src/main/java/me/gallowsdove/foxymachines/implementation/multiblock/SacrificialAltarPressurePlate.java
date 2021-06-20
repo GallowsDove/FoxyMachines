@@ -127,14 +127,9 @@ public class SacrificialAltarPressurePlate extends SlimefunItem {
             return false;
         }
 
-        switch (BlockStorage.getLocationInfo(b.getLocation(), "id")) {
-            case "SACRIFICIAL_ALTAR_BLACKSTONE_BRICKS":
-            case "SACRIFICIAL_ALTAR_BLACKSTONE_BRICK_WALL":
-            case "SACRIFICIAL_ALTAR_BLACKSTONE_BRICK_STAIRS":
-            case "SACRIFICIAL_ALTAR_SOUL_TORCH":
-                return true;
-            default:
-                return false;
-        }
+        return switch (BlockStorage.getLocationInfo(b.getLocation(), "id")) {
+            case "SACRIFICIAL_ALTAR_BLACKSTONE_BRICKS", "SACRIFICIAL_ALTAR_BLACKSTONE_BRICK_WALL", "SACRIFICIAL_ALTAR_BLACKSTONE_BRICK_STAIRS", "SACRIFICIAL_ALTAR_SOUL_TORCH" -> true;
+            default -> false;
+        };
     }
 }

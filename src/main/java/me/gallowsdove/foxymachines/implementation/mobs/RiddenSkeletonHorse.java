@@ -44,11 +44,9 @@ public class RiddenSkeletonHorse extends CustomMob {
 
         if (!e.isCancelled()) {
             for (Entity entity : horse.getPassengers()) {
-                if (entity instanceof LivingEntity) {
-                    LivingEntity passenger = (LivingEntity) entity;
+                if (entity instanceof LivingEntity passenger) {
                     CustomMob mob = RiddenSkeletonHorse.getByEntity(entity);
-                    if (mob instanceof CustomBoss) {
-                        CustomBoss boss = (CustomBoss) mob;
+                    if (mob instanceof CustomBoss boss) {
                         double finalHealth = horse.getHealth() + passenger.getHealth() - e.getFinalDamage();
                         if (finalHealth > 0) {
                             boss.updateBossBar(passenger, finalHealth / (passenger.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +

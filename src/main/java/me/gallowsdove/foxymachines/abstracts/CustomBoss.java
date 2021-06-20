@@ -36,19 +36,7 @@ public abstract class CustomBoss extends CustomMob {
         this.resistances = Set.of(resistances);
     }
 
-    protected static final class BossBarStyle {
-        private final String name;
-        private final BarColor color;
-        private final BarStyle style;
-        private final BarFlag[] flags;
-
-        public BossBarStyle(String name, BarColor color, BarStyle style, BarFlag... flags) {
-            this.name = name;
-            this.color = color;
-            this.style = style;
-            this.flags = flags;
-        }
-    }
+    public record BossBarStyle(String name, BarColor color, BarStyle style, BarFlag... flags) { }
 
     @Nonnull
     protected abstract BossBarStyle getBossBarStyle();
@@ -75,12 +63,10 @@ public abstract class CustomBoss extends CustomMob {
     public final void onHit(@Nonnull EntityDamageEvent e) {
         this.onBossDamaged(e);
 
-        if (!e.isCancelled() && e.getEntity() instanceof LivingEntity) {
-            LivingEntity entity = (LivingEntity) e.getEntity();
+        if (!e.isCancelled() && e.getEntity() instanceof LivingEntity entity) {
             BossBar bossbar = getBossBarForEntity(entity);
 
-            if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity) {
-                LivingEntity vehicle = (LivingEntity) entity.getVehicle();
+            if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity vehicle) {
                 double finalHealth = entity.getHealth() + vehicle.getHealth() - e.getFinalDamage();
                 if (finalHealth > 0) {
                     bossbar.setProgress(finalHealth / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
@@ -139,8 +125,7 @@ public abstract class CustomBoss extends CustomMob {
         BossBarStyle style = getBossBarStyle();
         BossBar bossbar = Bukkit.createBossBar(KEY, style.name, style.color, style.style, style.flags);
         bossbar.setVisible(true);
-        if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity) {
-            LivingEntity vehicle = (LivingEntity) entity.getVehicle();
+        if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity vehicle) {
             bossbar.setProgress((entity.getHealth() + vehicle.getHealth()) / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
                     vehicle.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
         } else {

@@ -24,9 +24,8 @@ public class BowListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void onShoot(@Nonnull EntityShootBowEvent e) {
-        if (e.getEntity() instanceof HumanEntity && e.getProjectile() instanceof Arrow &&
+        if (e.getEntity() instanceof HumanEntity && e.getProjectile() instanceof Arrow arrow &&
                 SlimefunUtils.isItemSimilar(e.getBow(), Items.ACRI_ARCUM, false, false)) {
-            Arrow arrow = (Arrow) e.getProjectile();
             arrow.setVelocity(arrow.getVelocity().multiply(2));
             arrow.setGlowing(true);
             arrow.getPersistentDataContainer().set(KEY, PersistentDataType.SHORT, (short) 1);
@@ -35,9 +34,8 @@ public class BowListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void onHit(@Nonnull EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Arrow && e.getEntity() instanceof LivingEntity &&
+        if (e.getDamager() instanceof Arrow && e.getEntity() instanceof LivingEntity entity &&
                 e.getDamager().getPersistentDataContainer().has(KEY, PersistentDataType.SHORT)) {
-            LivingEntity entity = (LivingEntity) e.getEntity();
             e.setDamage(e.getDamage() * 0.9);
             Utils.dealDamageBypassingArmor(entity, (e.getDamage() - e.getFinalDamage()) * 0.045);
             entity.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 21, 10, false, false));

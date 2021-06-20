@@ -93,9 +93,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
     }
 
     private boolean findCompatibleItem(Entity entity) {
-        if (entity instanceof Item) {
-            Item item = (Item) entity;
-
+        if (entity instanceof Item item) {
             return !isUnbreakable(item.getItemStack()) && !isItem(item.getItemStack());
         }
 

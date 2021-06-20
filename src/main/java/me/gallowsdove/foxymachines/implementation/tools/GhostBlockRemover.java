@@ -10,7 +10,6 @@ import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -37,7 +36,6 @@ public class GhostBlockRemover extends SlimefunItem {
         return new EntityInteractHandler() {
             @Override
             public void onInteract(PlayerInteractEntityEvent e, ItemStack itemStack, boolean b) {
-                Player p = e.getPlayer();
                 if (e.getRightClicked() instanceof FallingBlock) {
                     FallingBlock block = (FallingBlock) e.getRightClicked();
 

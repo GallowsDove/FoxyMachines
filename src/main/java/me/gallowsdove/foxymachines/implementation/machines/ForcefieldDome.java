@@ -91,7 +91,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                 BlockStorage.addBlockInfo(b, "active", "false");
                 BlockStorage.addBlockInfo(b, "cooldown", "false");
                 domeLocations.add(new SimpleLocation(b));
-                saveDomeLocations();
+                // saveDomeLocations();
             }
         };
     }
@@ -235,6 +235,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
         }
     }
 
+
     public static void saveDomeLocations() throws IOException {
         Gson gson = new Gson();
 
@@ -275,5 +276,6 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
             ForcefieldDome.domeLocations = new ArrayList<>();
         }
     }
+
 }
 

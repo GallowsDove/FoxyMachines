@@ -16,11 +16,9 @@ public class KillallCommand extends AbstractCommand {
 
     @Override
     public void onExecute(@Nonnull CommandSender commandSender, @Nonnull String[] strings) {
-        if (!(commandSender instanceof Player) || strings.length != 1) {
+        if (!(commandSender instanceof Player p) || strings.length != 1) {
             return;
         }
-
-        Player p = (Player) commandSender;
 
         for (LivingEntity entity : p.getWorld().getLivingEntities()) {
             CustomMob mob = CustomMob.getByEntity(entity);

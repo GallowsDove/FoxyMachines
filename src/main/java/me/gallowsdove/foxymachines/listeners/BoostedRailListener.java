@@ -16,8 +16,7 @@ public class BoostedRailListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void onRailUse(@Nonnull VehicleMoveEvent e) {
-        if (e.getVehicle() instanceof Minecart) {
-            Minecart cart = (Minecart) e.getVehicle();
+        if (e.getVehicle() instanceof Minecart cart) {
             Block b = cart.getLocation().getBlock();
             if (RAILS.contains(b.getType())) {
                 if (BlockStorage.getLocationInfo(b.getLocation(), "boosted") != null) {

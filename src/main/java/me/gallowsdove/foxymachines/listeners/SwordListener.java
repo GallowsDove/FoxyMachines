@@ -31,14 +31,11 @@ public class SwordListener implements Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void onDamage(EntityDamageByEntityEvent e) {
         if (e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK || e.getCause() == EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK) {
-            if (e.getDamager() instanceof HumanEntity) {
+            if (e.getDamager() instanceof HumanEntity humanoid) {
                 ThreadLocalRandom random = ThreadLocalRandom.current();
-                HumanEntity humanoid = (HumanEntity) e.getDamager();
                 ItemStack item = humanoid.getInventory().getItemInMainHand();
 
-                if (e.getEntity() instanceof LivingEntity) {
-                    LivingEntity entity = (LivingEntity) e.getEntity();
-
+                if (e.getEntity() instanceof LivingEntity entity) {
                     if (SlimefunUtils.isItemSimilar(item, Items.CURSED_SWORD, false, false)) {
                         ArrayList<PotionEffect> effects = new ArrayList<>();
 
