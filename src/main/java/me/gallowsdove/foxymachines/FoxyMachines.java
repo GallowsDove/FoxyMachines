@@ -1,6 +1,7 @@
 package me.gallowsdove.foxymachines;
 
 import io.github.mooy1.infinitylib.AbstractAddon;
+import io.github.mooy1.infinitylib.bstats.bukkit.Metrics;
 import io.github.mooy1.infinitylib.commands.AbstractCommand;
 import lombok.SneakyThrows;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
@@ -28,8 +29,7 @@ public class FoxyMachines extends AbstractAddon {
 
     @SneakyThrows
     @Override
-    public void onEnable() {
-        super.onEnable();
+    public void enable() {
 
         instance = this;
 
@@ -45,15 +45,15 @@ public class FoxyMachines extends AbstractAddon {
         ForcefieldDome.loadDomeLocations();
         runSync(() -> ForcefieldDome.INSTANCE.setupDomes());
         scheduleRepeatingAsync(new QuestTicker(), 10, 240);
-        scheduleRepeatingAsync(new GhostBlockTask(), 100);
+        scheduleRepeatingSync(new GhostBlockTask(), 100);
         if (getConfig().getBoolean("custom-mobs")) {
             scheduleRepeatingSync(new MobTicker(), 2);
         }
     }
 
     @Override
-    protected int getMetricsID() {
-        return 10568;
+    protected Metrics setupMetrics() {
+        return new Metrics(this, 8991);
     }
 
     @Nonnull
@@ -63,8 +63,8 @@ public class FoxyMachines extends AbstractAddon {
     }
 
     @Override
-    protected List<AbstractCommand> getSubCommands() {
-        ArrayList<AbstractCommand> commands = new ArrayList<AbstractCommand>(Arrays.asList(new QuestCommand(), new SacrificialAltarCommand()));
+    protected List<AbstractCommand> setupSubCommands() {
+        ArrayList<AbstractCommand> commands = new ArrayList<>(Arrays.asList(new QuestCommand(), new SacrificialAltarCommand()));
         if (getConfig().getBoolean("custom-mobs")) {
             commands.add(new SummonCommand());
             commands.add(new KillallCommand());
@@ -74,13 +74,16 @@ public class FoxyMachines extends AbstractAddon {
 
     @SneakyThrows
     @Override
-    public void onDisable() {
+    public void disable() {
         BerryBushTrimmer.saveTrimmedBlocks();
         ForcefieldDome.saveDomeLocations();
         CustomBoss.removeBossBars();
     }
 
-
+    @Override
+    public String getAutoUpdatePath() {
+        return "auto-update";
+    }
 
     @Nonnull
     public static FoxyMachines getInstance() {
