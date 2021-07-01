@@ -156,12 +156,12 @@ public class HeadlessHorseman extends CustomBoss {
                             if (player.isValid()) {
                                 Location playerLoc = player.getLocation();
                                 if (Math.sqrt((loc.getX() - playerLoc.getX()) * (loc.getX() - playerLoc.getX()) +
-                                        (loc.getY() - playerLoc.getY()) * (loc.getY() - playerLoc.getY())) < 0.8) {
+                                        (loc.getY() - playerLoc.getY()) * (loc.getY() - playerLoc.getY())) < 0.72) {
                                     EntityDamageEvent e = new EntityDamageEvent(player, DamageCause.CUSTOM, 12);
                                     Bukkit.getServer().getPluginManager().callEvent(e);
                                     if (!e.isCancelled()) {
-                                        player.damage(15.6);
-                                        Utils.dealDamageBypassingArmor(player, 1.64);
+                                        player.damage(12.4);
+                                        Utils.dealDamageBypassingArmor(player, 1.72);
                                     }
                                 }
                             }
@@ -193,7 +193,7 @@ public class HeadlessHorseman extends CustomBoss {
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
 
-        for (int i = 0; i < random.nextInt(2) + 3; i++) {
+        for (int i = 0; i < 3; i++) {
             mob.spawn(new Location(loc.getWorld(), loc.getX() + random.nextDouble(-1, 1),
                     loc.getY() + random.nextDouble(0.6, 1.2), loc.getZ() + random.nextDouble(-1, 1)));
         }

@@ -22,7 +22,7 @@ public class RiddenSkeletonHorse extends CustomMob {
             DamageCause.CRAMMING, DamageCause.POISON, DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION});
 
     public RiddenSkeletonHorse() {
-        super("SKELETON_HORSE", "Skeleton Horse", EntityType.SKELETON_HORSE, 2048);
+        super("SKELETON_HORSE", "Skeleton Horse", EntityType.SKELETON_HORSE, 132);
     }
 
     @Override
@@ -30,7 +30,7 @@ public class RiddenSkeletonHorse extends CustomMob {
         spawned.setCustomName("");
         spawned.setCustomNameVisible(false);
         spawned.setRemoveWhenFarAway(false);
-        spawned.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(50);
+        spawned.getAttribute(Attribute.GENERIC_ARMOR).setBaseValue(30);
         spawned.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 999999999, 4, false, false));
     }
 

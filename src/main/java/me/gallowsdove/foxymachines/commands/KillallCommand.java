@@ -1,6 +1,7 @@
 package me.gallowsdove.foxymachines.commands;
 
 import io.github.mooy1.infinitylib.commands.AbstractCommand;
+import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.LivingEntity;
@@ -26,6 +27,8 @@ public class KillallCommand extends AbstractCommand {
                 entity.remove();
             }
         }
+
+        CustomBoss.removeBossBars();
     }
 
     @Override

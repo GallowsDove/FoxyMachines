@@ -77,7 +77,9 @@ public class FoxyMachines extends AbstractAddon {
     public void disable() {
         BerryBushTrimmer.saveTrimmedBlocks();
         ForcefieldDome.saveDomeLocations();
-        CustomBoss.removeBossBars();
+        if (getConfig().getBoolean("custom-mobs")) {
+            CustomBoss.removeBossBars();
+        }
     }
 
     @Override

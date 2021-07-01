@@ -9,6 +9,8 @@ import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -16,14 +18,16 @@ import java.util.Collection;
 public class Helldog extends CustomMob {
 
     public Helldog() {
-        super("HELLDOG", "Helldog", EntityType.WOLF, 52);
+        super("HELLDOG", "Helldog", EntityType.WOLF, 30);
     }
 
     @Override
     public void onSpawn(@Nonnull LivingEntity spawned) {
         Wolf wolf = (Wolf) spawned;
 
-        wolf.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(28);
+        wolf.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, 999999999, 1, false, false));
+        wolf.setFireTicks(999999999);
+        wolf.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE).setBaseValue(26);
         wolf.setRemoveWhenFarAway(true);
         wolf.setAngry(true);
         wolf.setCollarColor(DyeColor.RED);
@@ -33,6 +37,7 @@ public class Helldog extends CustomMob {
     public void onMobTick(@Nonnull LivingEntity entity, int tick) {
         Wolf helldog = (Wolf) entity;
 
+        entity.setFireTicks(999999999);
         Collection<Entity> entities = helldog.getWorld().getNearbyEntities(helldog.getLocation(), 1.54, 1.54, 1.54);
 
         for (Entity player : entities) {
