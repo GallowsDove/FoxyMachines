@@ -2,7 +2,7 @@
 FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Slimefun/Slimefun4).
 It's a passion project for GallowsDove.
 
-### Requires at least Java 16.
+### Requires at least Java 16!
 
 
 ### [Download](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/)
