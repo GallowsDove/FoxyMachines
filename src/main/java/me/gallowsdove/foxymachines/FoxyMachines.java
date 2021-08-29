@@ -53,7 +53,7 @@ public class FoxyMachines extends AbstractAddon {
 
     @Override
     protected Metrics setupMetrics() {
-        return new Metrics(this, 8991);
+        return new Metrics(this, 10568);
     }
 
     @Nonnull
