@@ -1,11 +1,11 @@
 package me.gallowsdove.foxymachines.implementation.consumables;
 
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.gallowsdove.foxymachines.Items;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -21,7 +21,7 @@ public class SimpleConsumable extends SimpleSlimefunItem<ItemUseHandler> {
 
     @ParametersAreNonnullByDefault
     public SimpleConsumable(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, PotionEffect[] effects, int amount) {
-        super(Items.CATEGORY, item, recipeType, recipe, new SlimefunItemStack(item, amount));
+        super(Items.ITEM_GROUP, item, recipeType, recipe, new SlimefunItemStack(item, amount));
         this.effects = effects;
     }
 

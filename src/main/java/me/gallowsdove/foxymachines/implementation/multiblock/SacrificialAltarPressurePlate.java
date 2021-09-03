@@ -1,13 +1,13 @@
 package me.gallowsdove.foxymachines.implementation.multiblock;
 
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockPlaceHandler;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import me.gallowsdove.foxymachines.Items;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SacrificialAltarPressurePlate extends SlimefunItem {
     public SacrificialAltarPressurePlate() {
-        super(Items.CATEGORY, Items.SACRIFICIAL_ALTAR_BLACKSTONE_PRESSURE_PLATE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.ITEM_GROUP, Items.SACRIFICIAL_ALTAR_BLACKSTONE_PRESSURE_PLATE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 new ItemStack(Material.GHAST_TEAR), SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.GHAST_TEAR),
                 SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.POLISHED_BLACKSTONE_PRESSURE_PLATE), SlimefunItems.MAGIC_LUMP_3,
                 new ItemStack(Material.GHAST_TEAR), SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.GHAST_TEAR)

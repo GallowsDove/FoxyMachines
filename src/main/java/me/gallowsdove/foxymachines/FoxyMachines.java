@@ -1,8 +1,8 @@
 package me.gallowsdove.foxymachines;
 
-import io.github.mooy1.infinitylib.AbstractAddon;
-import io.github.mooy1.infinitylib.bstats.bukkit.Metrics;
-import io.github.mooy1.infinitylib.commands.AbstractCommand;
+import io.github.mooy1.infinitylib.common.Events;
+import io.github.mooy1.infinitylib.common.Scheduler;
+import io.github.mooy1.infinitylib.core.AbstractAddon;
 import lombok.SneakyThrows;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.commands.KillallCommand;
@@ -15,27 +15,41 @@ import me.gallowsdove.foxymachines.listeners.*;
 import me.gallowsdove.foxymachines.tasks.GhostBlockTask;
 import me.gallowsdove.foxymachines.tasks.MobTicker;
 import me.gallowsdove.foxymachines.tasks.QuestTicker;
+import org.bstats.bukkit.Metrics;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class FoxyMachines extends AbstractAddon {
     private static FoxyMachines instance;
 
     public String folderPath;
 
-    @SneakyThrows
+    public FoxyMachines() {
+        super ("GallowsDove", "FoxyMachines", "master", "auto-updates");
+
+        getCommand().addSub(new KillallCommand());
+        getCommand().addSub(new QuestCommand());
+        getCommand().addSub(new SacrificialAltarCommand());
+        getCommand().addSub(new SummonCommand());
+    }
+
     @Override
+    @SneakyThrows
     public void enable() {
 
         instance = this;
 
-        registerListener(new ChunkLoaderListener(), new BoostedRailListener(), new BerryBushListener(), new ForcefieldListener(),
-                new RemoteControllerListener(), new SacrificialAltarListener(), new SwordListener(), new PoseidonsFishingRodListener(),
-                new ArmorListener(), new BowListener());
+        Events.registerListener(new ChunkLoaderListener());
+        Events.registerListener(new BoostedRailListener());
+        Events.registerListener(new BerryBushListener());
+        Events.registerListener(new ForcefieldListener());
+        Events.registerListener(new RemoteControllerListener());
+        Events.registerListener(new SacrificialAltarListener());
+        Events.registerListener(new SwordListener());
+        Events.registerListener(new PoseidonsFishingRodListener());
+        Events.registerListener(new ArmorListener());
+        Events.registerListener(new BowListener());
         
         ItemSetup.INSTANCE.init();
         ResearchSetup.INSTANCE.init();
@@ -43,33 +57,14 @@ public class FoxyMachines extends AbstractAddon {
         this.folderPath = getDataFolder().getAbsolutePath() + File.separator + "data-storage" + File.separator;
         BerryBushTrimmer.loadTrimmedBlocks();
         ForcefieldDome.loadDomeLocations();
-        runSync(() -> ForcefieldDome.INSTANCE.setupDomes());
-        scheduleRepeatingAsync(new QuestTicker(), 10, 240);
-        scheduleRepeatingSync(new GhostBlockTask(), 100);
+        Scheduler.run(() -> ForcefieldDome.INSTANCE.setupDomes());
+        Scheduler.repeat(240, 10, new QuestTicker());
+        Scheduler.repeat(100, new GhostBlockTask());
         if (getConfig().getBoolean("custom-mobs")) {
-            scheduleRepeatingSync(new MobTicker(), 2);
+            Scheduler.repeat(2, new MobTicker());
         }
-    }
 
-    @Override
-    protected Metrics setupMetrics() {
-        return new Metrics(this, 10568);
-    }
-
-    @Nonnull
-    @Override
-    protected String getGithubPath() {
-        return "GallowsDove/FoxyMachines/master";
-    }
-
-    @Override
-    protected List<AbstractCommand> setupSubCommands() {
-        ArrayList<AbstractCommand> commands = new ArrayList<>(Arrays.asList(new QuestCommand(), new SacrificialAltarCommand()));
-        if (getConfig().getBoolean("custom-mobs")) {
-            commands.add(new SummonCommand());
-            commands.add(new KillallCommand());
-        }
-        return commands;
+        new Metrics(this, 10568);
     }
 
     @SneakyThrows
@@ -80,11 +75,6 @@ public class FoxyMachines extends AbstractAddon {
         if (getConfig().getBoolean("custom-mobs")) {
             CustomBoss.removeBossBars();
         }
-    }
-
-    @Override
-    public String getAutoUpdatePath() {
-        return "auto-update";
     }
 
     @Nonnull

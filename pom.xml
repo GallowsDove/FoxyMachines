@@ -130,22 +130,16 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Slimefun</groupId>
+            <groupId>com.github.TheBusyBiscuit</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>334f311917</version>
+            <version>RC-27</version>
             <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.github.thebusybiscuit</groupId>
-                    <artifactId>cscorelib2</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>com.github.Mooy1</groupId>
-            <artifactId>infinitylib</artifactId>
-            <version>cd3d15a1c6</version>
+            <artifactId>InfinityLib</artifactId>
+            <version>1.0.0</version>
             <scope>compile</scope>
         </dependency>
 
@@ -167,6 +161,11 @@
             <artifactId>lombok</artifactId>
             <version>1.18.20</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>2.1.0</version>
         </dependency>
     </dependencies>
 </project>

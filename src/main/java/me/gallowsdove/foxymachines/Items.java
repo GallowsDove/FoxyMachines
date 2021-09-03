@@ -1,17 +1,17 @@
 package me.gallowsdove.foxymachines;
 
-import io.github.mooy1.infinitylib.presets.LorePreset;
+import io.github.mooy1.infinitylib.machines.MachineLore;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import io.github.thebusybiscuit.slimefun4.utils.itemstack.ColoredFireworkStar;
 import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
 import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
-import me.mrCookieSlime.Slimefun.Objects.Category;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -22,13 +22,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public final class Items{
 
-    public static Category CATEGORY = new Category(
+    public static ItemGroup ITEM_GROUP = new ItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "foxy_machines"),
-            new CustomItem(Material.SHEARS, "&4Foxy Machines", "", "&a> Click to open"));
+            new CustomItemStack(Material.SHEARS, "&4Foxy Machines", "", "&a> Click to open"));
 
-    public static Category GHOST_BLOCKS_CATEGORY = new Category(
+    public static ItemGroup GHOST_BLOCKS_ITEM_GROUP = new ItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "ghost_blocks"),
-            new CustomItem(Material.GLASS, "&5Ghost Blocks", "", "&a> Click to open"));
+            new CustomItemStack(Material.GLASS, "&5Ghost Blocks", "", "&a> Click to open"));
 
     public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
             "ELECTRIC_WIND_STAFF",
@@ -200,7 +200,7 @@ public final class Items{
             "&7with a 32-block radius.",
             "&7Will revert once unpowered or broken",
             "",
-            LorePreset.energyPerSecond(ForcefieldDome.ENERGY_CONSUMPTION)
+            MachineLore.energyPerSecond(ForcefieldDome.ENERGY_CONSUMPTION)
     );
 
     public static final SlimefunItemStack REMOTE_CONTROLLER = new SlimefunItemStack(

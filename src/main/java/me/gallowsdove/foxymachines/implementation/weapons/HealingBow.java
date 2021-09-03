@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 public class HealingBow extends SlimefunBow {
 
     public HealingBow() {
-        super(Items.CATEGORY, Items.HEALING_BOW, new ItemStack[] {
+        super(Items.ITEM_GROUP, Items.HEALING_BOW, new ItemStack[] {
                 null, SlimefunItems.SYNTHETIC_DIAMOND, Items.REINFORCED_STRING,
                 SlimefunItems.SYNTHETIC_DIAMOND, SlimefunItems.ESSENCE_OF_AFTERLIFE, Items.REINFORCED_STRING,
                 null, SlimefunItems.SYNTHETIC_DIAMOND, Items.REINFORCED_STRING

@@ -1,10 +1,10 @@
 package me.gallowsdove.foxymachines.utils;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;

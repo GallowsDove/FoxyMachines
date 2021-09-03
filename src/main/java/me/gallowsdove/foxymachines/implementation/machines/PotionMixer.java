@@ -1,27 +1,28 @@
 package me.gallowsdove.foxymachines.implementation.machines;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.AdvancedMenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
+import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.Item.CustomItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -52,7 +53,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
     public static Map<Block, Integer> progress = new HashMap<>();
 
     public PotionMixer() {
-        super(Items.CATEGORY, Items.POTION_MIXER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.ITEM_GROUP, Items.POTION_MIXER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.CARBONADO, SlimefunItems.GOLD_24K, SlimefunItems.CARBONADO,
                 SlimefunItems.ELECTRIC_MOTOR, new ItemStack(Material.BREWING_STAND), SlimefunItems.ELECTRIC_MOTOR,
                 SlimefunItems.GOLD_24K, SlimefunItems.MEDIUM_CAPACITOR, SlimefunItems.GOLD_24K
@@ -68,8 +69,8 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
 
             public boolean canOpen(@Nonnull Block b, @Nonnull Player p) {
                 return p.hasPermission("slimefun.inventory.bypass")
-                        || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(),
-                        ProtectableAction.INTERACT_BLOCK
+                        || Slimefun.getProtectionManager().hasPermission(p, b.getLocation(),
+                        Interaction.INTERACT_BLOCK
                 );
             }
 
@@ -196,7 +197,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                 progress.put(b, timeleft - 1);
             }
             else {
-                inv.replaceExistingItem(13, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "));
+                inv.replaceExistingItem(13, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "));
 
                 for (ItemStack output : processing.get(b).getOutput()) {
                     inv.pushItem(output.clone(), getOutputSlots());

@@ -1,10 +1,15 @@
 package me.gallowsdove.foxymachines.implementation.machines;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.ChestMenuUtils;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.FoxyMachines;
@@ -12,18 +17,13 @@ import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.CSCoreLibPlugin.Configuration.Config;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ChestMenu.AdvancedMenuClickHandler;
 import me.mrCookieSlime.CSCoreLibPlugin.general.Inventory.ClickAction;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.abstractItems.MachineRecipe;
 import me.mrCookieSlime.Slimefun.Objects.handlers.BlockTicker;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenu;
 import me.mrCookieSlime.Slimefun.api.inventory.BlockMenuPreset;
 import me.mrCookieSlime.Slimefun.api.inventory.DirtyChestMenu;
 import me.mrCookieSlime.Slimefun.api.item_transport.ItemTransportFlow;
-import me.mrCookieSlime.Slimefun.cscorelib2.item.CustomItem;
-import me.mrCookieSlime.Slimefun.cscorelib2.protection.ProtectableAction;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
@@ -52,7 +52,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
     public static Map<Block, Integer> progress = new HashMap<>();
 
     public ElectricGoldRefinery() {
-        super(Items.CATEGORY, Items.ELECTRIC_GOLD_REFINERY, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.ITEM_GROUP, Items.ELECTRIC_GOLD_REFINERY, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.HARDENED_METAL_INGOT,
                 SlimefunItems.HEATING_COIL, SlimefunItems.ELECTRIC_SMELTERY, SlimefunItems.HEATING_COIL,
                 SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.MEDIUM_CAPACITOR, SlimefunItems.HARDENED_METAL_INGOT
@@ -80,29 +80,29 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
                 if (!BlockStorage.hasBlockInfo(b) ||
                         BlockStorage.getLocationInfo(b.getLocation(), "gold_recipe") == null ||
                         BlockStorage.getLocationInfo(b.getLocation(), "gold_recipe").equals("11")) {
-                    menu.replaceExistingItem(32, new CustomItem(Material.RED_STAINED_GLASS_PANE, "&6Current Recipe: &cNONE", "", "&e> Choose on the left to change it"));
+                    menu.replaceExistingItem(32, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6Current Recipe: &cNONE", "", "&e> Choose on the left to change it"));
                 } else {
                     switch (BlockStorage.getLocationInfo(b.getLocation(), "gold_recipe")) {
-                        case "0" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(4 Carat)", "", "&e> Choose on the left to change it"));
-                        case "1" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(6 Carat)", "", "&e> Choose on the left to change it"));
-                        case "2" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(8 Carat)", "", "&e> Choose on the left to change it"));
-                        case "3" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(10 Carat)", "", "&e> Choose on the left to change it"));
-                        case "4" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(12 Carat)", "", "&e> Choose on the left to change it"));
-                        case "5" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(14 Carat)", "", "&e> Choose on the left to change it"));
-                        case "6" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(16 Carat)", "", "&e> Choose on the left to change it"));
-                        case "7" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(18 Carat)", "", "&e> Choose on the left to change it"));
-                        case "8" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(20 Carat)", "", "&e> Choose on the left to change it"));
-                        case "9" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(22 Carat)", "", "&e> Choose on the left to change it"));
-                        case "10" -> menu.replaceExistingItem(32, new CustomItem(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(24 Carat)", "", "&e> Choose on the left to change it"));
-                        case "11" -> menu.replaceExistingItem(32, new CustomItem(Material.RED_STAINED_GLASS_PANE, "&6Current Recipe: &cNONE", "", "&e> Choose on the left to change it"));
+                        case "0" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(4 Carat)", "", "&e> Choose on the left to change it"));
+                        case "1" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(6 Carat)", "", "&e> Choose on the left to change it"));
+                        case "2" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(8 Carat)", "", "&e> Choose on the left to change it"));
+                        case "3" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(10 Carat)", "", "&e> Choose on the left to change it"));
+                        case "4" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(12 Carat)", "", "&e> Choose on the left to change it"));
+                        case "5" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(14 Carat)", "", "&e> Choose on the left to change it"));
+                        case "6" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(16 Carat)", "", "&e> Choose on the left to change it"));
+                        case "7" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(18 Carat)", "", "&e> Choose on the left to change it"));
+                        case "8" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(20 Carat)", "", "&e> Choose on the left to change it"));
+                        case "9" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(22 Carat)", "", "&e> Choose on the left to change it"));
+                        case "10" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(24 Carat)", "", "&e> Choose on the left to change it"));
+                        case "11" -> menu.replaceExistingItem(32, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6Current Recipe: &cNONE", "", "&e> Choose on the left to change it"));
                     }
                 }
             }
 
             public boolean canOpen(@Nonnull Block b, @Nonnull Player p) {
                 return p.hasPermission("slimefun.inventory.bypass")
-                        || SlimefunPlugin.getProtectionManager().hasPermission(p, b.getLocation(),
-                        ProtectableAction.INTERACT_BLOCK
+                        || Slimefun.getProtectionManager().hasPermission(p, b.getLocation(),
+                        Interaction.INTERACT_BLOCK
                 );
             }
 
@@ -232,7 +232,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
                 progress.put(b, timeleft - 1);
             }
             else {
-                inv.replaceExistingItem(23, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "));
+                inv.replaceExistingItem(23, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "));
 
                 for (ItemStack output : processing.get(b).getOutput()) {
                     inv.pushItem(output.clone(), getOutputSlots());
@@ -321,8 +321,8 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
             preset.addItem(i, new SlimefunItemStack("_UI_OUTPUT_SLOT", Material.ORANGE_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
         }
 
-        preset.addItem(23, new CustomItem(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
-        preset.addItem(46, new CustomItem(Material.RED_STAINED_GLASS_PANE, "&cNONE"), ChestMenuUtils.getEmptyClickHandler());
+        preset.addItem(23, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
+        preset.addItem(46, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&cNONE"), ChestMenuUtils.getEmptyClickHandler());
 
         NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "nonstackable");
 
