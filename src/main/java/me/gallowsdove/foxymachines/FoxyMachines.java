@@ -3,6 +3,7 @@ package me.gallowsdove.foxymachines;
 import io.github.mooy1.infinitylib.common.Events;
 import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.mooy1.infinitylib.core.AbstractAddon;
+import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
 import lombok.SneakyThrows;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.commands.KillallCommand;
@@ -15,7 +16,6 @@ import me.gallowsdove.foxymachines.listeners.*;
 import me.gallowsdove.foxymachines.tasks.GhostBlockTask;
 import me.gallowsdove.foxymachines.tasks.MobTicker;
 import me.gallowsdove.foxymachines.tasks.QuestTicker;
-import org.bstats.bukkit.Metrics;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -26,12 +26,7 @@ public class FoxyMachines extends AbstractAddon {
     public String folderPath;
 
     public FoxyMachines() {
-        super ("GallowsDove", "FoxyMachines", "master", "auto-updates");
-
-        getCommand().addSub(new KillallCommand());
-        getCommand().addSub(new QuestCommand());
-        getCommand().addSub(new SacrificialAltarCommand());
-        getCommand().addSub(new SummonCommand());
+        super ("GallowsDove", "FoxyMachines", "master", "auto-update");
     }
 
     @Override
@@ -65,6 +60,11 @@ public class FoxyMachines extends AbstractAddon {
         }
 
         new Metrics(this, 10568);
+
+        getCommand().addSub(new KillallCommand());
+        getCommand().addSub(new QuestCommand());
+        getCommand().addSub(new SacrificialAltarCommand());
+        getCommand().addSub(new SummonCommand());
     }
 
     @SneakyThrows
