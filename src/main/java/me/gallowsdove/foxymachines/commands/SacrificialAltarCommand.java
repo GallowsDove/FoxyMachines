@@ -14,8 +14,8 @@ public class SacrificialAltarCommand extends SubCommand {
     }
 
     @Override
-    public void execute(@Nonnull CommandSender commandSender, @Nonnull String[] strings) {
-        if (!(commandSender instanceof Player p) || strings.length != 1) {
+    protected void execute(@Nonnull CommandSender commandSender, @Nonnull String[] args) {
+        if (!(commandSender instanceof Player p)) {
             return;
         }
 
@@ -23,5 +23,5 @@ public class SacrificialAltarCommand extends SubCommand {
     }
 
     @Override
-    public void complete(@Nonnull CommandSender commandSender, @Nonnull String[] strings, @Nonnull List<String> list) { }
+    protected void complete(@Nonnull CommandSender commandSender, @Nonnull String[] strings, @Nonnull List<String> list) { }
 }

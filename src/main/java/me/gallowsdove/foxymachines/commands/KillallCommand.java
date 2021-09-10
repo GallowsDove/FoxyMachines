@@ -3,6 +3,7 @@ package me.gallowsdove.foxymachines.commands;
 import io.github.mooy1.infinitylib.commands.SubCommand;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -16,8 +17,13 @@ public class KillallCommand extends SubCommand {
     }
 
     @Override
-    public void execute(@Nonnull CommandSender commandSender, @Nonnull String[] strings) {
-        if (!(commandSender instanceof Player p) || strings.length != 1) {
+    protected void execute(@Nonnull CommandSender commandSender, @Nonnull String[] args) {
+        if (!(commandSender instanceof Player p)) {
+            return;
+        }
+
+        if (args.length != 0) {
+            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /foxy killall");
             return;
         }
 
@@ -32,5 +38,5 @@ public class KillallCommand extends SubCommand {
     }
 
     @Override
-    public void complete(@Nonnull CommandSender commandSender, @Nonnull String[] strings, @Nonnull List<String> list) { }
+    protected void complete(@Nonnull CommandSender commandSender, @Nonnull String[] strings, @Nonnull List<String> list) { }
 }

@@ -61,10 +61,8 @@ public class FoxyMachines extends AbstractAddon {
 
         new Metrics(this, 10568);
 
-        getCommand().addSub(new KillallCommand());
-        getCommand().addSub(new QuestCommand());
-        getCommand().addSub(new SacrificialAltarCommand());
-        getCommand().addSub(new SummonCommand());
+        getAddonCommand().addSub(new KillallCommand()).addSub((new QuestCommand())).
+                addSub(new SacrificialAltarCommand()).addSub(new SummonCommand());
     }
 
     @SneakyThrows
