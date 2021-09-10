@@ -1,10 +1,12 @@
 package me.gallowsdove.foxymachines.abstracts;
 
+import io.github.mooy1.infinitylib.common.Events;
 import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
-import me.mrCookieSlime.Slimefun.cscorelib2.chat.ChatColors;
-import me.mrCookieSlime.Slimefun.cscorelib2.data.PersistentDataAPI;
-import org.apache.commons.lang.Validate;
+
+import io.github.thebusybiscuit.slimefun4.libraries.dough.common.ChatColors;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,6 +21,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import org.apache.commons.lang.Validate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -104,7 +107,7 @@ public abstract class CustomMob {
     }
 
     static {
-        FoxyMachines.getInstance().registerListener(new Listener() {
+        Events.registerListener(new Listener() {
 
             @EventHandler
             public void onTarget(@Nonnull EntityTargetEvent e) {
@@ -163,7 +166,7 @@ public abstract class CustomMob {
             }
 
             @EventHandler(ignoreCancelled = true)
-            private void onNametagEvent(PlayerInteractEntityEvent e)  {
+            private void onNametagEvent(PlayerInteractEntityEvent e) {
                 ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 
                 if (item.getType() == Material.NAME_TAG) {
@@ -174,7 +177,7 @@ public abstract class CustomMob {
             }
 
             @EventHandler(ignoreCancelled = true)
-            private void onCombust(EntityCombustEvent e)  {
+            private void onCombust(EntityCombustEvent e) {
                 if (CustomMob.getByEntity(e.getEntity()) != null) {
                     e.setCancelled(true);
                 }

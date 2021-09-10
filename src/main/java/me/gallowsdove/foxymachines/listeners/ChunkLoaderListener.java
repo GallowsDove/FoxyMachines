@@ -1,11 +1,11 @@
 package me.gallowsdove.foxymachines.listeners;
 
-import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
-import me.mrCookieSlime.Slimefun.cscorelib2.config.Config;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -56,7 +56,7 @@ public class ChunkLoaderListener implements Listener {
             }
         }
 
-        if (SlimefunPlugin.getGPSNetwork().getNetworkComplexity(p.getUniqueId()) < 7500*i) {
+        if (Slimefun.getGPSNetwork().getNetworkComplexity(p.getUniqueId()) < 7500*i) {
             p.sendMessage(ChatColor.LIGHT_PURPLE + "Get more GPS Network Complexity to place more Chunk Loaders.");
             e.setCancelled(true);
             return;

@@ -1,11 +1,12 @@
 package me.gallowsdove.foxymachines.implementation.mobs;
 
+import io.github.mooy1.infinitylib.common.Scheduler;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import me.gallowsdove.foxymachines.utils.Utils;
-import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.boss.BarColor;
@@ -151,7 +152,7 @@ public class HeadlessHorseman extends CustomBoss {
                             (loc.getY() - l.getY()) * (loc.getY() - l.getY()) +
                             (loc.getZ() - l.getZ()) * (loc.getZ() - l.getZ())) < 26) {
 
-                        FoxyMachines.getInstance().runSync(() -> {
+                        Scheduler.run(4, () -> {
                             loc.getWorld().strikeLightningEffect(loc);
                             if (player.isValid()) {
                                 Location playerLoc = player.getLocation();
@@ -165,7 +166,7 @@ public class HeadlessHorseman extends CustomBoss {
                                     }
                                 }
                             }
-                        }, 4);
+                        });
                     }
                 }
             }

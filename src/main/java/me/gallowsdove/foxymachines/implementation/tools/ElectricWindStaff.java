@@ -1,11 +1,11 @@
 package me.gallowsdove.foxymachines.implementation.tools;
 
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Rechargeable;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import me.gallowsdove.foxymachines.Items;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
-import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import org.bukkit.Effect;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -19,7 +19,7 @@ public class ElectricWindStaff extends SlimefunItem implements Rechargeable {
     private static final float COST = 0.75F;
 
     public ElectricWindStaff() {
-        super(Items.CATEGORY, Items.ELECTRIC_WIND_STAFF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.ITEM_GROUP, Items.ELECTRIC_WIND_STAFF, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null, SlimefunItems.POWER_CRYSTAL, null,
                 SlimefunItems.ELECTRIC_MOTOR, SlimefunItems.STAFF_WIND, SlimefunItems.ELECTRIC_MOTOR,
                 null, SlimefunItems.MEDIUM_CAPACITOR, null

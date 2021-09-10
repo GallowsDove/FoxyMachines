@@ -1,6 +1,6 @@
 package me.gallowsdove.foxymachines.commands;
 
-import io.github.mooy1.infinitylib.commands.AbstractCommand;
+import io.github.mooy1.infinitylib.commands.SubCommand;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.utils.QuestUtils;
@@ -11,14 +11,19 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class QuestCommand extends AbstractCommand {
+public class QuestCommand extends SubCommand {
     public QuestCommand() {
         super("quest", "Prints your current quest.", "foxymachines.info");
     }
 
     @Override
-    public void onExecute(@Nonnull CommandSender commandSender, @Nonnull String[] strings) {
-        if (!(commandSender instanceof Player p) || strings.length != 1) {
+    protected void execute(@Nonnull CommandSender commandSender, @Nonnull String[] args) {
+        if (!(commandSender instanceof Player p) ) {
+            return;
+        }
+
+        if (args.length != 0) {
+            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /foxy quest");
             return;
         }
 
@@ -33,5 +38,5 @@ public class QuestCommand extends AbstractCommand {
     }
 
     @Override
-    public void onTab(@Nonnull CommandSender commandSender, @Nonnull String[] strings, @Nonnull List<String> list) { }
+    protected void complete(@Nonnull CommandSender commandSender, @Nonnull String[] strings, @Nonnull List<String> list) { }
 }

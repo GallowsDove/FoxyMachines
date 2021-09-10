@@ -1,7 +1,7 @@
 package me.gallowsdove.foxymachines.listeners;
 
+import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.thebusybiscuit.slimefun4.api.events.ExplosiveToolBreakBlocksEvent;
-import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.utils.SimpleLocation;
 import org.bukkit.Bukkit;
@@ -27,7 +27,7 @@ public class ForcefieldListener implements Listener {
         Block b = e.getBlock();
 
         if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
-            FoxyMachines.getInstance().runAsync(() -> b.setType(Material.BARRIER));
+            Scheduler.runAsync(() -> b.setType(Material.BARRIER));
         }
     }
 
@@ -36,7 +36,7 @@ public class ForcefieldListener implements Listener {
         Block b = e.getBlock();
 
         if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
-            FoxyMachines.getInstance().runAsync(() -> b.setType(Material.BARRIER));
+            Scheduler.runAsync(() -> b.setType(Material.BARRIER));
         }
     }
 
@@ -45,7 +45,7 @@ public class ForcefieldListener implements Listener {
         Block b = e.getBlock();
 
         if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
-            FoxyMachines.getInstance().runAsync(() -> b.setType(Material.BARRIER));
+            Scheduler.runAsync(() -> b.setType(Material.BARRIER));
         }
     }
 
@@ -54,7 +54,7 @@ public class ForcefieldListener implements Listener {
         Block b = e.getBlock();
 
         if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
-            FoxyMachines.getInstance().runAsync(() -> b.setType(Material.BARRIER));
+            Scheduler.runAsync(() -> b.setType(Material.BARRIER));
         }
     }
 
@@ -63,7 +63,7 @@ public class ForcefieldListener implements Listener {
         Block b = e.getBlock();
 
         if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
-            FoxyMachines.getInstance().runAsync(() -> b.setType(Material.BARRIER));
+            Scheduler.runAsync(() -> b.setType(Material.BARRIER));
         }
     }
 
@@ -76,7 +76,7 @@ public class ForcefieldListener implements Listener {
         Block b = e.getBlock();
 
         if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
-            FoxyMachines.getInstance().runAsync(() -> b.setType(Material.BARRIER));
+            Scheduler.runAsync(() -> b.setType(Material.BARRIER));
         }
     }
 
@@ -84,7 +84,7 @@ public class ForcefieldListener implements Listener {
     private void onBlocksBreakByExplosiveToolEvent(@Nonnull ExplosiveToolBreakBlocksEvent e) {
         for (Block b : e.getAdditionalBlocks()) {
             if (ForcefieldDome.FORCEFIELD_BLOCKS.remove(b)) {
-                FoxyMachines.getInstance().runAsync(() -> b.setType(Material.BARRIER));
+                Scheduler.runAsync(() -> b.setType(Material.BARRIER));
             }
         }
     }

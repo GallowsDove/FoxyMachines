@@ -1,12 +1,12 @@
 package me.gallowsdove.foxymachines.implementation.consumables;
 
+import io.github.mooy1.infinitylib.common.Scheduler;
+import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemDropHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
-import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
-import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,7 +28,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
 
     public UnbreakableRune() {
-        super(Items.CATEGORY, Items.UNBREAKABLE_RUNE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+        super(Items.ITEM_GROUP, Items.UNBREAKABLE_RUNE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 Items.DAMIENIUM, Items.MAGIC_LUMP_5, Items.DAMIENIUM,
                 SlimefunItems.ESSENCE_OF_AFTERLIFE, SlimefunItems.LIGHTNING_RUNE , SlimefunItems.ESSENCE_OF_AFTERLIFE,
                 Items.DAMIENIUM, Items.MAGIC_LUMP_5, Items.DAMIENIUM
@@ -45,7 +45,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
                     return true;
                 }
 
-                FoxyMachines.getInstance().runSync(() -> activate(p, item), 20);
+                Scheduler.run(20, () -> activate(p, item));
 
                 return true;
             }
@@ -69,7 +69,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
             if (itemStack.getAmount() == 1) {
                 l.getWorld().strikeLightningEffect(l);
 
-                FoxyMachines.getInstance().runSync(() -> {
+                Scheduler.run(10, () -> {
                     if (rune.isValid() && item.isValid() && itemStack.getAmount() == 1) {
 
                         l.getWorld().createExplosion(l, 0);
@@ -85,7 +85,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
                     } else {
                         p.sendMessage(ChatColor.LIGHT_PURPLE + "Your item could not be made Unbreakable");
                     }
-                }, 10);
+                });
             } else {
                 p.sendMessage(ChatColor.LIGHT_PURPLE + "Your item could not be made Unbreakable");
             }
