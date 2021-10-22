@@ -26,7 +26,7 @@ public class FoxyMachines extends AbstractAddon {
     public String folderPath;
 
     public FoxyMachines() {
-        super ("GallowsDove", "FoxyMachines", "master", "auto-update");
+        super ("ybw0014", "FoxyMachines-CN", "master", "auto-update");
     }
 
     @Override
