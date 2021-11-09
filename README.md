@@ -34,39 +34,39 @@ FoxyMachines 向 [Slimefun](https://github.com/Slimefun/Slimefun4) 添加了许�
 
 ## 工具
 
-* Electric Wind Staff
-* Electric Fire Staff
-* Electric Fire Staff II
-* Berry Bush Trimmer
-* Poseidon's Fishing Rod
-* Remote Controller
-* Ghost Block Remover
+* 电力元素法杖 - 风
+* 电力元素法杖 - 火
+* 电力元素法杖 - 火 - II
+* 甜浆果丛修剪器
+* 波塞冬的钓竿
+* 远程控制器
+* 幽灵方块移除器
 
 ## 武器
 
-* Healing Bow
-* Cursed Sword
-* Celestial Sword
-* Elucidator
-* Acri Arcum
+* 治愈之弓
+* 诅咒之剑
+* 天界之剑
+* 阐释者
+* 锋利之弓
 
 ## 防具
 
-* Aquatic Helmet
-* Resistant Chestplate
-* Fiery Leggings
-* Light Boots
+* 水灵头盔
+* 抗性胸甲
+* 火焰护腿
+* 轻盈之靴
 
 ## 机器
 
-* Improvement Forge
-* Potion Mixer
-* Electric Gold Refinery
-* Chunk Loader
-* Boosted Rails
-* Forcefield Dome
+* 改进锻造台
+* 药水混合器
+* 电力炼金厂
+* 区块加载器
+* 提速铁轨
+* 穹顶力场
 
 ## 其他
 
-* Sacrificial Altar
-* Ghost Blocks
+* 献祭祭坛
+* 幽灵方块
