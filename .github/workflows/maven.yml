@@ -17,8 +17,8 @@ jobs:
       - name: Setup JDK
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
-          java-version: 11
+          distribution: 'zulu'
+          java-version: 16
           java-package: jdk
           architecture: x64
       - name: Build with Maven
