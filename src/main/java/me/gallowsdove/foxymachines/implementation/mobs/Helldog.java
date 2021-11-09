@@ -18,7 +18,7 @@ import java.util.Collection;
 public class Helldog extends CustomMob {
 
     public Helldog() {
-        super("HELLDOG", "Helldog", EntityType.WOLF, 30);
+        super("HELLDOG", "地狱犬", EntityType.WOLF, 30);
     }
 
     @Override

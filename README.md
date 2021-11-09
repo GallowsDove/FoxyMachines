@@ -2,8 +2,11 @@
 
 FoxyMachines 向 [Slimefun](https://github.com/Slimefun/Slimefun4) 添加了许多的机器与工具。本附属由 GallowsDove 热情制作。
 
-### 需要 Java 16 才能运行!
+**本附属需要 Java 16 才能运行!**
 
+**你可以在 items.yml 中禁用任何你不想见到的物品**
+
+汉化作者推荐: 配合 [MobCapturer](https://github.com/ybw0014/MobCapturer) 可轻松将生物捕捉至献祭祭坛。
 
 ## 下载 FoxyMachines
 
@@ -19,17 +22,18 @@ FoxyMachines 向 [Slimefun](https://github.com/Slimefun/Slimefun4) 添加了许�
   </a>
 </p>
 
-#### 你可以在 items.yml 中禁用任何你不想见到的物品
-
 ## 首领 (Boss)
-* Pixie Queen
-* Headless Horseman
+
+* 精灵女王
+* 无头骑士
 
 ## 其他怪物
-* Pixie
-* Helldog
+
+* 精灵
+* 地狱犬
 
 ## 工具
+
 * Electric Wind Staff
 * Electric Fire Staff
 * Electric Fire Staff II
@@ -39,6 +43,7 @@ FoxyMachines 向 [Slimefun](https://github.com/Slimefun/Slimefun4) 添加了许�
 * Ghost Block Remover
 
 ## 武器
+
 * Healing Bow
 * Cursed Sword
 * Celestial Sword
@@ -46,12 +51,14 @@ FoxyMachines 向 [Slimefun](https://github.com/Slimefun/Slimefun4) 添加了许�
 * Acri Arcum
 
 ## 防具
+
 * Aquatic Helmet
 * Resistant Chestplate
 * Fiery Leggings
 * Light Boots
 
 ## 机器
+
 * Improvement Forge
 * Potion Mixer
 * Electric Gold Refinery
@@ -60,5 +67,6 @@ FoxyMachines 向 [Slimefun](https://github.com/Slimefun/Slimefun4) 添加了许�
 * Forcefield Dome
 
 ## 其他
+
 * Sacrificial Altar
 * Ghost Blocks

@@ -59,7 +59,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
         });
 
 
-        new BlockMenuPreset(getId(), "&6Electric Gold Refinery") {
+        new BlockMenuPreset(getId(), "&6电力炼金厂") {
 
             @Override
             public void init() {
@@ -80,21 +80,21 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
                 if (!BlockStorage.hasBlockInfo(b) ||
                         BlockStorage.getLocationInfo(b.getLocation(), "gold_recipe") == null ||
                         BlockStorage.getLocationInfo(b.getLocation(), "gold_recipe").equals("11")) {
-                    menu.replaceExistingItem(32, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6Current Recipe: &cNONE", "", "&e> Choose on the left to change it"));
+                    menu.replaceExistingItem(32, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6当前配方: &c无", "", "&e> 点击左侧物品更改配方"));
                 } else {
                     switch (BlockStorage.getLocationInfo(b.getLocation(), "gold_recipe")) {
-                        case "0" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(4 Carat)", "", "&e> Choose on the left to change it"));
-                        case "1" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(6 Carat)", "", "&e> Choose on the left to change it"));
-                        case "2" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(8 Carat)", "", "&e> Choose on the left to change it"));
-                        case "3" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(10 Carat)", "", "&e> Choose on the left to change it"));
-                        case "4" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(12 Carat)", "", "&e> Choose on the left to change it"));
-                        case "5" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(14 Carat)", "", "&e> Choose on the left to change it"));
-                        case "6" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(16 Carat)", "", "&e> Choose on the left to change it"));
-                        case "7" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(18 Carat)", "", "&e> Choose on the left to change it"));
-                        case "8" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(20 Carat)", "", "&e> Choose on the left to change it"));
-                        case "9" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(22 Carat)", "", "&e> Choose on the left to change it"));
-                        case "10" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6Current Recipe: &fGold Ingot &7(24 Carat)", "", "&e> Choose on the left to change it"));
-                        case "11" -> menu.replaceExistingItem(32, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6Current Recipe: &cNONE", "", "&e> Choose on the left to change it"));
+                        case "0" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(4 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "1" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(6 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "2" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(8 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "3" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(10 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "4" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(12 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "5" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(14 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "6" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(16 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "7" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(18 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "8" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(20 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "9" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(22 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "10" -> menu.replaceExistingItem(32, new CustomItemStack(Material.GOLD_INGOT, "&6当前配方: &f金锭 &7(24 克拉)", "", "&e> 点击左侧物品更改配方"));
+                        case "11" -> menu.replaceExistingItem(32, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&6当前配方: &c无", "", "&e> 点击左侧物品更改配方"));
                     }
                 }
             }
@@ -322,7 +322,7 @@ public class ElectricGoldRefinery extends SlimefunItem implements EnergyNetCompo
         }
 
         preset.addItem(23, new CustomItemStack(Material.BLACK_STAINED_GLASS_PANE, " "), ChestMenuUtils.getEmptyClickHandler());
-        preset.addItem(46, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&cNONE"), ChestMenuUtils.getEmptyClickHandler());
+        preset.addItem(46, new CustomItemStack(Material.RED_STAINED_GLASS_PANE, "&c无"), ChestMenuUtils.getEmptyClickHandler());
 
         NamespacedKey key = new NamespacedKey(FoxyMachines.getInstance(), "nonstackable");
 

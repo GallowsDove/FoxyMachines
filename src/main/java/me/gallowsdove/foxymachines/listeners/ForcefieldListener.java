@@ -100,7 +100,7 @@ public class ForcefieldListener implements Listener {
                     int zdif = (int) (l.getZ() - loc.getZ());
                     if (Math.floor(Math.sqrt((xdif * xdif) + (ydif * ydif) + (zdif * zdif))) <= 32) {
                         e.setCancelled(true);
-                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You can't teleport to a dome!");
+                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "你不能传送到穹顶力场内部!");
                         break;
                     }
                 }

@@ -12,7 +12,7 @@ import java.util.List;
 public final class SummonCommand extends SubCommand {
 
     public SummonCommand() {
-        super("summon", "Summons a custom mob", "foxymachines.admin");
+        super("summon", "召唤自定义生物", "foxymachines.admin");
     }
 
     @Override
@@ -22,7 +22,7 @@ public final class SummonCommand extends SubCommand {
         }
 
         if (args.length != 1) {
-            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /foxy summon <MOB_ID>");
+            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "使用方法: /foxy summon <MOB_ID>");
             return;
         }
 

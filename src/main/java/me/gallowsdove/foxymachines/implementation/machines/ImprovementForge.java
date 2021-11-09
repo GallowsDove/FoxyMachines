@@ -62,7 +62,7 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
         });
 
 
-        new BlockMenuPreset(getId(), "&6Improvement Forge") {
+        new BlockMenuPreset(getId(), "&6改进锻造台") {
 
             @Override
             public void init() {

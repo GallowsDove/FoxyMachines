@@ -38,7 +38,7 @@ public class SacrificialAltarPiece extends SlimefunItem {
                     if (BlockStorage.getLocationInfo(b.getLocation(), "complete") != null &&
                             BlockStorage.getLocationInfo(b.getLocation(), "complete").equals("true")) {
                         BlockStorage.addBlockInfo(b, "complete", "false");
-                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "Part of the altar has been broken, please repair it and reactivate it!");
+                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "献祭祭坛不完整，请修复献祭祭坛后重新激活");
                     }
                 }
 

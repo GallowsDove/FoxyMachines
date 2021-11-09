@@ -13,7 +13,7 @@ import java.util.List;
 
 public class QuestCommand extends SubCommand {
     public QuestCommand() {
-        super("quest", "Prints your current quest.", "foxymachines.info");
+        super("quest", "查看当前的任务信息", "foxymachines.info");
     }
 
     @Override
@@ -23,7 +23,7 @@ public class QuestCommand extends SubCommand {
         }
 
         if (args.length != 0) {
-            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /foxy quest");
+            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "使用方法: /foxy quest");
             return;
         }
 
@@ -32,8 +32,8 @@ public class QuestCommand extends SubCommand {
         } else if (SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), Items.CELESTIAL_SWORD, false, false)) {
             QuestUtils.sendQuestLine(p, Items.CELESTIAL_SWORD);
         } else {
-            p.sendMessage(ChatColor.LIGHT_PURPLE + "You need to be holding the " + ChatColor.RED + "Cursed Sword" +
-                    ChatColor.LIGHT_PURPLE + " or the " + ChatColor.YELLOW + "Celestial Sword" + ChatColor.LIGHT_PURPLE + " to view your quest.");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "你需要手持" + ChatColor.RED + "诅咒之剑" +
+                    ChatColor.LIGHT_PURPLE + "或" + ChatColor.YELLOW + "天界之剑" + ChatColor.LIGHT_PURPLE + "才能查看任务");
         }
     }
 

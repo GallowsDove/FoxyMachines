@@ -36,7 +36,7 @@ public class ChunkLoaderListener implements Listener {
         Block b = e.getBlockPlaced();
         if (b.getChunk().isForceLoaded()) {
             e.setCancelled(true);
-            p.sendMessage(ChatColor.LIGHT_PURPLE + "This chunk is already loaded!");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "该区块已加载!");
             return;
         }
 
@@ -50,14 +50,14 @@ public class ChunkLoaderListener implements Listener {
             Config cfg = new Config(FoxyMachines.getInstance());
             int max = cfg.getInt("max-chunk-loaders");
             if(max != 0 && max < i) {
-                p.sendMessage(ChatColor.LIGHT_PURPLE + "Maximum amount of chunk loaders already placed: " + max);
+                p.sendMessage(ChatColor.LIGHT_PURPLE + "已达到区块加载器最大数量限制: " + max);
                 e.setCancelled(true);
                 return;
             }
         }
 
         if (Slimefun.getGPSNetwork().getNetworkComplexity(p.getUniqueId()) < 7500*i) {
-            p.sendMessage(ChatColor.LIGHT_PURPLE + "Get more GPS Network Complexity to place more Chunk Loaders.");
+            p.sendMessage(ChatColor.LIGHT_PURPLE + "你需要更高的GPS网络复杂度来放置更多的区块加载器");
             e.setCancelled(true);
             return;
         }

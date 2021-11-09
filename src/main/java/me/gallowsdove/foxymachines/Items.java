@@ -389,19 +389,19 @@ public final class Items{
     public static final SlimefunItemStack CELESTIAL_SWORD = new SlimefunItemStack(
             "CELESTIAL_SWORD",
             Material.NETHERITE_SWORD,
-            "&eCelestial Sword",
-            "&7Divine Smite II",
+            "&e天界之剑",
+            "&7神圣重击 II",
             "",
-            "&7Ignores 20% of Resistances."
+            "&7无视 20% 抗性."
     );
 
     public static final SlimefunItemStack ELUCIDATOR = new SlimefunItemStack(
             "ELUCIDATOR",
             Material.NETHERITE_SWORD,
-            "&bElucidator",
-            "&7Damage III",
-            "&7Life Steal II",
-            "&7Overheal"
+            "&b阐释者",
+            "&7伤害 III",
+            "&7生命偷取 II",
+            "&7过量治疗"
     );
     static {
         ELUCIDATOR.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 10);
@@ -411,23 +411,22 @@ public final class Items{
     public static final SlimefunItemStack MAGIC_LUMP_4 = new SlimefunItemStack(
             "MAGIC_LUMP_4",
             Material.GOLD_NUGGET,
-            "&6Magical Lump &7- &eIV",
+            "&6魔法结晶 &7- &eIV",
             "",
-            "&c&oTier: IV");
+            "&c&o等级: IV");
 
     public static final SlimefunItemStack MAGIC_LUMP_5 = new SlimefunItemStack(
             "MAGIC_LUMP_5",
             Material.GOLD_NUGGET,
-            "&6Magical Lump &7- &eV",
+            "&6魔法结晶 &7- &eV",
             "",
-            "&c&oTier: V");
+            "&c&o等级: V");
 
     public static final SlimefunItemStack AQUATIC_HELMET = new SlimefunItemStack(
             "AQUATIC_HELMET",
             Material.NETHERITE_HELMET,
-            "&bAquatic Helmet",
-            "&7Water Breathing",
-            "&7Darkvision"
+            "&b水灵头盔",
+            "&7夜视"
     );
     static {
         AQUATIC_HELMET.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
@@ -436,13 +435,12 @@ public final class Items{
         AQUATIC_HELMET.addUnsafeEnchantment(Enchantment.DEPTH_STRIDER, 5);
     }
 
-
     public static final SlimefunItemStack RESISTANT_CHESTPLATE = new SlimefunItemStack(
             "RESISTANT_CHESTPLATE",
             Material.NETHERITE_CHESTPLATE,
-            "&aResistant Chestplate",
-            "&7Resistance I",
-            "&7Regeneration II"
+            "&a抗性胸甲",
+            "&7抗性提升 I",
+            "&7生命恢复 II"
     );
     static {
         RESISTANT_CHESTPLATE.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
@@ -451,8 +449,9 @@ public final class Items{
     public static final SlimefunItemStack FIERY_LEGGINGS = new SlimefunItemStack(
             "FIERY_LEGGINGS",
             Material.NETHERITE_LEGGINGS,
-            "&cFiery Leggings",
-            "&7Fire Aura II"
+            "&c火焰护腿",
+            "&7防火 I",
+            "&7火焰光环 II"
     );
     static {
         FIERY_LEGGINGS.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
@@ -462,10 +461,9 @@ public final class Items{
     public static final SlimefunItemStack LIGHT_BOOTS = new SlimefunItemStack(
             "LIGHT_BOOTS",
             Material.NETHERITE_BOOTS,
-            "&eLight Boots",
-            "&7Jump I",
-            "&7Speed I",
-            "&7Lightweight"
+            "&e轻盈之靴",
+            "&7跳跃提升 II",
+            "&7速度 II"
     );
     static {
         LIGHT_BOOTS.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
@@ -476,134 +474,133 @@ public final class Items{
     public static final SlimefunItemStack AQUATIC_HELMET_FRAME = new SlimefunItemStack(
             "HELMET_FRAME",
             Material.CHAINMAIL_HELMET,
-            "&fAquatic Helmet Frame",
+            "&f水灵头盔框架",
             "",
-            "&7Crafting Material"
+            "&7合成材料"
     );
 
     public static final SlimefunItemStack RESISTANT_CHESTPLATE_FRAME = new SlimefunItemStack(
             "RESISTANT_CHESTPLATE_FRAME",
             Material.CHAINMAIL_CHESTPLATE,
-            "&fResistant Chestplate Frame",
+            "&f抗性胸甲框架",
             "",
-            "&7Crafting Material"
+            "&7合成材料"
     );
 
     public static final SlimefunItemStack FIERY_LEGGINGS_FRAME = new SlimefunItemStack(
             "FIERY_LEGGINGS_FRAME",
             Material.CHAINMAIL_LEGGINGS,
-            "&fFiery Leggings Frame",
+            "&f火焰护腿框架",
             "",
-            "&7Crafting Material"
+            "&7合成材料"
     );
 
     public static final SlimefunItemStack LIGHT_BOOTS_FRAME = new SlimefunItemStack(
             "LIGHT_BOOTS_FRAME",
             Material.CHAINMAIL_BOOTS,
-            "&fLight Boots Frame",
+            "&f轻盈之靴框架",
             "",
-            "&7Crafting Material"
+            "&7合成材料"
     );
 
     public static final SlimefunItemStack CURSED_SHARD = new SlimefunItemStack(
             "CURSED_SHARD",
             Material.NETHERITE_SCRAP,
-            "&cCursed Shard"
+            "&c诅咒碎片"
     );
 
     public static final SlimefunItemStack CELESTIAL_SHARD = new SlimefunItemStack(
             "CELESTIAL_SHARD",
             Material.PRISMARINE_SHARD,
-            "&eCelestial Shard"
+            "&e天界碎片"
     );
 
     public static final SlimefunItemStack EQUANIMOUS_GEM = new SlimefunItemStack(
             "EQUANIMOUS_GEM",
             Material.EMERALD,
-            "&aEquanimous Gem"
+            "&a镇静宝石"
     );
 
     public static final SlimefunItemStack POLAR_FOX_HIDE = new SlimefunItemStack(
             "POLAR_FOX_HIDE",
             Material.SNOWBALL,
-            "&fPolar Fox Hide"
+            "&f北极狐皮"
     );
 
     public static final SlimefunItemStack MAGMA_ESSENCE = new SlimefunItemStack(
             "MAGMA_ESSENCE",
             Material.MAGMA_CREAM,
-            "&cMagma Essence"
+            "&c岩浆精华"
     );
 
     public static final SlimefunItemStack TROPICAL_FISH_SCALE = new SlimefunItemStack(
             "TROPICAL_FISH_SCALE",
             Material.TROPICAL_FISH_SPAWN_EGG,
-            "&bTropical Fish Scale"
+            "&b热带鱼鳞"
     );
 
     public static final SlimefunItemStack PARROT_FEATHER = new SlimefunItemStack(
             "PARROT_FEATHER",
             Material.FEATHER,
-            "&aParrot Feather"
+            "&a鹦鹉羽毛"
     );
 
     public static final SlimefunItemStack UNBREAKABLE_RUNE = new SlimefunItemStack(
             "UNBREAKABLE_RUNE",
             new ColoredFireworkStar(
                     Color.fromRGB(0, 188, 0),
-                    "&7Ancient Rune &8&l[&2&lUnbreakable&8&l]",
+                    "&7古代符文 &8&l[&2&l无法破坏&8&l]",
                     "",
-                    "&eDrop this rune onto a dropped item to",
-                    "&emake it &2unbreakable"
+                    "&e将需要绑定的物品丢在地上",
+                    "&e然后将此符文丢向该物品",
+                    "&e即可让该物品&2无法破坏"
             ));
 
     public static final SlimefunItemStack PIXIE_QUEEN_SPAWN_EGG = new SlimefunItemStack(
             "PIXIE_QUEEN_SPAWN_EGG",
             Material.CREEPER_SPAWN_EGG,
-            "&aPixie Queen Spawn Egg"
+            "&a精灵女王&f刷怪蛋"
     );
 
     public static final SlimefunItemStack HEADLESS_HORSEMAN_SPAWN_EGG = new SlimefunItemStack(
             "HEADLESS_HORSEMAN_SPAWN_EGG",
             Material.SPIDER_SPAWN_EGG,
-            "&cHeadless Horseman Spawn Egg"
+            "&c无头骑士&f刷怪蛋"
     );
 
     public static final SlimefunItemStack PIXIE_QUEEN_HEART = new SlimefunItemStack(
             "PIXIE_QUEEN_HEART",
             Material.FERMENTED_SPIDER_EYE,
-            "&4Pixie Queen Heart"
+            "&4精灵女王之心"
     );
 
     public static final SlimefunItemStack PIXIE_DUST = new SlimefunItemStack(
             "PIXIE_DUST",
             Material.SUGAR,
-            "&ePixie Dust",
+            "&e精灵之粉",
             "",
-            "&7Strength IV"
+            "&7力量 IV"
     );
 
     public static final SlimefunItemStack VILE_PUMPKIN = new SlimefunItemStack(
             "VILE_PUMPKIN",
             Material.CARVED_PUMPKIN,
-            "&cVile Pumpkin"
+            "&c邪恶南瓜"
     );
 
     public static final SlimefunItemStack VILE_SEEDS = new SlimefunItemStack(
             "VILE_SEEDS",
             Material.MELON_SEEDS,
-            "&cVile Seeds",
+            "&c邪恶之种",
             "",
-            "&7Health Boost V"
+            "&7生命提升 V"
     );
 
     public static final SlimefunItemStack ACRI_ARCUM = new SlimefunItemStack(
             "ACRI_ARCUM",
             Material.BOW,
-            "&eAcri Arcum",
-            "",
-            "&7Damage III",
-            "&7Armor Piercing II"
+            "&e锋利之弓",
+            "&7护甲穿透 II"
     );
     static {
         ACRI_ARCUM.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, 7);
@@ -613,8 +610,8 @@ public final class Items{
     public static final SlimefunItemStack GHOST_BLOCK_REMOVER = new SlimefunItemStack(
             "GHOST_BLOCK_REMOVER",
             Material.CLOCK,
-            "&eGhost Block Remover",
+            "&e幽灵方块移除器",
             "",
-            "&7Right click to remove a Ghost Block."
+            "&e右键点击&7移除幽灵方块"
     );
 }

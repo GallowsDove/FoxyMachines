@@ -65,7 +65,7 @@ public class BerryBushTrimmer extends SlimefunItem {
 
                     p.getInventory().setItemInMainHand(shears);
                 } else {
-                    p.sendMessage(ChatColor.LIGHT_PURPLE + "This berry bush is already trimmed!");
+                    p.sendMessage(ChatColor.LIGHT_PURPLE + "这个浆果丛已经修剪过了!");
                 }
             }
 

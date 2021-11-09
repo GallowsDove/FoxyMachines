@@ -126,24 +126,24 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                         if (active.equals("false")) {
                             if (getCharge(b.getLocation()) >= ENERGY_CONSUMPTION) {
                                 setDomeActive(b);
-                                e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The dome has been activated.");
+                                e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "已激活穹顶力场");
 
                                 BlockStorage.addBlockInfo(b, "cooldown", "true");
                                 Scheduler.runAsync(200, () ->
                                         BlockStorage.addBlockInfo(b, "cooldown", "false"));
                             } else {
-                                e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You don't have enough energy.");
+                                e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "电力不足");
                             }
                         } else {
                             setDomeInactive(b);
-                            e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The dome has been deactivated.");
+                            e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "已关闭穹顶力场");
 
                             BlockStorage.addBlockInfo(b, "cooldown", "true");
                             Scheduler.runAsync(200, () ->
                                     BlockStorage.addBlockInfo(b, "cooldown", "false"));
                         }
                     } else {
-                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You must wait at least 10 seconds before activating the dome again.");
+                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "你必须等待至少10秒才能再次激活穹顶力场");
                     }
                     e.cancel();
                 }

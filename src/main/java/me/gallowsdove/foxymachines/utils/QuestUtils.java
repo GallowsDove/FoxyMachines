@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
+import net.guizhanss.minecraft.guizhanlib.minecraft.helper.entity.EntityTypeHelper;
 import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
@@ -21,30 +22,30 @@ public class QuestUtils {
     public static NamespacedKey KEY = new NamespacedKey(FoxyMachines.getInstance(), "quest");
 
     private static final List<Line> CURSED_LINES = List.of(
-            new Line("I would love to kill a ", ", so tasty!"),
-            new Line("Give me a ", ", now!"),
-            new Line("Surely you can help me slay a ", "."),
-            new Line("I want blood....  ", " blood."),
-            new Line("I need a ", " liver."),
-            new Line("I've heard that ", " blood is tasty..."),
-            new Line("", " heart, hmmm..."),
-            new Line("I would slay God himself for some ", " flesh."),
-            new Line("I could be devouring a ", " whole day."),
-            new Line("I've been waiting for too long. Too long or a day to kill a ", "."),
-            new Line("", "'s blood shall be spilled"),
-            new Line("My curse shall devour ", "'s soul"));
+            new Line("我很想杀一个", ", 真的很美味!"),
+            new Line("马上!给我一个", "!"),
+            new Line("你一定能帮我杀一个", "。"),
+            new Line("我渴望鲜血....  ", "的鲜血。"),
+            new Line("我需要", "的肝脏!"),
+            new Line("我听说", "的血液很鲜美..."),
+            new Line("", "心脏, hmmm..."),
+            new Line("我会因为", "肉而杀了上帝。"),
+            new Line("我可能会食用", "一整天。"),
+            new Line("我等待这一天很久了，是时候去击杀一个", "了。"),
+            new Line("", "血流成河!"),
+            new Line("我的诅咒将吞噬", "的灵魂!"));
     private static final List<Line> CELESTIAL_LINES = List.of(
-            new Line("I love all beings... except ", ", I hate those."),
-            new Line("All life must be in balance, what's why I need to kill a ", "."),
-            new Line("I am celestial, but I am also a sword. Now get me a ", "."),
-            new Line("I'm sorry, but please get me some ", ". No questions."),
-            new Line("Celestial sword requires a celestial sacrifice. A ", "."),
-            new Line("My next victim should be ", ", just as God intended."),
-            new Line("And the next in line is ... ", "!"),
-            new Line("The God wants a ", " dead."),
-            new Line("For God and honour, go slay a ", "."),
-            new Line("Go, get that ", "! For justice!"),
-            new Line("The stars have aligned. I can clearly see the ", " that shall die by my blade"));
+            new Line("我热爱所有生命，除了", "，我讨厌它们!"),
+            new Line("所有必须平衡，这就是为什么我需要击杀一个", "。"),
+            new Line("我来自天界，但我也是一把剑。现在，给我一个 ", "。"),
+            new Line("抱歉，但现在请给我一个", "。不要质疑我!"),
+            new Line("天界之剑需要获得献祭，", "!"),
+            new Line("下一位受害者是", "，如上帝所愿。"),
+            new Line("接下来是... ", "!"),
+            new Line("上帝想要", "死。"),
+            new Line("为了上帝和荣耀，去杀死一只", "。"),
+            new Line("去吧，为了正义! 杀死一只", "!"),
+            new Line("众星云集，我可以看到", "将被我的剑刃杀死。"));
 
     @ParametersAreNonnullByDefault
     public static void sendQuestLine(Player p, SlimefunItemStack item) {
@@ -71,7 +72,7 @@ public class QuestUtils {
     }
 
     public static EntityType toEntityType(int id) {
-        Validate.isTrue(id <= 61, "Entity ID can't be greater than 61");
+        Validate.isTrue(id <= 61, "实体ID不能大于61");
 
         switch (id) {
             case 0:
@@ -183,115 +184,9 @@ public class QuestUtils {
     }
 
     public static String toString(int id) {
-        Validate.isTrue(id <= 61, "Entity ID can't be greater than 61");
+        Validate.isTrue(id <= 61, "实体ID不能大于61");
 
-        switch (id) {
-            case 0:
-                return "Bat";
-            case 1:
-                return "Bee";
-            case 2:
-                return "Blaze";
-            case 3:
-                return "Cat";
-            case 4:
-                return "Chicken";
-            case 5:
-                return "Cave Spider";
-            case 6:
-                return "Cod";
-            case 7:
-                return "Cow";
-            case 8:
-                return "Creeper";
-            case 9:
-                return "Dolphin";
-            case 10:
-                return "Donkey";
-            case 11:
-                return "Drowned";
-            case 12:
-                return "Enderman";
-            case 13:
-                return "Fox";
-            case 14:
-                return "Ghast";
-            case 15:
-                return "Guardian";
-            case 16:
-                return "Hoglin";
-            case 17:
-                return "Husk";
-            case 18:
-                return "Horse";
-            case 19:
-                return "Iron Golem";
-            case 20:
-                return "Llama";
-            case 21:
-                return "Magma Cube";
-            case 22:
-                return "Mushroom Cow";
-            case 23:
-                return "Ocelot";
-            case 24:
-                return "Panda";
-            case 25:
-                return "Parrot";
-            case 26:
-                return "Phantom";
-            case 27:
-                return "Pig";
-            case 28:
-                return "Piglin";
-            case 29:
-                return "Piglin Brute";
-            case 30:
-                return "Pillager";
-            case 31:
-                return "Polar Bear";
-            case 32:
-                return "Pufferfish";
-            case 33:
-                return "Rabbit";
-            case 34:
-                return "Salmon";
-            case 35:
-                return "Sheep";
-            case 36:
-                return "Silverfish";
-            case 37:
-                return "Skeleton";
-            case 38:
-                return "Slime";
-            case 39:
-                return "Snowman";
-            case 40:
-                return "Spider";
-            case 41:
-                return "Squid";
-            case 42:
-                return "Stray";
-            case 43:
-                return "Strider";
-            case 44:
-                return "Turtle";
-            case 45:
-                return "Tropical Fish";
-            case 46:
-                return "Witch";
-            case 47:
-                return "Wither Skeleton";
-            case 48:
-                return "Wolf";
-            case 49:
-                return "Zoglin";
-            case 50:
-                return "Zombie";
-            case 51:
-                return "Zombified Piglin";
-        }
-        return "Fox";
+        return EntityTypeHelper.getName(toEntityType(id));
     }
 }
 

@@ -36,7 +36,7 @@ public class PixieQueen extends CustomBoss {
     private static final NamespacedKey PATTERN_KEY = new NamespacedKey(FoxyMachines.getInstance(), "pattern");
 
     public PixieQueen() {
-        super("PIXIE_QUEEN", ChatColor.GREEN + "Pixie Queen", EntityType.VEX, 800,
+        super("PIXIE_QUEEN", ChatColor.GREEN + "精灵女王", EntityType.VEX, 800,
                 DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION, DamageCause.THORNS);
     }
 
@@ -53,7 +53,7 @@ public class PixieQueen extends CustomBoss {
     @Nonnull
     @Override
     protected BossBarStyle getBossBarStyle() {
-        return new BossBarStyle("Pixie Queen", BarColor.GREEN, BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
+        return new BossBarStyle("精灵女王", BarColor.GREEN, BarStyle.SOLID, BarFlag.PLAY_BOSS_MUSIC);
     }
 
     @Override

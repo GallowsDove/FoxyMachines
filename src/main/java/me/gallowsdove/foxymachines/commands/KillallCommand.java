@@ -13,7 +13,7 @@ import java.util.List;
 
 public class KillallCommand extends SubCommand {
     public KillallCommand() {
-        super("killall", "Kills all Custom Mobs from FoxyMachines.", "foxymachines.admin");
+        super("killall", "击杀FoxyMachines召唤的所有自定义生物", "foxymachines.admin");
     }
 
     @Override
@@ -23,7 +23,7 @@ public class KillallCommand extends SubCommand {
         }
 
         if (args.length != 0) {
-            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /foxy killall");
+            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "使用方法: /foxy killall");
             return;
         }
 

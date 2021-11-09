@@ -59,7 +59,7 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
         });
 
 
-        new BlockMenuPreset(getId(), "&6Potion Mixer") {
+        new BlockMenuPreset(getId(), "&6药水混合器") {
 
             @Override
             public void init() {
@@ -355,8 +355,8 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                 PotionMeta potionMeta = (PotionMeta) potion1.getItemMeta();
                 PotionMeta potion2Meta = (PotionMeta) potion2.getItemMeta();
 
-                assert potionMeta != null : "Potion Meta shouldn't be null. Please report this on github";
-                assert potion2Meta != null : "Potion Meta shouldn't be null. Please report this on github";
+                assert potionMeta != null : "药水信息不能为空, 请在Github汇报此问题";
+                assert potion2Meta != null : "药水信息不能为空, 请在Github汇报此问题";
 
                 List<PotionEffect> potion1Effects = new ArrayList<>(potionMeta.getCustomEffects());
                 List<PotionEffect> potion2Effects = potion2Meta.getCustomEffects();
@@ -392,20 +392,20 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                 }
 
                 List<String> lore = new ArrayList<>() {{
-                    add("Not usable in Brewing Stand");
+                    add("无法在酿造台中使用");
                 }};
                 potionMeta.setBasePotionData(new PotionData(PotionType.UNCRAFTABLE, false, false));
                 switch(potion1.getType()){
                     case POTION:
-                        potionMeta.setDisplayName(ChatColor.AQUA + "Combined Potion");
+                        potionMeta.setDisplayName(ChatColor.AQUA + "混合药水");
                         break;
                     case LINGERING_POTION:
-                        lore.add(ChatColor.RED + "The time shown is incorrect due to a Minecraft");
-                        lore.add(ChatColor.RED + "bug, multiply it by 4 to get the real time.");
-                        potionMeta.setDisplayName(ChatColor.AQUA + "Combined Lingering Potion");
+                        lore.add(ChatColor.RED + "由于Minecraft的bug导致持续时间显示有问题");
+                        lore.add(ChatColor.RED + "将持续时间乘以4来计算实际持续时间");
+                        potionMeta.setDisplayName(ChatColor.AQUA + "混合滞留型药水");
                         break;
                     case SPLASH_POTION:
-                        potionMeta.setDisplayName(ChatColor.AQUA + "Combined Splash Potion");
+                        potionMeta.setDisplayName(ChatColor.AQUA + "混合喷溅型药水");
                         break;
                 }
                 potionMeta.setLore(lore);

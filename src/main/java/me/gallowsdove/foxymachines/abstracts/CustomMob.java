@@ -58,7 +58,7 @@ public abstract class CustomMob {
         Validate.notNull(this.id = id);
         Validate.notNull(this.name = ChatColors.color(name));
         Validate.notNull(this.type = type);
-        Validate.isTrue(type.isAlive(), "Entity type " + type + " is not alive!");
+        Validate.isTrue(type.isAlive(), "实体类型" + type + "不可用!");
         Validate.isTrue((this.health = health) > 0);
         Validate.notNull(getSpawnOffset());
 
