@@ -26,6 +26,9 @@ It's a passion project for GallowsDove.
 * Poseidon's Fishing Rod
 * Remote Controller
 * Ghost Block Remover
+* Position Selector
+* Fill Wand
+* Sponge Wand
 
 ## Weapons
 * Healing Bow
