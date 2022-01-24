@@ -49,7 +49,7 @@ public class RemoteController extends SlimefunItem implements NotPlaceable, Rech
                     Block b = e.getClickedBlock().get();
                     if (BlockStorage.getLocationInfo(b.getLocation(), "owner") != null && BlockStorage.getLocationInfo(b.getLocation(), "active") != null) {
 
-                        SimpleLocation loc = new SimpleLocation(b.getX(), b.getY(), b.getZ(), b.getWorld().getUID().toString());
+                        SimpleLocation loc = new SimpleLocation(b.getX(), b.getY(), b.getZ(), b.getWorld().getUID().toString(), "forcefield");
 
                         loc.storePersistently(container);
                         itemInInventory.setItemMeta(meta);
@@ -59,7 +59,7 @@ public class RemoteController extends SlimefunItem implements NotPlaceable, Rech
                     }
                 }
             } else {
-                SimpleLocation loc = SimpleLocation.fromPersistentStorage(container);
+                SimpleLocation loc = SimpleLocation.fromPersistentStorage(container, "forcefield");
 
                 if (loc != null) {
                     World world = Bukkit.getWorld(UUID.fromString(loc.getWorldUUID()));

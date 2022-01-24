@@ -45,6 +45,7 @@ public class FoxyMachines extends AbstractAddon {
         Events.registerListener(new PoseidonsFishingRodListener());
         Events.registerListener(new ArmorListener());
         Events.registerListener(new BowListener());
+        Events.registerListener(new PositionSelectorListener());
         
         ItemSetup.INSTANCE.init();
         ResearchSetup.INSTANCE.init();
