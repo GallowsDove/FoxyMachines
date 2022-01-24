@@ -4,6 +4,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.api.researches.Research;
+import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.armor.LongFallBoots;
 import io.github.thebusybiscuit.slimefun4.implementation.items.armor.SlimefunArmorPiece;
@@ -15,6 +16,7 @@ import me.gallowsdove.foxymachines.implementation.consumables.UnbreakableRune;
 import me.gallowsdove.foxymachines.implementation.machines.*;
 import me.gallowsdove.foxymachines.implementation.materials.GhostBlock;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleMaterial;
+import me.gallowsdove.foxymachines.implementation.materials.SimpleRadioactiveMaterial;
 import me.gallowsdove.foxymachines.implementation.mobs.*;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPiece;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPressurePlate;
@@ -83,6 +85,16 @@ final class ItemSetup {
                 Items.DAMIENIUM, SlimefunItems.ELECTRIC_MOTOR, Items.DAMIENIUM,
                 Items.DAMIENIUM, SlimefunItems.BATTERY, Items.DAMIENIUM
                 }, 1).register(FoxyMachines.getInstance());
+        new SimpleRadioactiveMaterial(Items.NUCLEAR_SALT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                null, SlimefunItems.BOOSTED_URANIUM, null,
+                SlimefunItems.BOOSTED_URANIUM, SlimefunItems.SALT, SlimefunItems.BOOSTED_URANIUM,
+                null, SlimefunItems.BOOSTED_URANIUM, null
+            }, 1, Radioactivity.VERY_HIGH).register(FoxyMachines.getInstance());
+        new SimpleMaterial(Items.COMPRESSED_SPONGE, RecipeType.COMPRESSOR, new ItemStack[]{
+                new ItemStack(Material.SPONGE, 24), null, null,
+                null, null, null,
+                null, null, null
+        }, 1).register(FoxyMachines.getInstance());
         new SimpleMaterial(Items.DEMONIC_INGOT, RecipeType.SMELTERY, new ItemStack[]{
                 SlimefunItems.LAVA_CRYSTAL, SlimefunItems.BLISTERING_INGOT_3, new ItemStack(Material.GHAST_TEAR),
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.NECROTIC_SKULL, SlimefunItems.STRANGE_NETHER_GOO,
@@ -363,6 +375,7 @@ final class ItemSetup {
         new RemoteController().register(FoxyMachines.getInstance());
         new PositionSelector().register(FoxyMachines.getInstance());
         new FillWand().register(FoxyMachines.getInstance());
+        new SpongeWand().register(FoxyMachines.getInstance());
 
         if (customMobs) {
             new CustomMobSpawnEgg("PIXIE_QUEEN", Items.PIXIE_QUEEN_SPAWN_EGG, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
@@ -568,12 +581,20 @@ final class ResearchSetup {
                 .addItems(Items.ACRI_ARCUM)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "ghost_block_remover"),
-                6669703, "Ghost Block Remover.", 46)
+                6669703, "Ghost Block Remover.", 44)
                 .addItems(Items.GHOST_BLOCK_REMOVER)
                 .register();
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "build_wands"),
                 6669704, "Building made easier.", 36)
-                .addItems(Items.POSITION_SELECTOR, Items.FILL_WAND)
+                .addItems(Items.POSITION_SELECTOR, Items.FILL_WAND, Items.SPONGE_WAND)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "nuclear_salt"),
+                6669704, "Don't forget your hazmat suit.", 16)
+                .addItems(Items.NUCLEAR_SALT)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "compressed_sponge"),
+                6669704, "Succ.", 14)
+                .addItems(Items.COMPRESSED_SPONGE)
                 .register();
     }
 }
