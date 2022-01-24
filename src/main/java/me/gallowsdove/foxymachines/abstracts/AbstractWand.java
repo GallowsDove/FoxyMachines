@@ -41,6 +41,8 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
 
     protected abstract float getCostPerBBlock();
 
+    protected abstract boolean isRemoving();
+
     @Override
     public void preRegister() {
         addItemHandler(onUse());
@@ -55,7 +57,7 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
             PersistentDataContainer container = meta.getPersistentDataContainer();
 
             if (player.isSneaking()) {
-                if (e.getClickedBlock().isPresent()) {
+                if (!isRemoving() && e.getClickedBlock().isPresent()) {
 
                     Material material = e.getClickedBlock().get().getType();
 
@@ -70,10 +72,13 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
                     }
                 }
             } else {
+                if (isRemoving() && !container.has(MATERIAL_KEY, PersistentDataType.STRING)) {
+                    container.set(MATERIAL_KEY, PersistentDataType.STRING, Material.AIR.toString());
+                }
+
                 List<Location> locs = getLocations(player);
 
                 if (locs.size() == 0) {
-                    player.sendMessage(ChatColor.RED + "Couldn't get valid locations! Make sure to select points with Position Selector.");
                     return;
                 }
 
@@ -86,7 +91,7 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
 
                 ItemStack blocks = new ItemStack(material, locs.size());
 
-                if (inventory.containsAtLeast(blocks, locs.size())) {
+                if (isRemoving() || inventory.containsAtLeast(blocks, locs.size())) {
                     if (removeItemCharge(e.getItem(),getCostPerBBlock() * locs.size())) {
                         inventory.removeItem(blocks);
                         for (Location loc : locs) {

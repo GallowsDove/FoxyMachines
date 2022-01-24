@@ -5,6 +5,7 @@ import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
+import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import io.github.thebusybiscuit.slimefun4.utils.itemstack.ColoredFireworkStar;
@@ -18,7 +19,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.ItemMeta;
-
 
 public final class Items{
 
@@ -639,5 +639,30 @@ public final class Items{
             "",
             "&7Material: &eNone",
             "&c&o&8\u21E8 &e\u26A1 &70 / 1000 J"
+    );
+
+    public static final SlimefunItemStack SPONGE_WAND = new SlimefunItemStack(
+            "SPONGE_WAND",
+            Material.BLAZE_ROD,
+            "&eSponge Wand",
+            "",
+            "&7Select corner points with Position Selector.",
+            "&7Right click to remove Water and Lava.",
+            "",
+            "&c&o&8\u21E8 &e\u26A1 &70 / 2000 J"
+    );
+
+    public static final SlimefunItemStack NUCLEAR_SALT = new SlimefunItemStack(
+            "NUCLEAR_SALT",
+            Material.LIME_DYE,
+            "&aNuclear Salt",
+            "",
+            LoreBuilder.radioactive(Radioactivity.VERY_HIGH)
+    );
+
+    public static final SlimefunItemStack COMPRESSED_SPONGE = new SlimefunItemStack(
+            "COMPRESSED_SPONGE",
+            Material.WET_SPONGE,
+            "&fCompressed Sponge"
     );
 }

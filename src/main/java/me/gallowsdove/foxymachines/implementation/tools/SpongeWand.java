@@ -7,10 +7,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.AbstractWand;
 import me.gallowsdove.foxymachines.utils.SimpleLocation;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -21,21 +18,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class FillWand extends AbstractWand {
-    public FillWand() {
-        super(Items.FILL_WAND, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
-                Items.AQUATIC_NETHERITE_INGOT, Items.WIRELESS_TRANSMITTER, Items.AQUATIC_NETHERITE_INGOT,
+public class SpongeWand extends AbstractWand {
+    public SpongeWand() {
+        super(Items.SPONGE_WAND, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                Items.NUCLEAR_SALT, Items.WIRELESS_TRANSMITTER, Items.NUCLEAR_SALT,
                 Items.DEMONIC_PLATE, SlimefunItems.PROGRAMMABLE_ANDROID_2, Items.DEMONIC_PLATE,
-                Items.SWEETENED_SWEET_INGOT, Items.WIRELESS_TRANSMITTER, Items.SWEETENED_SWEET_INGOT
+                Items.NUCLEAR_SALT, Items.COMPRESSED_SPONGE, Items.NUCLEAR_SALT
         });
     }
 
     @Override
-    protected boolean isRemoving() {return false;}
+    protected boolean isRemoving() {return true;}
 
     @Override
     protected float getCostPerBBlock() {
-        return 0.4F;
+        return 0.24F;
     }
 
     @Override
@@ -68,7 +65,7 @@ public class FillWand extends AbstractWand {
             loc2.setZ(tmp);
         }
 
-        if ((loc1.getX() - loc2.getX()) * (loc1.getZ() - loc2.getZ()) * (loc1.getZ() - loc2.getZ()) > 4096) {
+        if ((loc1.getX() - loc2.getX()) * (loc1.getZ() - loc2.getZ()) * (loc1.getZ() - loc2.getZ()) > 16384) {
             player.sendMessage(ChatColor.RED + "Selected area is too big!");
             return locs;
         }
@@ -84,7 +81,8 @@ public class FillWand extends AbstractWand {
             for (int y = loc2.getY(); y <= loc1.getY(); y++) {
                 for (int z = loc2.getZ(); z <= loc1.getZ(); z++) {
                     Block block = world.getBlockAt(x, y, z);
-                    if (Slimefun.getProtectionManager().hasPermission(player, block, Interaction.PLACE_BLOCK) && block.getType().isAir()) {
+                    if (Slimefun.getProtectionManager().hasPermission(player, block, Interaction.BREAK_BLOCK) &&
+                            (block.getType() == Material.WATER || block.getType() == Material.LAVA)) {
                         locs.add(block.getLocation());
                     }
                 }
@@ -99,6 +97,6 @@ public class FillWand extends AbstractWand {
 
     @Override
     public float getMaxItemCharge(ItemStack itemStack) {
-        return 1000;
+        return 2000;
     }
 }
