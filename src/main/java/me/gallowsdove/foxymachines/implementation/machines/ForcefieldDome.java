@@ -91,7 +91,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
                 BlockStorage.addBlockInfo(b, "owner", e.getPlayer().getUniqueId().toString());
                 BlockStorage.addBlockInfo(b, "active", "false");
                 BlockStorage.addBlockInfo(b, "cooldown", "false");
-                domeLocations.add(new SimpleLocation(b));
+                domeLocations.add(new SimpleLocation(b, "forcefield"));
                 // saveDomeLocations();
             }
         };
@@ -105,7 +105,7 @@ public final class ForcefieldDome extends SlimefunItem implements EnergyNetCompo
             public void onPlayerBreak(@Nonnull BlockBreakEvent e, @Nonnull ItemStack item, @Nonnull List<ItemStack> list) {
                 Block b = e.getBlock();
                 setDomeInactive(b);
-                SimpleLocation loc = new SimpleLocation(b);
+                SimpleLocation loc = new SimpleLocation(b, "forcefield");
                 if (domeLocations.contains(loc)) {
                     domeLocations.remove(loc);
                     saveDomeLocations();

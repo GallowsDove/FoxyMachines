@@ -36,7 +36,7 @@ public class BerryBushTrimmer extends SlimefunItem {
 
     @Override
     public void preRegister() {
-        addItemHandler(onItemUse(), onToolUse());
+        addItemHandler(onUse(), onToolUse());
     }
 
     @Nonnull
@@ -45,13 +45,13 @@ public class BerryBushTrimmer extends SlimefunItem {
     }
 
     @Nonnull
-    private ItemUseHandler onItemUse() {
+    protected ItemUseHandler onUse() {
         return e -> {
             if (e.getClickedBlock().isPresent() && e.getClickedBlock().get().getType() == Material.SWEET_BERRY_BUSH) {
                 Block b = e.getClickedBlock().get();
                 Player p = e.getPlayer();
 
-                if (TRIMMED_BLOCKS.add(new SimpleLocation(b))) {
+                if (TRIMMED_BLOCKS.add(new SimpleLocation(b, "trimmed"))) {
                     ItemStack shears = e.getItem();
                     ItemMeta shearsMeta = e.getItem().getItemMeta();
                     int damage = ((Damageable) shearsMeta).getDamage() + 4;

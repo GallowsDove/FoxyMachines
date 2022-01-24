@@ -616,4 +616,28 @@ public final class Items{
             "",
             "&7Right click to remove a Ghost Block."
     );
+
+    public static final SlimefunItemStack POSITION_SELECTOR = new SlimefunItemStack(
+            "POSITION_SELECTOR",
+            Material.STICK,
+            "&ePosition Selector",
+            "",
+            "&7Left click a block to select primary position.",
+            "&7Right click a block to select secondary position.",
+            "",
+            "&c&o&8\u21E8 &e\u26A1 &70 / 200 J"
+    );
+
+    public static final SlimefunItemStack FILL_WAND = new SlimefunItemStack(
+            "FILL_WAND",
+            Material.BLAZE_ROD,
+            "&eFill Wand",
+            "",
+            "&7Select corner points with Position Selector.",
+            "&7Shift right click to select material.",
+            "&7Right click to fill an area.",
+            "",
+            "&7Material: &eNone",
+            "&c&o&8\u21E8 &e\u26A1 &70 / 1000 J"
+    );
 }

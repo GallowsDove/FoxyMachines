@@ -361,6 +361,8 @@ final class ItemSetup {
         new GhostBlockRemover().register(FoxyMachines.getInstance());
         ForcefieldDome.INSTANCE.register(FoxyMachines.getInstance());
         new RemoteController().register(FoxyMachines.getInstance());
+        new PositionSelector().register(FoxyMachines.getInstance());
+        new FillWand().register(FoxyMachines.getInstance());
 
         if (customMobs) {
             new CustomMobSpawnEgg("PIXIE_QUEEN", Items.PIXIE_QUEEN_SPAWN_EGG, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
@@ -568,6 +570,10 @@ final class ResearchSetup {
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "ghost_block_remover"),
                 6669703, "Ghost Block Remover.", 46)
                 .addItems(Items.GHOST_BLOCK_REMOVER)
+                .register();
+        new Research(new NamespacedKey(FoxyMachines.getInstance(), "build_wands"),
+                6669704, "Building made easier.", 36)
+                .addItems(Items.POSITION_SELECTOR, Items.FILL_WAND)
                 .register();
     }
 }
