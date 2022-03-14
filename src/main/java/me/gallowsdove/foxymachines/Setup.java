@@ -8,7 +8,6 @@ import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.armor.LongFallBoots;
 import io.github.thebusybiscuit.slimefun4.implementation.items.armor.SlimefunArmorPiece;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.gallowsdove.foxymachines.implementation.consumables.CustomMobSpawnEgg;
 import me.gallowsdove.foxymachines.implementation.consumables.SimpleConsumable;
@@ -445,8 +444,7 @@ final class ResearchSetup {
 
         initialised = true;
 
-        Config cfg = new Config(FoxyMachines.getInstance());
-        boolean customMobs = cfg.getBoolean("custom-mobs");
+        boolean customMobs = FoxyMachines.getInstance().getConfig().getBoolean("custom-mobs");
 
         new Research(new NamespacedKey(FoxyMachines.getInstance(), "electric_wind_staff"),
                 6669666, "On the wind with the power of electricity", 22)
