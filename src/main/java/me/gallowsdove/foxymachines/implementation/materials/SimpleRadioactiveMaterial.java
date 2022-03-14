@@ -1,6 +1,7 @@
 package me.gallowsdove.foxymachines.implementation.materials;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactive;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
@@ -13,8 +14,8 @@ public class SimpleRadioactiveMaterial extends SimpleMaterial implements Radioac
     private final Radioactivity radioactivity;
 
     @ParametersAreNonnullByDefault
-    public SimpleRadioactiveMaterial(SlimefunItemStack item, RecipeType type, ItemStack[] recipe, int amount, Radioactivity radioactivity) {
-        super(item, type, recipe, amount);
+    public SimpleRadioactiveMaterial(SubItemGroup itemGroup, SlimefunItemStack item, RecipeType type, ItemStack[] recipe, int amount, Radioactivity radioactivity) {
+        super(itemGroup, item, type, recipe, amount);
 
         this.radioactivity = radioactivity;
     }

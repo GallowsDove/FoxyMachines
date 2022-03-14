@@ -23,7 +23,7 @@ import java.util.Set;
 
 public abstract class AbstractWand extends SlimefunItem implements NotPlaceable, Rechargeable {
     public AbstractWand(SlimefunItemStack item, RecipeType recipeType, ItemStack [] recipe) {
-        super(Items.ITEM_GROUP, item, recipeType, recipe);
+        super(Items.TOOLS_ITEM_GROUP, item, recipeType, recipe);
     }
 
     private static final NamespacedKey MATERIAL_KEY = new NamespacedKey(FoxyMachines.getInstance(), "wand_material");

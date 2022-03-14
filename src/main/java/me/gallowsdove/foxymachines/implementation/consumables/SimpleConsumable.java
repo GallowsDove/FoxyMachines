@@ -2,6 +2,7 @@ package me.gallowsdove.foxymachines.implementation.consumables;
 
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
@@ -20,8 +21,8 @@ public class SimpleConsumable extends SimpleSlimefunItem<ItemUseHandler> {
     private final PotionEffect[] effects;
 
     @ParametersAreNonnullByDefault
-    public SimpleConsumable(SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, PotionEffect[] effects, int amount) {
-        super(Items.ITEM_GROUP, item, recipeType, recipe, new SlimefunItemStack(item, amount));
+    public SimpleConsumable(SubItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, PotionEffect[] effects, int amount) {
+        super(itemGroup, item, recipeType, recipe, new SlimefunItemStack(item, amount));
         this.effects = effects;
     }
 

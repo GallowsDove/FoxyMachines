@@ -2,6 +2,7 @@ package me.gallowsdove.foxymachines.implementation.materials;
 
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
@@ -14,8 +15,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class SimpleMaterial extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
     @ParametersAreNonnullByDefault
-    public SimpleMaterial(SlimefunItemStack item, RecipeType type, ItemStack[] recipe, int amount) {
-        super(Items.ITEM_GROUP, item, type, recipe, new SlimefunItemStack(item, amount));
+    public SimpleMaterial(SubItemGroup itemGroup, SlimefunItemStack item, RecipeType type, ItemStack[] recipe, int amount) {
+        super(itemGroup, item, type, recipe, new SlimefunItemStack(item, amount));
     }
 
     @Nonnull
