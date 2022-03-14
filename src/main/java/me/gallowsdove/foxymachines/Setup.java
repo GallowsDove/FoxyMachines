@@ -13,14 +13,31 @@ import io.github.thebusybiscuit.slimefun4.libraries.dough.items.CustomItemStack;
 import me.gallowsdove.foxymachines.implementation.consumables.CustomMobSpawnEgg;
 import me.gallowsdove.foxymachines.implementation.consumables.SimpleConsumable;
 import me.gallowsdove.foxymachines.implementation.consumables.UnbreakableRune;
-import me.gallowsdove.foxymachines.implementation.machines.*;
+import me.gallowsdove.foxymachines.implementation.machines.BoostedRail;
+import me.gallowsdove.foxymachines.implementation.machines.ChunkLoader;
+import me.gallowsdove.foxymachines.implementation.machines.ElectricGoldRefinery;
+import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
+import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
+import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
 import me.gallowsdove.foxymachines.implementation.materials.GhostBlock;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleMaterial;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleRadioactiveMaterial;
-import me.gallowsdove.foxymachines.implementation.mobs.*;
+import me.gallowsdove.foxymachines.implementation.mobs.HeadlessHorseman;
+import me.gallowsdove.foxymachines.implementation.mobs.Helldog;
+import me.gallowsdove.foxymachines.implementation.mobs.Pixie;
+import me.gallowsdove.foxymachines.implementation.mobs.PixieQueen;
+import me.gallowsdove.foxymachines.implementation.mobs.RiddenSkeletonHorse;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPiece;
 import me.gallowsdove.foxymachines.implementation.multiblock.SacrificialAltarPressurePlate;
-import me.gallowsdove.foxymachines.implementation.tools.*;
+import me.gallowsdove.foxymachines.implementation.tools.BerryBushTrimmer;
+import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaff;
+import me.gallowsdove.foxymachines.implementation.tools.ElectricFireStaffII;
+import me.gallowsdove.foxymachines.implementation.tools.ElectricWindStaff;
+import me.gallowsdove.foxymachines.implementation.tools.FillWand;
+import me.gallowsdove.foxymachines.implementation.tools.GhostBlockRemover;
+import me.gallowsdove.foxymachines.implementation.tools.PositionSelector;
+import me.gallowsdove.foxymachines.implementation.tools.RemoteController;
+import me.gallowsdove.foxymachines.implementation.tools.SpongeWand;
 import me.gallowsdove.foxymachines.implementation.weapons.HealingBow;
 import me.gallowsdove.foxymachines.types.FoxyRecipeType;
 import org.apache.commons.lang.StringUtils;
@@ -42,8 +59,7 @@ final class ItemSetup {
 
         initialised = true;
 
-        Config cfg = new Config(FoxyMachines.getInstance());
-        boolean customMobs = cfg.getBoolean("custom-mobs");
+        boolean customMobs = FoxyMachines.getInstance().getConfig().getBoolean("custom-mobs");
 
         new SimpleMaterial(Items.MAGIC_LUMP_4, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.MAGIC_LUMP_3, SlimefunItems.MAGIC_LUMP_3, null,
@@ -370,6 +386,7 @@ final class ItemSetup {
                 SlimefunItems.GOLD_24K, SlimefunItems.COPPER_WIRE, SlimefunItems.GOLD_24K}, 4)
                 .register(FoxyMachines.getInstance());
         new BerryBushTrimmer().register(FoxyMachines.getInstance());
+
         new GhostBlockRemover().register(FoxyMachines.getInstance());
         ForcefieldDome.INSTANCE.register(FoxyMachines.getInstance());
         new RemoteController().register(FoxyMachines.getInstance());
@@ -394,9 +411,11 @@ final class ItemSetup {
             new RiddenSkeletonHorse();
             new HeadlessHorseman();
             new Helldog();
+        } else {
+            Items.MAIN_ITEM_GROUP.removeSubGroup(Items.BOSSES_ITEM_GROUP);
         }
 
-        if (cfg.getBoolean("ghost-blocks")) {
+        if (FoxyMachines.getInstance().getConfig().getBoolean("ghost-blocks")) {
             for (Material material : Material.values()) {
                 if (material.isBlock() && material.isSolid() && material.isOccluding() && !GhostBlock.EXCLUDED.contains(material)) {
                     SlimefunItemStack stack = new SlimefunItemStack(
@@ -409,6 +428,8 @@ final class ItemSetup {
                     new GhostBlock(stack).register(FoxyMachines.getInstance());
                 }
             }
+        } else {
+            Items.MAIN_ITEM_GROUP.removeSubGroup(Items.GHOST_BLOCKS_ITEM_GROUP);
         }
     }
 }
