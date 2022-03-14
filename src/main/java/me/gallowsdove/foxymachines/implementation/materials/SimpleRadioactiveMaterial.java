@@ -14,8 +14,8 @@ public class SimpleRadioactiveMaterial extends SimpleMaterial implements Radioac
     private final Radioactivity radioactivity;
 
     @ParametersAreNonnullByDefault
-    public SimpleRadioactiveMaterial(SubItemGroup itemGroup, SlimefunItemStack item, RecipeType type, ItemStack[] recipe, int amount, Radioactivity radioactivity) {
-        super(itemGroup, item, type, recipe, amount);
+    public SimpleRadioactiveMaterial(SlimefunItemStack item, RecipeType type, ItemStack[] recipe, int amount, Radioactivity radioactivity) {
+        super(item, type, recipe, amount);
 
         this.radioactivity = radioactivity;
     }

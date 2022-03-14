@@ -45,17 +45,17 @@ final class ItemSetup {
         Config cfg = new Config(FoxyMachines.getInstance());
         boolean customMobs = cfg.getBoolean("custom-mobs");
 
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.MAGIC_LUMP_4, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleMaterial(Items.MAGIC_LUMP_4, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.MAGIC_LUMP_3, SlimefunItems.MAGIC_LUMP_3, null,
                 SlimefunItems.MAGIC_LUMP_3, SlimefunItems.MAGIC_LUMP_3, null,
                 null, null, null
         }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.MAGIC_LUMP_5, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleMaterial(Items.MAGIC_LUMP_5, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 Items.MAGIC_LUMP_4, Items.MAGIC_LUMP_4, null,
                 Items.MAGIC_LUMP_4, Items.MAGIC_LUMP_4, null,
                 null, null, null
         }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.REINFORCED_STRING, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleMaterial(Items.REINFORCED_STRING, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING),
                 SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT,
                 new ItemStack(Material.STRING), SlimefunItems.REINFORCED_ALLOY_INGOT, new ItemStack(Material.STRING)
@@ -65,87 +65,87 @@ final class ItemSetup {
                 Items.REINFORCED_STRING, SlimefunItems.DAMASCUS_STEEL_INGOT, Items.REINFORCED_STRING,
                 SlimefunItems.DAMASCUS_STEEL_INGOT, Items.REINFORCED_STRING, SlimefunItems.DAMASCUS_STEEL_INGOT
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.STABILIZED_BLISTERING_BLOCK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleMaterial(Items.STABILIZED_BLISTERING_BLOCK, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT,SlimefunItems.HARDENED_METAL_INGOT,
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.BLISTERING_INGOT_3, SlimefunItems.REINFORCED_ALLOY_INGOT,
                 SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.HARDENED_METAL_INGOT
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.FORCEFIELD_ENGINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleMaterial(Items.FORCEFIELD_ENGINE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 Items.AQUATIC_NETHERITE_INGOT, SlimefunItems.ELECTRIC_MOTOR, Items.AQUATIC_NETHERITE_INGOT,
                 Items.DEMONIC_PLATE, Items.STABILIZED_BLISTERING_BLOCK, Items.DEMONIC_PLATE,
                 Items.AQUATIC_NETHERITE_INGOT, SlimefunItems.ELECTRIC_MOTOR, Items.AQUATIC_NETHERITE_INGOT
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.FORCEFIELD_STABILIZER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleMaterial(Items.FORCEFIELD_STABILIZER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 Items.SWEET_INGOT, Items.DAMIENIUM, Items.SWEET_INGOT,
                 Items.DAMIENIUM, Items.STABILIZED_BLISTERING_BLOCK, Items.DAMIENIUM,
                 Items.STABILIZED_BLISTERING_BLOCK, Items.STABILIZED_BLISTERING_BLOCK, Items.STABILIZED_BLISTERING_BLOCK
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.WIRELESS_TRANSMITTER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleMaterial(Items.WIRELESS_TRANSMITTER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 SlimefunItems.REDSTONE_ALLOY, Items.DAMIENIUM, SlimefunItems.REDSTONE_ALLOY,
                 Items.DAMIENIUM, SlimefunItems.ELECTRIC_MOTOR, Items.DAMIENIUM,
                 Items.DAMIENIUM, SlimefunItems.BATTERY, Items.DAMIENIUM
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleRadioactiveMaterial(Items.MATERIALS_ITEM_GROUP, Items.NUCLEAR_SALT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        new SimpleRadioactiveMaterial(Items.NUCLEAR_SALT, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 null, SlimefunItems.BOOSTED_URANIUM, null,
                 SlimefunItems.BOOSTED_URANIUM, SlimefunItems.SALT, SlimefunItems.BOOSTED_URANIUM,
                 null, SlimefunItems.BOOSTED_URANIUM, null
             }, 1, Radioactivity.VERY_HIGH).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.COMPRESSED_SPONGE, RecipeType.COMPRESSOR, new ItemStack[]{
+        new SimpleMaterial(Items.COMPRESSED_SPONGE, RecipeType.COMPRESSOR, new ItemStack[]{
                 new ItemStack(Material.SPONGE, 24), null, null,
                 null, null, null,
                 null, null, null
         }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.DEMONIC_INGOT, RecipeType.SMELTERY, new ItemStack[]{
+        new SimpleMaterial(Items.DEMONIC_INGOT, RecipeType.SMELTERY, new ItemStack[]{
                 SlimefunItems.LAVA_CRYSTAL, SlimefunItems.BLISTERING_INGOT_3, new ItemStack(Material.GHAST_TEAR),
                 SlimefunItems.REINFORCED_ALLOY_INGOT, SlimefunItems.NECROTIC_SKULL, SlimefunItems.STRANGE_NETHER_GOO,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.AQUATIC_NETHERITE_INGOT, RecipeType.SMELTERY, new ItemStack[]{
+        new SimpleMaterial(Items.AQUATIC_NETHERITE_INGOT, RecipeType.SMELTERY, new ItemStack[]{
                 SlimefunItems.DAMASCUS_STEEL_INGOT, new ItemStack(Material.NETHERITE_INGOT), new ItemStack(Material.PRISMARINE_SHARD),
                 new ItemStack(Material.PRISMARINE_CRYSTALS), new ItemStack(Material.NAUTILUS_SHELL), null,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.DAMIENIUM, RecipeType.SMELTERY, new ItemStack[]{
+        new SimpleMaterial(Items.DAMIENIUM, RecipeType.SMELTERY, new ItemStack[]{
                 SlimefunItems.DAMASCUS_STEEL_INGOT, SlimefunItems.GOLD_24K, new ItemStack(Material.GOLD_INGOT),
                 SlimefunItems.HARDENED_METAL_INGOT, SlimefunItems.CORINTHIAN_BRONZE_INGOT, null,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.SWEET_INGOT, RecipeType.SMELTERY, new ItemStack[] {
+        new SimpleMaterial(Items.SWEET_INGOT, RecipeType.SMELTERY, new ItemStack[] {
                 SlimefunItems.DAMASCUS_STEEL_INGOT, SlimefunItems.COBALT_INGOT, SlimefunItems.BILLON_INGOT,
                 new ItemStack(Material.HONEYCOMB_BLOCK), new ItemStack(Material.SWEET_BERRIES), new ItemStack(Material.HONEY_BLOCK),
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.SWEETENED_SWEET_INGOT, RecipeType.SMELTERY, new ItemStack[]{
+        new SimpleMaterial(Items.SWEETENED_SWEET_INGOT, RecipeType.SMELTERY, new ItemStack[]{
                 Items.SWEET_INGOT, SlimefunItems.DAMASCUS_STEEL_INGOT , SlimefunItems.COBALT_INGOT,
                 new ItemStack(Material.SWEET_BERRIES), new ItemStack(Material.SUGAR), new ItemStack(Material.HONEY_BLOCK),
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.DEMONIC_PLATE, RecipeType.COMPRESSOR, new ItemStack[]{
+        new SimpleMaterial(Items.DEMONIC_PLATE, RecipeType.COMPRESSOR, new ItemStack[]{
                 new SlimefunItemStack(Items.DEMONIC_INGOT, 8), null, null,
                 null, null, null,
                 null, null, null
                }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.AQUATIC_HELMET_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+        new SimpleMaterial(Items.AQUATIC_HELMET_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
                 Items.AQUATIC_NETHERITE_INGOT, Items.AQUATIC_NETHERITE_INGOT, Items.AQUATIC_NETHERITE_INGOT,
                 Items.AQUATIC_NETHERITE_INGOT, null, Items.AQUATIC_NETHERITE_INGOT,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.RESISTANT_CHESTPLATE_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+        new SimpleMaterial(Items.RESISTANT_CHESTPLATE_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
                 Items.DAMIENIUM, null, Items.DAMIENIUM,
                 Items.DEMONIC_INGOT, Items.DEMONIC_INGOT, Items.DEMONIC_INGOT,
                 Items.DEMONIC_INGOT, Items.DEMONIC_INGOT, Items.DEMONIC_INGOT
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.FIERY_LEGGINGS_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+        new SimpleMaterial(Items.FIERY_LEGGINGS_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
                 Items.DEMONIC_INGOT, Items.DAMIENIUM, Items.DEMONIC_INGOT,
                 Items.DEMONIC_INGOT, null, Items.DEMONIC_INGOT,
                 Items.DAMIENIUM, null, Items.DAMIENIUM
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.LIGHT_BOOTS_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
+        new SimpleMaterial(Items.LIGHT_BOOTS_FRAME, RecipeType.ARMOR_FORGE, new ItemStack[]{
                 null, null, null,
                 Items.SWEETENED_SWEET_INGOT, null, Items.SWEETENED_SWEET_INGOT,
                 Items.DAMIENIUM, null, Items.DAMIENIUM
         }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.POSEIDONS_BLESSING, FoxyRecipeType.FISHING, new ItemStack[] {
+        new SimpleMaterial(Items.POSEIDONS_BLESSING, FoxyRecipeType.FISHING, new ItemStack[] {
                 null, null, null,
                 null, Items.POSEIDONS_FISHING_ROD, null,
                 null, null, null
@@ -190,35 +190,35 @@ final class ItemSetup {
                 null, new CustomItemStack(Material.WITHER_SKELETON_SPAWN_EGG, "&eWither Skeleton Drop"), null,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.BLOOD_INFUSED_SKULL, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+        new SimpleMaterial(Items.BLOOD_INFUSED_SKULL, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 Items.MAGIC_LUMP_4, Items.BLOOD, Items.MAGIC_LUMP_4,
                 Items.BLOOD, Items.HUMAN_SKULL, Items.BLOOD,
                 Items.MAGIC_LUMP_4, Items.BLOOD, Items.MAGIC_LUMP_4
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.PURIFIED_BONE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+        new SimpleMaterial(Items.PURIFIED_BONE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 new ItemStack(Material.BLUE_ORCHID), new ItemStack(Material.ALLIUM), new ItemStack(Material.OXEYE_DAISY),
                 new ItemStack(Material.POPPY), Items.UNHOLY_WITHER_SKELETON_BONE, new ItemStack(Material.RED_TULIP),
                 new ItemStack(Material.LILY_OF_THE_VALLEY), new ItemStack(Material.PINK_TULIP), new ItemStack(Material.CORNFLOWER)
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.PURE_BONE_DUST, RecipeType.COMPRESSOR, new ItemStack[] {
+        new SimpleMaterial(Items.PURE_BONE_DUST, RecipeType.COMPRESSOR, new ItemStack[] {
                 new SlimefunItemStack(Items.PURIFIED_BONE, 6), null, null,
                 null, null, null,
                 null, null, null
                 }, 1).register(FoxyMachines.getInstance());
-        new SimpleMaterial(Items.MATERIALS_ITEM_GROUP, Items.BUCKET_OF_BLOOD, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
+        new SimpleMaterial(Items.BUCKET_OF_BLOOD, RecipeType.MAGIC_WORKBENCH, new ItemStack[] {
                 Items.BLOOD, Items.BLOOD, Items.BLOOD,
                 Items.BLOOD, new ItemStack(Material.BUCKET), Items.BLOOD,
                 Items.BLOOD, Items.BLOOD, Items.BLOOD
                 }, 1).register(FoxyMachines.getInstance());
 
         if (customMobs) {
-            new SimpleConsumable(Items.MATERIALS_ITEM_GROUP, Items.PIXIE_DUST, RecipeType.GRIND_STONE, new ItemStack[]{
+            new SimpleConsumable(Items.PIXIE_DUST, RecipeType.GRIND_STONE, new ItemStack[]{
                     Items.PIXIE_QUEEN_HEART, null, null,
                     null, null, null,
                     null, null, null
                     }, new PotionEffect[]{new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1600, 3, false, false)},
                     8).register(FoxyMachines.getInstance());
-            new SimpleConsumable(Items.MATERIALS_ITEM_GROUP, Items.VILE_SEEDS, RecipeType.GRIND_STONE, new ItemStack[]{
+            new SimpleConsumable(Items.VILE_SEEDS, RecipeType.GRIND_STONE, new ItemStack[]{
                     Items.VILE_PUMPKIN, null, null,
                     null, null, null,
                     null, null, null
