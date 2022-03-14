@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 public class GhostBlockRemover extends SlimefunItem {
 
     public GhostBlockRemover() {
-        super(Items.ITEM_GROUP, Items.GHOST_BLOCK_REMOVER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.TOOLS_ITEM_GROUP, Items.GHOST_BLOCK_REMOVER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 Items.DAMIENIUM, Items.DAMIENIUM, Items.DAMIENIUM,
                 Items.SWEET_INGOT, SlimefunItems.BASIC_CIRCUIT_BOARD, Items.SWEET_INGOT,
                 Items.DAMIENIUM, Items.DAMIENIUM, Items.DAMIENIUM

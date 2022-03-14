@@ -21,7 +21,7 @@ import java.util.List;
 
 public class SacrificialAltarPressurePlate extends SlimefunItem {
     public SacrificialAltarPressurePlate() {
-        super(Items.ITEM_GROUP, Items.SACRIFICIAL_ALTAR_BLACKSTONE_PRESSURE_PLATE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+        super(Items.ALTAR_ITEM_GROUP, Items.SACRIFICIAL_ALTAR_BLACKSTONE_PRESSURE_PLATE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                 new ItemStack(Material.GHAST_TEAR), SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.GHAST_TEAR),
                 SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.POLISHED_BLACKSTONE_PRESSURE_PLATE), SlimefunItems.MAGIC_LUMP_3,
                 new ItemStack(Material.GHAST_TEAR), SlimefunItems.MAGIC_LUMP_3, new ItemStack(Material.GHAST_TEAR)

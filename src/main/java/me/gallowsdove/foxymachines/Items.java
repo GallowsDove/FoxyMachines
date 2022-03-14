@@ -1,8 +1,9 @@
 package me.gallowsdove.foxymachines;
 
 import io.github.mooy1.infinitylib.machines.MachineLore;
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.items.groups.NestedItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineTier;
 import io.github.thebusybiscuit.slimefun4.core.attributes.MachineType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Radioactivity;
@@ -22,14 +23,55 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public final class Items{
 
-    public static ItemGroup ITEM_GROUP = new ItemGroup(
+    // Item groups
+    public static NestedItemGroup MAIN_ITEM_GROUP = new NestedItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "foxy_machines"),
-            new CustomItemStack(Material.SHEARS, "&4Foxy Machines", "", "&a> Click to open"));
+            new CustomItemStack(Material.SHEARS, "&4Foxy Machines")
+    );
 
-    public static ItemGroup GHOST_BLOCKS_ITEM_GROUP = new ItemGroup(
+    public static SubItemGroup MATERIALS_ITEM_GROUP = new SubItemGroup(
+            new NamespacedKey(FoxyMachines.getInstance(), "materials"),
+            MAIN_ITEM_GROUP,
+            new CustomItemStack(Material.GOLD_INGOT, "&bMaterials")
+    );
+
+    public static SubItemGroup MACHINES_ITEM_GROUP = new SubItemGroup(
+            new NamespacedKey(FoxyMachines.getInstance(), "machines"),
+            MAIN_ITEM_GROUP,
+            new CustomItemStack(Material.BEACON, "&aMachines")
+    );
+
+    public static SubItemGroup TOOLS_ITEM_GROUP = new SubItemGroup(
+            new NamespacedKey(FoxyMachines.getInstance(), "tools"),
+            MAIN_ITEM_GROUP,
+            new CustomItemStack(Material.BLAZE_ROD, "&eTools")
+    );
+
+    public static SubItemGroup WEAPONS_AND_ARMORS_ITEM_GROUP = new SubItemGroup(
+            new NamespacedKey(FoxyMachines.getInstance(), "weapons_and_armors"),
+            MAIN_ITEM_GROUP,
+            new CustomItemStack(Material.NETHERITE_SWORD, "&aWeapons and Armors")
+    );
+
+    public static SubItemGroup ALTAR_ITEM_GROUP = new SubItemGroup(
+        new NamespacedKey(FoxyMachines.getInstance(), "sacrificial_altars"),
+        MAIN_ITEM_GROUP,
+        new CustomItemStack(Material.POLISHED_BLACKSTONE_BRICKS, "&4Sacrificial Altar")
+    );
+
+    public static SubItemGroup BOSSES_ITEM_GROUP = new SubItemGroup(
+        new NamespacedKey(FoxyMachines.getInstance(), "bosses"),
+        MAIN_ITEM_GROUP,
+        new CustomItemStack(Material.DRAGON_HEAD, "&cBosses")
+    );
+
+    public static SubItemGroup GHOST_BLOCKS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "ghost_blocks"),
-            new CustomItemStack(Material.GLASS, "&5Ghost Blocks", "", "&a> Click to open"));
+            MAIN_ITEM_GROUP,
+            new CustomItemStack(Material.GLASS, "&5Ghost Blocks")
+    );
 
+    // Items
     public static final SlimefunItemStack ELECTRIC_WIND_STAFF = new SlimefunItemStack(
             "ELECTRIC_WIND_STAFF",
             Material.BLAZE_ROD,
