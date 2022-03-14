@@ -39,31 +39,31 @@ public final class Items{
     public static SubItemGroup MACHINES_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "machines"),
             MAIN_ITEM_GROUP,
-            new CustomItemStack(Material.GLASS, "&aMachines")
+            new CustomItemStack(Material.BEACON, "&aMachines")
     );
 
     public static SubItemGroup TOOLS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "tools"),
             MAIN_ITEM_GROUP,
-            new CustomItemStack(Material.GLASS, "&eTools")
+            new CustomItemStack(Material.BLAZE_ROD, "&eTools")
     );
 
     public static SubItemGroup WEAPONS_AND_ARMORS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "weapons_and_armors"),
             MAIN_ITEM_GROUP,
-            new CustomItemStack(Material.GLASS, "&aWeapons and Armors")
+            new CustomItemStack(Material.NETHERITE_SWORD, "&aWeapons and Armors")
     );
 
     public static SubItemGroup ALTAR_ITEM_GROUP = new SubItemGroup(
         new NamespacedKey(FoxyMachines.getInstance(), "sacrificial_altars"),
         MAIN_ITEM_GROUP,
-        new CustomItemStack(Material.GLASS, "&4Sacrificial Altar")
+        new CustomItemStack(Material.POLISHED_BLACKSTONE_BRICKS, "&4Sacrificial Altar")
     );
 
     public static SubItemGroup BOSSES_ITEM_GROUP = new SubItemGroup(
         new NamespacedKey(FoxyMachines.getInstance(), "bosses"),
         MAIN_ITEM_GROUP,
-        new CustomItemStack(Material.GLASS, "&cBosses")
+        new CustomItemStack(Material.DRAGON_HEAD, "&cBosses")
     );
 
     public static SubItemGroup GHOST_BLOCKS_ITEM_GROUP = new SubItemGroup(
