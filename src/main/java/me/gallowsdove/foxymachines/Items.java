@@ -33,7 +33,7 @@ public final class Items{
     public static SubItemGroup MATERIALS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "materials"),
             MAIN_ITEM_GROUP,
-            new CustomItemStack(Material.GLASS, "&bMaterials")
+            new CustomItemStack(Material.GOLD_INGOT, "&bMaterials")
     );
 
     public static SubItemGroup MACHINES_ITEM_GROUP = new SubItemGroup(
