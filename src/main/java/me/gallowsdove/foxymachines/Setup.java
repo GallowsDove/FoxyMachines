@@ -212,13 +212,13 @@ final class ItemSetup {
                 }, 1).register(FoxyMachines.getInstance());
 
         if (customMobs) {
-            new SimpleConsumable(Items.BOSSES_ITEM_GROUP, Items.PIXIE_DUST, RecipeType.GRIND_STONE, new ItemStack[]{
+            new SimpleConsumable(Items.MATERIALS_ITEM_GROUP, Items.PIXIE_DUST, RecipeType.GRIND_STONE, new ItemStack[]{
                     Items.PIXIE_QUEEN_HEART, null, null,
                     null, null, null,
                     null, null, null
                     }, new PotionEffect[]{new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 1600, 3, false, false)},
                     8).register(FoxyMachines.getInstance());
-            new SimpleConsumable(Items.BOSSES_ITEM_GROUP, Items.VILE_SEEDS, RecipeType.GRIND_STONE, new ItemStack[]{
+            new SimpleConsumable(Items.MATERIALS_ITEM_GROUP, Items.VILE_SEEDS, RecipeType.GRIND_STONE, new ItemStack[]{
                     Items.VILE_PUMPKIN, null, null,
                     null, null, null,
                     null, null, null
@@ -236,12 +236,12 @@ final class ItemSetup {
                     }, 1).register(FoxyMachines.getInstance());
         }
 
-        new SlimefunItem(Items.WEAPONS_AND_ARMORS_ITEM_GROUP, Items.CURSED_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
+        new SlimefunItem(Items.MATERIALS_ITEM_GROUP, Items.CURSED_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
                 null, null, null,
                 null, Items.CURSED_SWORD, null,
                 null, null, null
                 }).register(FoxyMachines.getInstance());
-        new SlimefunItem(Items.WEAPONS_AND_ARMORS_ITEM_GROUP, Items.CELESTIAL_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
+        new SlimefunItem(Items.MATERIALS_ITEM_GROUP, Items.CELESTIAL_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
                 null, null, null,
                 null, Items.CELESTIAL_SWORD, null,
                 null, null, null
