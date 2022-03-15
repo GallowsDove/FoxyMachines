@@ -11,10 +11,9 @@ import org.bukkit.persistence.PersistentDataType;
 public class GhostBlockListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     private void onHitByFishingRod(PlayerFishEvent e) {
-        if (!(e.getCaught() instanceof FallingBlock b)) {
-            return;
-        }
-        if (b.getPersistentDataContainer().has(GhostBlock.KEY, PersistentDataType.STRING)) {
+        if (e.getCaught() instanceof FallingBlock b &&
+            b.getPersistentDataContainer().has(GhostBlock.KEY, PersistentDataType.STRING)
+        ) {
             e.setCancelled(true);
         }
     }
