@@ -73,225 +73,121 @@ public class QuestUtils {
     public static EntityType toEntityType(int id) {
         Validate.isTrue(id <= 61, "Entity ID can't be greater than 61");
 
-        switch (id) {
-            case 0:
-                return EntityType.BAT;
-            case 1:
-                return EntityType.BEE;
-            case 2:
-                return EntityType.BLAZE;
-            case 3:
-                return EntityType.CAT;
-            case 4:
-                return EntityType.CHICKEN;
-            case 5:
-                return EntityType.CAVE_SPIDER;
-            case 6:
-                return EntityType.COD;
-            case 7:
-                return EntityType.COW;
-            case 8:
-                return EntityType.CREEPER;
-            case 9:
-                return EntityType.DOLPHIN;
-            case 10:
-                return EntityType.DONKEY;
-            case 11:
-                return EntityType.DROWNED;
-            case 12:
-                return EntityType.ENDERMAN;
-            case 13:
-                return EntityType.FOX;
-            case 14:
-                return EntityType.GHAST;
-            case 15:
-                return EntityType.GUARDIAN;
-            case 16:
-                return EntityType.HOGLIN;
-            case 17:
-                return EntityType.HUSK;
-            case 18:
-                return EntityType.HORSE;
-            case 19:
-                return EntityType.IRON_GOLEM;
-            case 20:
-                return EntityType.LLAMA;
-            case 21:
-                return EntityType.MAGMA_CUBE;
-            case 22:
-                return EntityType.MUSHROOM_COW;
-            case 23:
-                return EntityType.OCELOT;
-            case 24:
-                return EntityType.PANDA;
-            case 25:
-                return EntityType.PARROT;
-            case 26:
-                return EntityType.PHANTOM;
-            case 27:
-                return EntityType.PIG;
-            case 28:
-                return EntityType.PIGLIN;
-            case 29:
-                return EntityType.PIGLIN_BRUTE;
-            case 30:
-                return EntityType.PILLAGER;
-            case 31:
-                return EntityType.POLAR_BEAR;
-            case 32:
-                return EntityType.PUFFERFISH;
-            case 33:
-                return EntityType.RABBIT;
-            case 34:
-                return EntityType.SALMON;
-            case 35:
-                return EntityType.SHEEP;
-            case 36:
-                return EntityType.SILVERFISH;
-            case 37:
-                return EntityType.SKELETON;
-            case 38:
-                return EntityType.SLIME;
-            case 39:
-                return EntityType.SNOWMAN;
-            case 40:
-                return EntityType.SPIDER;
-            case 41:
-                return EntityType.SQUID;
-            case 42:
-                return EntityType.STRAY;
-            case 43:
-                return EntityType.STRIDER;
-            case 44:
-                return EntityType.TURTLE;
-            case 45:
-                return EntityType.TROPICAL_FISH;
-            case 46:
-                return EntityType.WITCH;
-            case 47:
-                return EntityType.WITHER_SKELETON;
-            case 48:
-                return EntityType.WOLF;
-            case 49:
-                return EntityType.ZOGLIN;
-            case 50:
-                return EntityType.ZOMBIE;
-            case 51:
-                return EntityType.ZOMBIFIED_PIGLIN;
-        }
-        return EntityType.FOX;
+        return switch (id) {
+            case 0 -> EntityType.BAT;
+            case 1 -> EntityType.BEE;
+            case 2 -> EntityType.BLAZE;
+            case 3 -> EntityType.CAT;
+            case 4 -> EntityType.CHICKEN;
+            case 5 -> EntityType.CAVE_SPIDER;
+            case 6 -> EntityType.COD;
+            case 7 -> EntityType.COW;
+            case 8 -> EntityType.CREEPER;
+            case 9 -> EntityType.DOLPHIN;
+            case 10 -> EntityType.DONKEY;
+            case 11 -> EntityType.DROWNED;
+            case 12 -> EntityType.ENDERMAN;
+            case 13 -> EntityType.FOX;
+            case 14 -> EntityType.GHAST;
+            case 15 -> EntityType.GUARDIAN;
+            case 16 -> EntityType.HOGLIN;
+            case 17 -> EntityType.HUSK;
+            case 18 -> EntityType.HORSE;
+            case 19 -> EntityType.IRON_GOLEM;
+            case 20 -> EntityType.LLAMA;
+            case 21 -> EntityType.MAGMA_CUBE;
+            case 22 -> EntityType.MUSHROOM_COW;
+            case 23 -> EntityType.OCELOT;
+            case 24 -> EntityType.PANDA;
+            case 25 -> EntityType.PARROT;
+            case 26 -> EntityType.PHANTOM;
+            case 27 -> EntityType.PIG;
+            case 28 -> EntityType.PIGLIN;
+            case 29 -> EntityType.PIGLIN_BRUTE;
+            case 30 -> EntityType.PILLAGER;
+            case 31 -> EntityType.POLAR_BEAR;
+            case 32 -> EntityType.PUFFERFISH;
+            case 33 -> EntityType.RABBIT;
+            case 34 -> EntityType.SALMON;
+            case 35 -> EntityType.SHEEP;
+            case 36 -> EntityType.SILVERFISH;
+            case 37 -> EntityType.SKELETON;
+            case 38 -> EntityType.SLIME;
+            case 39 -> EntityType.SNOWMAN;
+            case 40 -> EntityType.SPIDER;
+            case 41 -> EntityType.SQUID;
+            case 42 -> EntityType.STRAY;
+            case 43 -> EntityType.STRIDER;
+            case 44 -> EntityType.TURTLE;
+            case 45 -> EntityType.TROPICAL_FISH;
+            case 46 -> EntityType.WITCH;
+            case 47 -> EntityType.WITHER_SKELETON;
+            case 48 -> EntityType.WOLF;
+            case 49 -> EntityType.ZOGLIN;
+            case 50 -> EntityType.ZOMBIE;
+            case 51 -> EntityType.ZOMBIFIED_PIGLIN;
+            default -> EntityType.FOX;
+        };
     }
 
     public static String toString(int id) {
         Validate.isTrue(id <= 61, "Entity ID can't be greater than 61");
 
-        switch (id) {
-            case 0:
-                return "Bat";
-            case 1:
-                return "Bee";
-            case 2:
-                return "Blaze";
-            case 3:
-                return "Cat";
-            case 4:
-                return "Chicken";
-            case 5:
-                return "Cave Spider";
-            case 6:
-                return "Cod";
-            case 7:
-                return "Cow";
-            case 8:
-                return "Creeper";
-            case 9:
-                return "Dolphin";
-            case 10:
-                return "Donkey";
-            case 11:
-                return "Drowned";
-            case 12:
-                return "Enderman";
-            case 13:
-                return "Fox";
-            case 14:
-                return "Ghast";
-            case 15:
-                return "Guardian";
-            case 16:
-                return "Hoglin";
-            case 17:
-                return "Husk";
-            case 18:
-                return "Horse";
-            case 19:
-                return "Iron Golem";
-            case 20:
-                return "Llama";
-            case 21:
-                return "Magma Cube";
-            case 22:
-                return "Mushroom Cow";
-            case 23:
-                return "Ocelot";
-            case 24:
-                return "Panda";
-            case 25:
-                return "Parrot";
-            case 26:
-                return "Phantom";
-            case 27:
-                return "Pig";
-            case 28:
-                return "Piglin";
-            case 29:
-                return "Piglin Brute";
-            case 30:
-                return "Pillager";
-            case 31:
-                return "Polar Bear";
-            case 32:
-                return "Pufferfish";
-            case 33:
-                return "Rabbit";
-            case 34:
-                return "Salmon";
-            case 35:
-                return "Sheep";
-            case 36:
-                return "Silverfish";
-            case 37:
-                return "Skeleton";
-            case 38:
-                return "Slime";
-            case 39:
-                return "Snowman";
-            case 40:
-                return "Spider";
-            case 41:
-                return "Squid";
-            case 42:
-                return "Stray";
-            case 43:
-                return "Strider";
-            case 44:
-                return "Turtle";
-            case 45:
-                return "Tropical Fish";
-            case 46:
-                return "Witch";
-            case 47:
-                return "Wither Skeleton";
-            case 48:
-                return "Wolf";
-            case 49:
-                return "Zoglin";
-            case 50:
-                return "Zombie";
-            case 51:
-                return "Zombified Piglin";
-        }
-        return "Fox";
+        return switch (id) {
+            case 0 -> "Bat";
+            case 1 -> "Bee";
+            case 2 -> "Blaze";
+            case 3 -> "Cat";
+            case 4 -> "Chicken";
+            case 5 -> "Cave Spider";
+            case 6 -> "Cod";
+            case 7 -> "Cow";
+            case 8 -> "Creeper";
+            case 9 -> "Dolphin";
+            case 10 -> "Donkey";
+            case 11 -> "Drowned";
+            case 12 -> "Enderman";
+            case 13 -> "Fox";
+            case 14 -> "Ghast";
+            case 15 -> "Guardian";
+            case 16 -> "Hoglin";
+            case 17 -> "Husk";
+            case 18 -> "Horse";
+            case 19 -> "Iron Golem";
+            case 20 -> "Llama";
+            case 21 -> "Magma Cube";
+            case 22 -> "Mushroom Cow";
+            case 23 -> "Ocelot";
+            case 24 -> "Panda";
+            case 25 -> "Parrot";
+            case 26 -> "Phantom";
+            case 27 -> "Pig";
+            case 28 -> "Piglin";
+            case 29 -> "Piglin Brute";
+            case 30 -> "Pillager";
+            case 31 -> "Polar Bear";
+            case 32 -> "Pufferfish";
+            case 33 -> "Rabbit";
+            case 34 -> "Salmon";
+            case 35 -> "Sheep";
+            case 36 -> "Silverfish";
+            case 37 -> "Skeleton";
+            case 38 -> "Slime";
+            case 39 -> "Snowman";
+            case 40 -> "Spider";
+            case 41 -> "Squid";
+            case 42 -> "Stray";
+            case 43 -> "Strider";
+            case 44 -> "Turtle";
+            case 45 -> "Tropical Fish";
+            case 46 -> "Witch";
+            case 47 -> "Wither Skeleton";
+            case 48 -> "Wolf";
+            case 49 -> "Zoglin";
+            case 50 -> "Zombie";
+            case 51 -> "Zombified Piglin";
+            default -> "Fox";
+        };
     }
 }
 

@@ -1,6 +1,5 @@
 package me.gallowsdove.foxymachines.implementation.materials;
 
-import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -50,32 +49,29 @@ public class GhostBlock extends SlimefunItem {
 
     @Nonnull
     private ItemUseHandler onUse() {
-        return new ItemUseHandler() {
-            @Override
-            public void onRightClick(PlayerRightClickEvent e) {
-                e.cancel();
-                if (e.getClickedBlock().isPresent()) {
+        return e -> {
+            e.cancel();
+            if (e.getClickedBlock().isPresent()) {
 
-                    Player p = e.getPlayer();
-                    Block b = e.getClickedBlock().get().getRelative(e.getClickedFace());
+                Player p = e.getPlayer();
+                Block b = e.getClickedBlock().get().getRelative(e.getClickedFace());
 
-                    if (b.getWorld().getNearbyEntities(b.getLocation().add(0.5, 0, 0.5), 0.01, 0.01, 0.01).isEmpty()) {
-                        if (Slimefun.getProtectionManager().hasPermission(p, b, Interaction.PLACE_BLOCK)) {
-                            FallingBlock block = b.getWorld().spawnFallingBlock(b.getLocation().add(0.5, 0, 0.5), material.createBlockData());
-                            block.setVelocity(new Vector(0, 0, 0));
-                            block.setGravity(false);
-                            block.setDropItem(false);
-                            block.setPersistent(true);
-                            block.setInvulnerable(true);
-                            block.getPersistentDataContainer().set(KEY, PersistentDataType.STRING, "true");
+                if (b.getWorld().getNearbyEntities(b.getLocation().add(0.5, 0, 0.5), 0.01, 0.01, 0.01).isEmpty()) {
+                    if (Slimefun.getProtectionManager().hasPermission(p, b, Interaction.PLACE_BLOCK)) {
+                        FallingBlock block = b.getWorld().spawnFallingBlock(b.getLocation().add(0.5, 0, 0.5), material.createBlockData());
+                        block.setVelocity(new Vector(0, 0, 0));
+                        block.setGravity(false);
+                        block.setDropItem(false);
+                        block.setPersistent(true);
+                        block.setInvulnerable(true);
+                        block.getPersistentDataContainer().set(KEY, PersistentDataType.STRING, "true");
 
 
-                            ItemStack item = e.getInteractEvent().getItem();
+                        ItemStack item = e.getInteractEvent().getItem();
 
-                            item.setAmount(item.getAmount() - 1);
-                        } else {
-                            p.sendMessage(ChatColor.LIGHT_PURPLE + "You don't have permission to place this here!");
-                        }
+                        item.setAmount(item.getAmount() - 1);
+                    } else {
+                        p.sendMessage(ChatColor.LIGHT_PURPLE + "You don't have permission to place this here!");
                     }
                 }
             }

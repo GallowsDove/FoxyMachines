@@ -1,6 +1,5 @@
 package me.gallowsdove.foxymachines.implementation.consumables;
 
-import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.items.groups.SubItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -34,21 +33,18 @@ public class SimpleConsumable extends SimpleSlimefunItem<ItemUseHandler> {
     @Nonnull
     @Override
     public ItemUseHandler getItemHandler() {
-        return new ItemUseHandler() {
-            @Override
-            public void onRightClick(PlayerRightClickEvent e) {
-                e.cancel();
-                Player p = e.getPlayer();
+        return e -> {
+            e.cancel();
+            Player p = e.getPlayer();
 
-                ItemStack item = e.getInteractEvent().getItem();
+            ItemStack item = e.getInteractEvent().getItem();
 
-                item.setAmount(item.getAmount() - 1);
+            item.setAmount(item.getAmount() - 1);
 
-                double health = p.getHealth();
-                p.addPotionEffects(Arrays.asList(effects));
-                p.setHealth(health);
-                p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
-            }
+            double health = p.getHealth();
+            p.addPotionEffects(Arrays.asList(effects));
+            p.setHealth(health);
+            p.playSound(p.getLocation(), Sound.ENTITY_GENERIC_EAT, 1, 1);
         };
     }
 }

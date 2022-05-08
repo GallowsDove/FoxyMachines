@@ -395,18 +395,14 @@ public class PotionMixer extends SlimefunItem implements EnergyNetComponent {
                     add("Not usable in Brewing Stand");
                 }};
                 potionMeta.setBasePotionData(new PotionData(PotionType.UNCRAFTABLE, false, false));
-                switch(potion1.getType()){
-                    case POTION:
-                        potionMeta.setDisplayName(ChatColor.AQUA + "Combined Potion");
-                        break;
-                    case LINGERING_POTION:
+                switch (potion1.getType()) {
+                    case POTION -> potionMeta.setDisplayName(ChatColor.AQUA + "Combined Potion");
+                    case LINGERING_POTION -> {
                         lore.add(ChatColor.RED + "The time shown is incorrect due to a Minecraft");
                         lore.add(ChatColor.RED + "bug, multiply it by 4 to get the real time.");
                         potionMeta.setDisplayName(ChatColor.AQUA + "Combined Lingering Potion");
-                        break;
-                    case SPLASH_POTION:
-                        potionMeta.setDisplayName(ChatColor.AQUA + "Combined Splash Potion");
-                        break;
+                    }
+                    case SPLASH_POTION -> potionMeta.setDisplayName(ChatColor.AQUA + "Combined Splash Potion");
                 }
                 potionMeta.setLore(lore);
                 potionMeta.setColor(Color.AQUA);

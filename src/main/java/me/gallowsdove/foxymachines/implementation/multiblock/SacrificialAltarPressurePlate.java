@@ -1,6 +1,5 @@
 package me.gallowsdove.foxymachines.implementation.multiblock;
 
-import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockBreakHandler;
@@ -51,22 +50,19 @@ public class SacrificialAltarPressurePlate extends SlimefunItem {
     }
 
     private BlockUseHandler onUse() {
-        return new BlockUseHandler() {
-            @Override
-            public void onRightClick(PlayerRightClickEvent e) {
-                Block b = e.getClickedBlock().get();
-                if (BlockStorage.getLocationInfo(b.getLocation(), "complete").equals("false")) {
-                    if (isComplete(b)) {
-                        BlockStorage.addBlockInfo(b, "complete", "true");
-                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The Sacrificial Altar has been activated.");
-                    } else {
-                        BlockStorage.addBlockInfo(b, "complete", "false");
-                        e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The Altar is not finished!");
-                    }
+        return e -> {
+            Block b = e.getClickedBlock().get();
+            if (BlockStorage.getLocationInfo(b.getLocation(), "complete").equals("false")) {
+                if (isComplete(b)) {
+                    BlockStorage.addBlockInfo(b, "complete", "true");
+                    e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The Sacrificial Altar has been activated.");
+                } else {
+                    BlockStorage.addBlockInfo(b, "complete", "false");
+                    e.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "The Altar is not finished!");
                 }
-
-                e.cancel();
             }
+
+            e.cancel();
         };
     }
 
