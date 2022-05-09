@@ -4,7 +4,6 @@ It's a passion project for GallowsDove.
 
 ### Requires at least Java 16!
 
-
 ### [Download](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/)
 [![Build Status](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/badge.svg)](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master)
 
