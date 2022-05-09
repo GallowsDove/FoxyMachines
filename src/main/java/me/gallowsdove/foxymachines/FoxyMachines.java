@@ -32,7 +32,6 @@ public class FoxyMachines extends AbstractAddon {
     @Override
     @SneakyThrows
     public void enable() {
-
         instance = this;
 
         Events.registerListener(new ChunkLoaderListener());
