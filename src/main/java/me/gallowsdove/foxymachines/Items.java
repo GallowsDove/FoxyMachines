@@ -483,7 +483,7 @@ public final class Items{
             Material.NETHERITE_CHESTPLATE,
             "&aResistant Chestplate",
             "&7Resistance I",
-            "&7Regeneration II"
+            "&7Regeneration I"
     );
     static {
         RESISTANT_CHESTPLATE.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
