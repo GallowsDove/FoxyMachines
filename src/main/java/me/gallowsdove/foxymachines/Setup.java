@@ -345,7 +345,7 @@ final class ItemSetup {
                 Items.POLAR_FOX_HIDE, Items.RESISTANT_CHESTPLATE_FRAME, Items.POLAR_FOX_HIDE,
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM},
                 new PotionEffect[] { new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 300, 0, false, false, false),
-                        new PotionEffect(PotionEffectType.REGENERATION, 300, 0, false, false, false)})
+                        new PotionEffect(PotionEffectType.REGENERATION, 300, 1, false, false, false)})
                 .register(FoxyMachines.getInstance());
         new SlimefunArmorPiece(Items.WEAPONS_AND_ARMORS_ITEM_GROUP, Items.FIERY_LEGGINGS, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
                 Items.EQUANIMOUS_GEM, Items.MAGIC_LUMP_5, Items.EQUANIMOUS_GEM,
