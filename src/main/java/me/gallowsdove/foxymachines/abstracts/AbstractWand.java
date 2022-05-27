@@ -1,11 +1,13 @@
 package me.gallowsdove.foxymachines.abstracts;
 
+import io.github.thebusybiscuit.slimefun4.api.MinecraftVersion;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Rechargeable;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.utils.Utils;
@@ -18,6 +20,8 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,13 +35,20 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
     public static final Set<Material> BLACKLISTED = Set.of(Material.BARRIER, Material.SPAWNER, Material.COMMAND_BLOCK,
             Material.STRUCTURE_BLOCK, Material.REPEATING_COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.JIGSAW);
 
-    public static final Set<Material> WHITELISTED = Set.of(Material.GLASS, Material.ACACIA_LEAVES, Material.AZALEA_LEAVES,
-            Material.BIRCH_LEAVES, Material.DARK_OAK_LEAVES, Material.FLOWERING_AZALEA_LEAVES, Material.JUNGLE_LEAVES,
-            Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.GRAY_STAINED_GLASS, Material.BLACK_STAINED_GLASS,
-            Material.BLUE_STAINED_GLASS, Material.BROWN_STAINED_GLASS, Material.CYAN_STAINED_GLASS, Material.GREEN_STAINED_GLASS,
-            Material.LIGHT_BLUE_STAINED_GLASS, Material.LIGHT_GRAY_STAINED_GLASS, Material.LIME_STAINED_GLASS, Material.MAGENTA_STAINED_GLASS,
-            Material.ORANGE_STAINED_GLASS, Material.PINK_STAINED_GLASS, Material.PURPLE_STAINED_GLASS, Material.RED_STAINED_GLASS,
-            Material.WHITE_STAINED_GLASS, Material.YELLOW_STAINED_GLASS);
+    public static final Set<Material> WHITELISTED = new HashSet<>(Arrays.asList(Material.GLASS, Material.ACACIA_LEAVES,
+        Material.BIRCH_LEAVES, Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES,
+        Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.GRAY_STAINED_GLASS, Material.BLACK_STAINED_GLASS,
+        Material.BLUE_STAINED_GLASS, Material.BROWN_STAINED_GLASS, Material.CYAN_STAINED_GLASS, Material.GREEN_STAINED_GLASS,
+        Material.LIGHT_BLUE_STAINED_GLASS, Material.LIGHT_GRAY_STAINED_GLASS, Material.LIME_STAINED_GLASS, Material.MAGENTA_STAINED_GLASS,
+        Material.ORANGE_STAINED_GLASS, Material.PINK_STAINED_GLASS, Material.PURPLE_STAINED_GLASS, Material.RED_STAINED_GLASS,
+        Material.WHITE_STAINED_GLASS, Material.YELLOW_STAINED_GLASS));
+
+    static {
+        if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {
+            WHITELISTED.add(Material.AZALEA_LEAVES);
+            WHITELISTED.add(Material.FLOWERING_AZALEA_LEAVES);
+        }
+    }
 
     protected abstract float getCostPerBBlock();
 
