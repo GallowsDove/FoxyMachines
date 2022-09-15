@@ -1,6 +1,9 @@
 # max-chunk-loaders: default: 8
 # maximum amount of chunk loaders allowed per player, set to 0 for infinite.
 
+# gps-complexity-per-loader: default: 7500
+# the GPS complexity required for each chunk loader
+
 # ghost-blocks: default: true
 # Setting this to false will disable all Ghost Blocks without having to edit items.yml
 
@@ -9,5 +12,6 @@
 
 auto-update: true
 max-chunk-loaders: 8
+gps-complexity-per-loader: 7500
 ghost-blocks: true
 custom-mobs: true
