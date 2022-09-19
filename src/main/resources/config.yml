@@ -13,9 +13,13 @@
 # max-fill-wand-blocks: default: 4096
 # the max volume that can be filled at once
 
+# max-sponge-wand-blocks: default: 16384
+# the max volume that can be cleared at once
+
 auto-update: true
 max-chunk-loaders: 8
 gps-complexity-per-loader: 7500
 ghost-blocks: true
 custom-mobs: true
 max-fill-wand-blocks: 4096
+max-sponge-wand-blocks: 16384
