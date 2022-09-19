@@ -3,7 +3,9 @@ package me.gallowsdove.foxymachines.implementation.tools;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
+import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.AbstractWand;
 import me.gallowsdove.foxymachines.utils.SimpleLocation;
@@ -68,7 +70,8 @@ public class FillWand extends AbstractWand {
             loc2.setZ(tmp);
         }
 
-        if ((loc1.getX() - loc2.getX()) * (loc1.getY() - loc2.getY()) * (loc1.getZ() - loc2.getZ()) > 4096) {
+        int max = new Config(FoxyMachines.getInstance()).getInt("max-fill-wand-blocks");
+        if ((loc1.getX() - loc2.getX()) * (loc1.getY() - loc2.getY()) * (loc1.getZ() - loc2.getZ()) > max) {
             player.sendMessage(ChatColor.RED + "Selected area is too big!");
             return locs;
         }
