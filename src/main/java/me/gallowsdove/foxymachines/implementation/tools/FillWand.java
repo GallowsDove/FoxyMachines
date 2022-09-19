@@ -68,7 +68,7 @@ public class FillWand extends AbstractWand {
             loc2.setZ(tmp);
         }
 
-        if ((loc1.getX() - loc2.getX()) * (loc1.getZ() - loc2.getZ()) * (loc1.getZ() - loc2.getZ()) > 4096) {
+        if ((loc1.getX() - loc2.getX()) * (loc1.getY() - loc2.getY()) * (loc1.getZ() - loc2.getZ()) > 4096) {
             player.sendMessage(ChatColor.RED + "Selected area is too big!");
             return locs;
         }
