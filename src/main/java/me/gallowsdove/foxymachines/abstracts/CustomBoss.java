@@ -69,13 +69,13 @@ public abstract class CustomBoss extends CustomMob {
             if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity vehicle) {
                 double finalHealth = entity.getHealth() + vehicle.getHealth() - e.getFinalDamage();
                 if (finalHealth > 0) {
-                    bossbar.setProgress(finalHealth / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
-                            vehicle.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
+                    bossbar.setProgress(Math.min(finalHealth / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
+                            vehicle.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()), 1));
                 }
             } else {
                 double finalHealth = entity.getHealth() - e.getFinalDamage();
                 if (finalHealth > 0) {
-                    bossbar.setProgress(finalHealth / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+                    bossbar.setProgress(Math.min(finalHealth / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue(), 1));
                 }
             }
         }
