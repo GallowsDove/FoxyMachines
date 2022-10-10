@@ -62,16 +62,16 @@ public class QuestUtils {
         if (item == Items.CURSED_SWORD) {
             int i = random.nextInt(CURSED_LINES.size());
             Line line = CURSED_LINES.get(i);
-            p.sendMessage(ChatColor.RED + line.getFirstHalf() + toString(id) + line.getSecondHalf());
+            p.sendMessage(ChatColor.RED + line.firstHalf() + toString(id) + line.secondHalf());
         } else if (item == Items.CELESTIAL_SWORD) {
             int i = random.nextInt(CELESTIAL_LINES.size());
             Line line = CELESTIAL_LINES.get(i);
-            p.sendMessage(ChatColor.YELLOW + line.getFirstHalf() + toString(id) + line.getSecondHalf());
+            p.sendMessage(ChatColor.YELLOW + line.firstHalf() + toString(id) + line.secondHalf());
         }
     }
 
     public static EntityType toEntityType(int id) {
-        Validate.isTrue(id <= 61, "Entity ID can't be greater than 61");
+        Validate.isTrue(id <= 51, "Entity ID can't be greater than 61");
 
         return switch (id) {
             case 0 -> EntityType.BAT;
@@ -131,7 +131,7 @@ public class QuestUtils {
     }
 
     public static String toString(int id) {
-        Validate.isTrue(id <= 61, "Entity ID can't be greater than 61");
+        Validate.isTrue(id <= 51, "Entity ID can't be greater than 61");
 
         return switch (id) {
             case 0 -> "Bat";
@@ -192,9 +192,4 @@ public class QuestUtils {
 }
 
 @AllArgsConstructor
-class Line {
-    @Getter
-    private final String firstHalf;
-    @Getter
-    private final String secondHalf;
-}
+record Line(@Getter String firstHalf, @Getter String secondHalf) { }
