@@ -1,7 +1,6 @@
 package me.gallowsdove.foxymachines.utils;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
@@ -191,5 +190,4 @@ public class QuestUtils {
     }
 }
 
-@AllArgsConstructor
 record Line(@Getter String firstHalf, @Getter String secondHalf) { }
