@@ -25,69 +25,46 @@ public class SacrificialAltarListener implements Listener {
         LivingEntity entity = e.getEntity();
         if (findAltar(entity.getLocation().getBlock()) != null) {
             switch (entity.getType()) {
-                case RABBIT:
-                    entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.CURSED_RABBIT_PAW, 1));
-                    break;
-                case PLAYER:
-                    entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.HUMAN_SKULL, 1));
-                    break;
-                case WITHER_SKELETON:
+                case ARMOR_STAND -> {
+                    return;
+                }
+                case RABBIT ->
+                        entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.CURSED_RABBIT_PAW, 1));
+                case PLAYER ->
+                        entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.HUMAN_SKULL, 1));
+                case WITHER_SKELETON -> {
                     if (random.nextInt(100) < 75) {
-                        if (random.nextInt(100) < 33) {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.UNHOLY_WITHER_SKELETON_BONE, 2));
-                        } else {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.UNHOLY_WITHER_SKELETON_BONE, 1));
-                        }
+                        entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.UNHOLY_WITHER_SKELETON_BONE, random.nextInt(100) < 33 ? 2 : 1));
                     }
-                    break;
-                case FOX:
+                }
+                case FOX -> {
                     if (((Fox) entity).getFoxType() == Fox.Type.SNOW) {
                         if (random.nextInt(100) < 75) {
-                            if (random.nextInt(100) < 33) {
-                                entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.POLAR_FOX_HIDE, 2));
-                            } else {
-                                entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.POLAR_FOX_HIDE, 1));
-                            }
+                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.POLAR_FOX_HIDE, random.nextInt(100) < 33 ? 2 : 1));
                         }
                     }
-                    break;
-                case MAGMA_CUBE:
+                }
+                case MAGMA_CUBE -> {
                     if (random.nextInt(100) < 50) {
-                        if (random.nextInt(100) < 25) {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.MAGMA_ESSENCE, 2));
-                        } else {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.MAGMA_ESSENCE, 1));
-                        }
+                        entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.MAGMA_ESSENCE, random.nextInt(100) < 25 ? 2 : 1));
                     }
-                    break;
-                case PARROT:
+                }
+                case PARROT -> {
                     if (random.nextInt(100) < 75) {
-                        if (random.nextInt(100) < 33) {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.PARROT_FEATHER, 2));
-                        } else {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.PARROT_FEATHER, 1));
-                        }
+                        entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.PARROT_FEATHER, random.nextInt(100) < 33 ? 2 : 1));
                     }
-                    break;
-                case TROPICAL_FISH:
+                }
+                case TROPICAL_FISH -> {
                     if (random.nextInt(100) < 75) {
-                        if (random.nextInt(100) < 33) {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.TROPICAL_FISH_SCALE, 2));
-                        } else {
-                            entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.TROPICAL_FISH_SCALE, 1));
-                        }
+                        entity.getWorld().dropItemNaturally(entity.getLocation(), new SlimefunItemStack(Items.TROPICAL_FISH_SCALE, random.nextInt(100) < 33 ? 2 : 1));
                     }
-                    break;
-                default:
-                    break;
+                }
+                default -> {
+                }
             }
 
             if (random.nextInt(100) < 33) {
-                if (random.nextInt(100) < 25) {
-                    entity.getWorld().dropItem(entity.getLocation(), new SlimefunItemStack(Items.BLOOD, 2));
-                } else {
-                    entity.getWorld().dropItem(entity.getLocation(), new SlimefunItemStack(Items.BLOOD, 1));
-                }
+                entity.getWorld().dropItem(entity.getLocation(), new SlimefunItemStack(Items.BLOOD, random.nextInt(100) < 25 ? 2 : 1));
             }
 
             for (int i = 0; i < 16; i++) {
@@ -100,10 +77,8 @@ public class SacrificialAltarListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     private void onWaterTorchDestroy(BlockFromToEvent e) {
-        if (e.getToBlock().getType() == Material.SOUL_TORCH) {
-            if (BlockStorage.hasBlockInfo(e.getToBlock())) {
-                e.setCancelled(true);
-            }
+        if (e.getToBlock().getType() == Material.SOUL_TORCH && BlockStorage.hasBlockInfo(e.getToBlock())) {
+            e.setCancelled(true);
         }
     }
 

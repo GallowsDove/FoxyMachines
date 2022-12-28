@@ -17,7 +17,9 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class QuestUtils {
-    public static NamespacedKey KEY = new NamespacedKey(FoxyMachines.getInstance(), "quest");
+    private QuestUtils() {}
+
+    public static final NamespacedKey KEY = new NamespacedKey(FoxyMachines.getInstance(), "quest");
 
     private static final List<Line> CURSED_LINES = List.of(
             new Line("I would love to kill a ", ", so tasty!"),

@@ -22,9 +22,10 @@ import javax.annotation.Nonnull;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.util.HashSet;
+import java.util.Set;
 
 public class BerryBushTrimmer extends SlimefunItem {
-    public static HashSet<SimpleLocation> TRIMMED_BLOCKS = new HashSet<>();
+    public static Set<SimpleLocation> TRIMMED_BLOCKS = new HashSet<>();
 
     public BerryBushTrimmer() {
         super(Items.TOOLS_ITEM_GROUP, Items.BERRY_BUSH_TRIMMER, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
@@ -86,9 +87,9 @@ public class BerryBushTrimmer extends SlimefunItem {
             file.createNewFile();
         }
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(file, false));
-        writer.write(gson.toJson(TRIMMED_BLOCKS));
-        writer.close();
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+            writer.write(gson.toJson(TRIMMED_BLOCKS));
+        }
     }
 
     public static void loadTrimmedBlocks() throws IOException {
@@ -102,15 +103,15 @@ public class BerryBushTrimmer extends SlimefunItem {
             file.createNewFile();
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));
-        String json = reader.readLine();
-        reader.close();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file));) {
+            String json = reader.readLine();
+            Type type = new TypeToken<HashSet<SimpleLocation>>() {}.getType();
+            TRIMMED_BLOCKS = gson.fromJson(json, type);
 
-        Type type = new TypeToken<HashSet<SimpleLocation>>() {}.getType();
-        TRIMMED_BLOCKS = gson.fromJson(json, type);
-
-        if (TRIMMED_BLOCKS == null) {
-            TRIMMED_BLOCKS = new HashSet<>();
+            if (TRIMMED_BLOCKS == null) {
+                TRIMMED_BLOCKS = new HashSet<>();
+            }
         }
+
     }
 }

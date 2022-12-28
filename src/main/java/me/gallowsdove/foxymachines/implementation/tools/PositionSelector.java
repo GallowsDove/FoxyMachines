@@ -40,15 +40,13 @@ public class PositionSelector extends SlimefunItem implements NotPlaceable, Rech
     @Nonnull
     protected ItemUseHandler onUse() {
         return e -> {
-            if (e.getClickedBlock().isPresent()) {
-                if (removeItemCharge(e.getItem(), COST)) {
-                    Block block = e.getClickedBlock().get();
-                    Player player = e.getPlayer();
+            if (e.getClickedBlock().isPresent() && removeItemCharge(e.getItem(), COST)) {
+                Block block = e.getClickedBlock().get();
+                Player player = e.getPlayer();
 
-                    SimpleLocation loc = new SimpleLocation(block, "secondary_position");
-                    loc.storePersistently(player.getPersistentDataContainer());
-                    player.sendMessage(ChatColor.LIGHT_PURPLE + "Secondary position set to " + loc);
-                }
+                SimpleLocation loc = new SimpleLocation(block, "secondary_position");
+                loc.storePersistently(player.getPersistentDataContainer());
+                player.sendMessage(ChatColor.LIGHT_PURPLE + "Secondary position set to " + loc);
             }
         };
     }
