@@ -33,21 +33,18 @@ public class GhostBlockRemover extends SlimefunItem {
     @Nonnull
     protected EntityInteractHandler onInteract() {
         return (e, itemStack, b) -> {
-            if (e.getRightClicked() instanceof FallingBlock) {
-                FallingBlock block = (FallingBlock) e.getRightClicked();
+            if (e.getRightClicked() instanceof FallingBlock block &&
+                    block.getPersistentDataContainer().has(GhostBlock.KEY, PersistentDataType.STRING)) {
+                Material material = block.getBlockData().getMaterial();
+                SlimefunItemStack stack = new SlimefunItemStack(
+                        "GHOST_BLOCK_" + material.name().toUpperCase(),
+                        material,
+                        "Ghost Block: &6" + StringUtils.capitalize(material.name().replace("_", " ").toLowerCase()),
+                        "",
+                        "&7An intangible block.");
 
-                if (block.getPersistentDataContainer().has(GhostBlock.KEY, PersistentDataType.STRING)) {
-                    Material material = block.getBlockData().getMaterial();
-                    SlimefunItemStack stack = new SlimefunItemStack(
-                            "GHOST_BLOCK_" + material.name().toUpperCase(),
-                            material,
-                            "Ghost Block: &6" + StringUtils.capitalize(material.name().replace("_", " ").toLowerCase()),
-                            "",
-                            "&7An intangible block.");
-
-                    block.getWorld().dropItemNaturally(block.getLocation(), stack);
-                    block.remove();
-                }
+                block.getWorld().dropItemNaturally(block.getLocation(), stack);
+                block.remove();
             }
         };
     }

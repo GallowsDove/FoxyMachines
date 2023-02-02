@@ -7,6 +7,8 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 
 public class Utils {
+    private Utils() {}
+
     public static void dealDamageBypassingArmor(LivingEntity entity, double damage) {
         if (damage >= 0) {
             if (entity.getAbsorptionAmount() >= 0) {

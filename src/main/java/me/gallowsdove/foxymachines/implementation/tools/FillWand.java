@@ -93,7 +93,7 @@ public class FillWand extends AbstractWand {
                 }
             }
         }
-        if (locs.size() == 0) {
+        if (locs.isEmpty()) {
             player.sendMessage(ChatColor.RED + "No valid locations found given the selected points!");
         }
 

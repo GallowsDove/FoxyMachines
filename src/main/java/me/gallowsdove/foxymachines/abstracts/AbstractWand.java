@@ -90,7 +90,7 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
 
                 List<Location> locs = getLocations(player);
 
-                if (locs.size() == 0) {
+                if (locs.isEmpty()) {
                     return;
                 }
 

@@ -20,8 +20,8 @@ public class MobTicker implements Runnable{
                 CustomMob mob = CustomMob.getByEntity(entity);
                 if (mob != null) {
                     mob.onMobTick(entity, tick);
-                    if (mob instanceof CustomBoss && tick == 100) {
-                        ((CustomBoss) mob).onBossPattern(entity);
+                    if (mob instanceof CustomBoss customBoss && tick == 100) {
+                        customBoss.onBossPattern(entity);
                     }
                 }
             }

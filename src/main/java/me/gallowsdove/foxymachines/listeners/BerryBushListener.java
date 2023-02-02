@@ -20,10 +20,8 @@ public class BerryBushListener implements Listener {
         Block b = e.getDamager();
 
 
-        if ( b != null && b.getType() == Material.SWEET_BERRY_BUSH) {
-            if (BerryBushTrimmer.TRIMMED_BLOCKS.contains(new SimpleLocation(b, "trimmed"))) {
-                e.setCancelled(true);
-            }
+        if ( b != null && b.getType() == Material.SWEET_BERRY_BUSH && BerryBushTrimmer.TRIMMED_BLOCKS.contains(new SimpleLocation(b, "trimmed"))) {
+             e.setCancelled(true);
         }
     }
 
