@@ -3,6 +3,7 @@ package me.gallowsdove.foxymachines.listeners;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import me.gallowsdove.foxymachines.Items;
 import me.mrCookieSlime.Slimefun.api.BlockStorage;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.block.Block;
@@ -67,11 +68,7 @@ public class SacrificialAltarListener implements Listener {
                 entity.getWorld().dropItem(entity.getLocation(), new SlimefunItemStack(Items.BLOOD, random.nextInt(100) < 25 ? 2 : 1));
             }
 
-            for (int i = 0; i < 16; i++) {
-                entity.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, entity.getLocation(), 1,
-                        random.nextDouble(-1, 1), random.nextDouble(1.2, 2), random.nextDouble(-1, 1), 0);
-            }
-            entity.getWorld().spawnParticle(Particle.SOUL, entity.getLocation(), 40);
+            particleAnimation(entity.getLocation());
         }
     }
 
@@ -83,7 +80,7 @@ public class SacrificialAltarListener implements Listener {
     }
 
     @Nullable
-    private Block findAltar(@Nonnull Block b) {
+    public static Block findAltar(@Nonnull Block b) {
         for (int x = -1; x <= 1; x++) {
             for (int y = -1; y <= 1; y++) {
                 for (int z = -1; z <= 1; z++) {
@@ -98,5 +95,14 @@ public class SacrificialAltarListener implements Listener {
         }
 
         return null;
+    }
+
+    public static void particleAnimation(Location location) {
+        ThreadLocalRandom random = ThreadLocalRandom.current();
+        for (int i = 0; i < 16; i++) {
+            location.getWorld().spawnParticle(Particle.SOUL_FIRE_FLAME, location, 1,
+                    random.nextDouble(-1, 1), random.nextDouble(1.2, 2), random.nextDouble(-1, 1), 0);
+        }
+        location.getWorld().spawnParticle(Particle.SOUL, location, 40);
     }
 }

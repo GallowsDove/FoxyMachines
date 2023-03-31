@@ -16,6 +16,9 @@
 # max-sponge-wand-blocks: default: 16384
 # the max volume that can be cleared at once
 
+# quest-mobs
+# all mob types that can be required for a quest, for a full list of them go to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+
 auto-update: true
 max-chunk-loaders: 8
 gps-complexity-per-loader: 7500
@@ -23,3 +26,56 @@ ghost-blocks: true
 custom-mobs: true
 max-fill-wand-blocks: 4096
 max-sponge-wand-blocks: 16384
+quest-mobs:
+  - BAT
+  - BEE
+  - BLAZE
+  - CAT
+  - CHICKEN
+  - CAVE_SPIDER
+  - COD
+  - COW
+  - CREEPER
+  - DOLPHIN
+  - DONKEY
+  - DROWNED
+  - ENDERMAN
+  - GHAST
+  - GUARDIAN
+  - HOGLIN
+  - HUSK
+  - HORSE
+  - IRON_GOLEM
+  - LLAMA
+  - MAGMA_CUBE
+  - MUSHROOM_COW
+  - OCELOT
+  - PANDA
+  - PARROT
+  - PHANTOM
+  - PIG
+  - PIGLIN
+  - PIGLIN_BRUTE
+  - PILLAGER
+  - POLAR_BEAR
+  - PUFFERFISH
+  - RABBIT
+  - SALMON
+  - SHEEP
+  - SILVERFISH
+  - SKELETON
+  - SLIME
+  - SNOWMAN
+  - SPIDER
+  - SQUID
+  - STRAY
+  - STRIDER
+  - TURTLE
+  - TROPICAL_FISH
+  - WITCH
+  - WITHER_SKELETON
+  - WOLF
+  - ZOGLIN
+  - ZOMBIE
+  - ZOMBIFIED_PIGLIN
+  - FOX
