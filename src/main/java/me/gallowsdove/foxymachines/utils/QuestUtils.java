@@ -5,7 +5,6 @@ import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
 import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
-import org.apache.commons.lang.Validate;
 import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.EntityType;
@@ -74,28 +73,28 @@ public class QuestUtils {
 
     @ParametersAreNonnullByDefault
     public static boolean isQuestEntity(Player p, LivingEntity e) {
-        return hasActiveQuest(p) && toEntityType(getQuestLine(p)) == e.getType();
+        return hasActiveQuest(p) && toEntityType(p, getQuestLine(p)) == e.getType();
     }
 
     @ParametersAreNonnullByDefault
     public static int getQuestLine(Player p) {
         PersistentDataContainer container = p.getPersistentDataContainer();
-        ThreadLocalRandom random = ThreadLocalRandom.current();
         int id;
 
         if (container.has(KEY, PersistentDataType.INTEGER)) {
             id = container.get(KEY, PersistentDataType.INTEGER);
         } else {
-            id = random.nextInt(52);
-            container.set(KEY, PersistentDataType.INTEGER, id);
+            id = nextQuestLine(p);
         }
 
         return id;
     }
 
     @ParametersAreNonnullByDefault
-    public static void nextQuestLine(Player p) {
-        p.getPersistentDataContainer().set(KEY, PersistentDataType.INTEGER, ThreadLocalRandom.current().nextInt(52));
+    public static int nextQuestLine(Player p) {
+        int id = ThreadLocalRandom.current().nextInt(QUEST_MOBS.size());
+        p.getPersistentDataContainer().set(KEY, PersistentDataType.INTEGER, id);
+        return id;
     }
 
     @ParametersAreNonnullByDefault
@@ -106,11 +105,11 @@ public class QuestUtils {
         if (item == Items.CURSED_SWORD) {
             int i = random.nextInt(CURSED_LINES.size());
             Line line = CURSED_LINES.get(i);
-            p.sendMessage(ChatColor.RED + line.firstHalf() + toString(id) + line.secondHalf());
+            p.sendMessage(ChatColor.RED + line.firstHalf() + toString(p, id) + line.secondHalf());
         } else if (item == Items.CELESTIAL_SWORD) {
             int i = random.nextInt(CELESTIAL_LINES.size());
             Line line = CELESTIAL_LINES.get(i);
-            p.sendMessage(ChatColor.YELLOW + line.firstHalf() + toString(id) + line.secondHalf());
+            p.sendMessage(ChatColor.YELLOW + line.firstHalf() + toString(p, id) + line.secondHalf());
         }
     }
 
@@ -123,13 +122,19 @@ public class QuestUtils {
         }
     }
 
-    public static EntityType toEntityType(int id) {
-        Validate.isTrue(id < QUEST_MOBS.size(), "Entity ID can't be greater than " + (QUEST_MOBS.size() - 1));
+    public static EntityType toEntityType(Player p, int id) {
+        if (id >= QUEST_MOBS.size()) {
+            id = nextQuestLine(p);
+        }
+
         return QUEST_MOBS.get(id);
     }
 
-    public static String toString(int id) {
-        Validate.isTrue(id < QUEST_MOBS.size(), "Entity ID can't be greater than " + (QUEST_MOBS.size() - 1));
+    public static String toString(Player p, int id) {
+        if (id >= QUEST_MOBS.size()) {
+            id = nextQuestLine(p);
+        }
+
         return ChatUtils.humanize(QUEST_MOBS.get(id).name().toLowerCase());
     }
 }

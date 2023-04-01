@@ -111,7 +111,7 @@ public class SwordListener implements Listener {
             Player p = e.getEntity().getKiller();
             PlayerInventory inventory = p.getInventory();
 
-            if (!QuestUtils.hasActiveQuest(p) || QuestUtils.isQuestEntity(p, e.getEntity())) {
+            if (!QuestUtils.hasActiveQuest(p) || !QuestUtils.isQuestEntity(p, e.getEntity())) {
                 return;
             }
 

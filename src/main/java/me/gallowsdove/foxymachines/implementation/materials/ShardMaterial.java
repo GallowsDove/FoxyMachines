@@ -25,15 +25,16 @@ public class ShardMaterial extends SimpleSlimefunItem<ItemDropHandler> {
                 return false;
             }
 
-            if (SacrificialAltarListener.findAltar(item.getLocation().getBlock()) == null) {
-                return false;
-            }
-
             if (!QuestUtils.hasActiveQuest(p)) {
-                return false;
+                return true;
             }
 
             Slimefun.runSync(() -> {
+                if (SacrificialAltarListener.findAltar(item.getLocation().getBlock()) == null) {
+                    return;
+                }
+
+                QuestUtils.resetQuestLine(p);
                 SacrificialAltarListener.particleAnimation(item.getLocation());
                 item.remove();
             }, 20L);
