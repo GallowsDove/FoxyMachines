@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import me.gallowsdove.foxymachines.listeners.SacrificialAltarListener;
 import me.gallowsdove.foxymachines.utils.QuestUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -34,9 +35,17 @@ public class ShardMaterial extends SimpleSlimefunItem<ItemDropHandler> {
                     return;
                 }
 
+                p.sendMessage(ChatColor.LIGHT_PURPLE + "Quest reset!");
                 QuestUtils.resetQuestLine(p);
                 SacrificialAltarListener.particleAnimation(item.getLocation());
-                item.remove();
+
+                if (item.getItemStack().getAmount() == 1) {
+                    item.remove();
+                } else {
+                    ItemStack i = item.getItemStack();
+                    i.setAmount(i.getAmount() - 1);
+                    item.setItemStack(i);
+                }
             }, 20L);
 
             return true;
