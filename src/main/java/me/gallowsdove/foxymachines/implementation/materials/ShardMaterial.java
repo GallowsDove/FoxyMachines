@@ -14,8 +14,11 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 
 public class ShardMaterial extends SimpleSlimefunItem<ItemDropHandler> {
-    public ShardMaterial(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
+    private final ChatColor color;
+    public ShardMaterial(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe, ChatColor color) {
         super(itemGroup, item, recipeType, recipe);
+
+        this.color = color;
     }
 
     @Nonnull
@@ -35,7 +38,7 @@ public class ShardMaterial extends SimpleSlimefunItem<ItemDropHandler> {
                     return;
                 }
 
-                p.sendMessage(ChatColor.LIGHT_PURPLE + "Quest reset!");
+                p.sendMessage(this.color + "Quest reset!");
                 QuestUtils.resetQuestLine(p);
                 SacrificialAltarListener.particleAnimation(item.getLocation());
 

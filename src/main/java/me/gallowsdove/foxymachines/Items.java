@@ -551,7 +551,7 @@ public final class Items{
             Material.NETHERITE_SCRAP,
             "&cCursed Shard",
             "&7Crafting Material",
-            "&7Will reset an active Quest when thrown into an Altar...."
+            "&7Will reset a Quest when thrown into an Altar..."
     );
 
     public static final SlimefunItemStack CELESTIAL_SHARD = new SlimefunItemStack(
@@ -559,7 +559,7 @@ public final class Items{
             Material.PRISMARINE_SHARD,
             "&eCelestial Shard",
             "&7Crafting Material",
-            "&7Will reset an active Quest when thrown into an Altar...."
+            "&7Will reset a Quest when thrown into an Altar..."
     );
 
     public static final SlimefunItemStack EQUANIMOUS_GEM = new SlimefunItemStack(
