@@ -19,6 +19,7 @@ import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.implementation.machines.ImprovementForge;
 import me.gallowsdove.foxymachines.implementation.machines.PotionMixer;
 import me.gallowsdove.foxymachines.implementation.materials.GhostBlock;
+import me.gallowsdove.foxymachines.implementation.materials.ShardMaterial;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleMaterial;
 import me.gallowsdove.foxymachines.implementation.materials.SimpleRadioactiveMaterial;
 import me.gallowsdove.foxymachines.implementation.mobs.HeadlessHorseman;
@@ -40,12 +41,12 @@ import me.gallowsdove.foxymachines.implementation.tools.SpongeWand;
 import me.gallowsdove.foxymachines.implementation.weapons.HealingBow;
 import me.gallowsdove.foxymachines.types.FoxyRecipeType;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
 
 final class ItemSetup {
     static final ItemSetup INSTANCE = new ItemSetup();
@@ -251,16 +252,16 @@ final class ItemSetup {
                     }, 1).register(FoxyMachines.getInstance());
         }
 
-        new SlimefunItem(Items.MATERIALS_ITEM_GROUP, Items.CURSED_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
+        new ShardMaterial(Items.MATERIALS_ITEM_GROUP, Items.CURSED_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
                 null, null, null,
                 null, Items.CURSED_SWORD, null,
                 null, null, null
-                }).register(FoxyMachines.getInstance());
-        new SlimefunItem(Items.MATERIALS_ITEM_GROUP, Items.CELESTIAL_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
+                }, ChatColor.RED).register(FoxyMachines.getInstance());
+        new ShardMaterial(Items.MATERIALS_ITEM_GROUP, Items.CELESTIAL_SHARD, FoxyRecipeType.QUEST, new ItemStack[] {
                 null, null, null,
                 null, Items.CELESTIAL_SWORD, null,
                 null, null, null
-                }).register(FoxyMachines.getInstance());
+                }, ChatColor.YELLOW).register(FoxyMachines.getInstance());
         new SlimefunItem(Items.MATERIALS_ITEM_GROUP, Items.EQUANIMOUS_GEM, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
                 Items.CURSED_SHARD, Items.CELESTIAL_SHARD, Items.CURSED_SHARD,
                 Items.CELESTIAL_SHARD, new ItemStack(Material.EMERALD), Items.CELESTIAL_SHARD,

@@ -19,8 +19,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -111,27 +109,21 @@ public class SwordListener implements Listener {
     private void onSwordKill(EntityDeathEvent e) {
         if (e.getEntity().getKiller() != null) {
             Player p = e.getEntity().getKiller();
-
             PlayerInventory inventory = p.getInventory();
-            PersistentDataContainer container = p.getPersistentDataContainer();
 
-            if (!container.has(QuestUtils.KEY, PersistentDataType.INTEGER)) {
+            if (!QuestUtils.hasActiveQuest(p) || !QuestUtils.isQuestEntity(p, e.getEntity())) {
                 return;
             }
 
-            int id = container.get(QuestUtils.KEY, PersistentDataType.INTEGER);
-
-            if (e.getEntity().getType() == QuestUtils.toEntityType(id)) {
-                if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CURSED_SWORD, false, false)) {
-                    inventory.addItem(new SlimefunItemStack(Items.CURSED_SHARD, 1));
-                    p.sendMessage(ChatColor.RED + "The Cursed Sword is pleased.");
-                    container.set(QuestUtils.KEY, PersistentDataType.INTEGER, ThreadLocalRandom.current().nextInt(52));
-                } else if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CELESTIAL_SWORD, false, false)) {
-                    inventory.addItem(new SlimefunItemStack(Items.CELESTIAL_SHARD, 1));
-                    p.sendMessage(ChatColor.YELLOW + "The Celestial Sword is pleased.");
-                    container.set(QuestUtils.KEY, PersistentDataType.INTEGER, ThreadLocalRandom.current().nextInt(52));
-                }
+            if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CURSED_SWORD, false, false)) {
+                inventory.addItem(new SlimefunItemStack(Items.CURSED_SHARD, 1));
+                p.sendMessage(ChatColor.RED + "The Cursed Sword is pleased.");
+            } else if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CELESTIAL_SWORD, false, false)) {
+                inventory.addItem(new SlimefunItemStack(Items.CELESTIAL_SHARD, 1));
+                p.sendMessage(ChatColor.YELLOW + "The Celestial Sword is pleased.");
             }
+
+            QuestUtils.nextQuestLine(p);
         }
     }
 }
