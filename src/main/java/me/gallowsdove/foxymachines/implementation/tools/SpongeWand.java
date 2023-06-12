@@ -84,8 +84,8 @@ public class SpongeWand extends AbstractWand {
             for (int y = loc2.getY(); y <= loc1.getY(); y++) {
                 for (int z = loc2.getZ(); z <= loc1.getZ(); z++) {
                     Block block = world.getBlockAt(x, y, z);
-                    if (Slimefun.getProtectionManager().hasPermission(player, block, Interaction.BREAK_BLOCK) &&
-                            (block.getType() == Material.WATER || block.getType() == Material.LAVA)) {
+                    if ((block.getType() == Material.WATER || block.getType() == Material.LAVA) &&
+                            Slimefun.getProtectionManager().hasPermission(player, block, Interaction.BREAK_BLOCK)) {
                         locs.add(block.getLocation());
                     }
                 }
