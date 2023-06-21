@@ -20,7 +20,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -35,7 +34,7 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
     public static final Set<Material> BLACKLISTED = Set.of(Material.BARRIER, Material.SPAWNER, Material.COMMAND_BLOCK,
             Material.STRUCTURE_BLOCK, Material.REPEATING_COMMAND_BLOCK, Material.CHAIN_COMMAND_BLOCK, Material.JIGSAW);
 
-    public static final Set<Material> WHITELISTED = new HashSet<>(Arrays.asList(Material.GLASS, Material.ACACIA_LEAVES,
+    public static final Set<Material> WHITELISTED = new HashSet<>(List.of(Material.GLASS, Material.ACACIA_LEAVES,
         Material.BIRCH_LEAVES, Material.DARK_OAK_LEAVES, Material.JUNGLE_LEAVES,
         Material.OAK_LEAVES, Material.SPRUCE_LEAVES, Material.GRAY_STAINED_GLASS, Material.BLACK_STAINED_GLASS,
         Material.BLUE_STAINED_GLASS, Material.BROWN_STAINED_GLASS, Material.CYAN_STAINED_GLASS, Material.GREEN_STAINED_GLASS,
@@ -45,8 +44,11 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
 
     static {
         if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_17)) {
-            WHITELISTED.add(Material.AZALEA_LEAVES);
-            WHITELISTED.add(Material.FLOWERING_AZALEA_LEAVES);
+            WHITELISTED.addAll(List.of(Material.AZALEA_LEAVES, Material.FLOWERING_AZALEA_LEAVES,
+                Material.TINTED_GLASS));
+        }
+        if (Slimefun.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_19)) {
+            WHITELISTED.add(Material.MANGROVE_LEAVES);
         }
     }
 
