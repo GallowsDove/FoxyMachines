@@ -7,6 +7,7 @@ import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.core.attributes.Rechargeable;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
+import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
 import io.github.thebusybiscuit.slimefun4.utils.tags.SlimefunTag;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
@@ -55,13 +56,14 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
                 continue;
             } catch (IllegalArgumentException ignored) {}
 
-            SlimefunTag tag = SlimefunTag.getTag(value);
-            if (tag == null) {
+            Tag<Material> tag = Bukkit.getTag(Tag.REGISTRY_BLOCKS, NamespacedKey.minecraft(value.toLowerCase()), Material.class);
+            SlimefunTag slimefunTag = SlimefunTag.getTag(value);
+            if (tag == null && slimefunTag == null) {
                 FoxyMachines.log(Level.WARNING, "Invalid Entry in \"" + name + "\": " + value);
                 continue;
             }
 
-            materials.addAll(tag.getValues());
+            materials.addAll(tag != null ? tag.getValues() : slimefunTag.getValues());
         }
     }
 
@@ -84,16 +86,18 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
 
             if (player.isSneaking() && !isRemoving() && e.getClickedBlock().isPresent()) {
                 Material material = e.getClickedBlock().get().getType();
-
+                String humanizedName = ChatUtils.humanize(material.toString());
                 if ((material.isBlock() && material.isSolid() && material.isOccluding() && !BLACKLIST.contains(material)) ||
                         WHITELIST.contains(material)) {
-                    player.sendMessage(ChatColor.LIGHT_PURPLE + "Material set to: " + material);
+                    player.sendMessage(ChatColor.LIGHT_PURPLE + "Material set to: " + humanizedName);
                     container.set(AbstractWand.MATERIAL_KEY, PersistentDataType.STRING, material.toString());
                     List<String> lore = this.getItem().getItemMeta().getLore();
-                    lore.set(lore.size() - 2, ChatColor.GRAY + "Material: " + ChatColor.YELLOW + material);
+                    lore.set(lore.size() - 2, ChatColor.GRAY + "Material: " + ChatColor.YELLOW + humanizedName);
                     meta.setLore(lore);
                     itemInInventory.setItemMeta(meta);
                     setItemCharge(itemInInventory, getItemCharge(itemInInventory)); // To update it in lore
+                } else {
+                    player.sendMessage(ChatColor.RED + "Cannot use: " + humanizedName + ", with the fill wand");
                 }
             } else {
                 if (isRemoving() && !container.has(MATERIAL_KEY, PersistentDataType.STRING)) {

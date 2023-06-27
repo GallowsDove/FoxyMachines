@@ -20,8 +20,11 @@
 # fill-wand-black-list
 # Materials/Tags the fill wand cannot place, the fill wand, automatically allows specific blocks, this is for any special cases
 
-# For materials see: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-# For tags see: https://slimefun.github.io/javadocs/Slimefun4/docs/io/github/thebusybiscuit/slimefun4/utils/tags/SlimefunTag.html
+# For materials see:
+#   - https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+# For tags see:
+#   - https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Tag.html
+#   - https://slimefun.github.io/javadocs/Slimefun4/docs/io/github/thebusybiscuit/slimefun4/utils/tags/SlimefunTag.html
 # If a material and tag share the same name only the material will be added.
 
 # max-sponge-wand-blocks: default: 16384
