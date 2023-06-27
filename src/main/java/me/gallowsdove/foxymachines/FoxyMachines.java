@@ -5,6 +5,7 @@ import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.mooy1.infinitylib.core.AbstractAddon;
 import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
 import lombok.SneakyThrows;
+import me.gallowsdove.foxymachines.abstracts.AbstractWand;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.commands.KillallCommand;
 import me.gallowsdove.foxymachines.commands.QuestCommand;
@@ -49,6 +50,7 @@ public class FoxyMachines extends AbstractAddon {
         Events.registerListener(new PositionSelectorListener());
 
         QuestUtils.init();
+        AbstractWand.init();
         ItemSetup.INSTANCE.init();
         ResearchSetup.INSTANCE.init();
 
