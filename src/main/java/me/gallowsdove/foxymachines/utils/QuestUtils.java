@@ -55,6 +55,7 @@ public class QuestUtils {
     public static void init() {
         if (!QUEST_MOBS.isEmpty()) {
             FoxyMachines.log(Level.WARNING, "Attempted to initialize QuestUtils after already initialized!");
+            return;
         }
 
         for (String questMob : FoxyMachines.getInstance().getConfig().getStringList("quest-mobs")) {

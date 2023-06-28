@@ -1,23 +1,37 @@
 # max-chunk-loaders: default: 8
-# maximum amount of chunk loaders allowed per player, set to 0 for infinite.
-
+# Maximum amount of chunk loaders allowed per player, set to 0 for infinite.
+#
 # gps-complexity-per-loader: default: 7500
-# the GPS complexity required for each chunk loader
-
+# The GPS complexity required for each chunk loader
+#
 # ghost-blocks: default: true
 # Setting this to false will disable all Ghost Blocks without having to edit items.yml
-
+#
 # custom-mobs:
 # Setting this to false will disable all custom mobs and bosses. Some recipes will be altered and some items will be removed.
-
+#
 # max-fill-wand-blocks: default: 4096
-# the max volume that can be filled at once
-
+# The max volume that can be filled at once
+#
+# fill-wand-white-list
+# Materials/Tags the fill wand can place, the fill wand automatically allows specific blocks, this is for any special cases
+# Has higher priority over fill-wand-black-list
+#
+# fill-wand-black-list
+# Materials/Tags the fill wand cannot place, the fill wand, automatically allows specific blocks, this is for any special cases
+#
+# For materials see:
+#   - https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+# For tags see:
+#   - https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Tag.html
+#   - https://slimefun.github.io/javadocs/Slimefun4/docs/io/github/thebusybiscuit/slimefun4/utils/tags/SlimefunTag.html
+# If a material and tag share the same name only the material will be added.
+#
 # max-sponge-wand-blocks: default: 16384
-# the max volume that can be cleared at once
-
+# The max volume that can be cleared at once
+#
 # quest-mobs
-# all mob types that can be required for a quest, for a full list of them go to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+# All mob types that can be required for a quest, for a full list of them go to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
 
 auto-update: true
 max-chunk-loaders: 8
@@ -25,6 +39,15 @@ gps-complexity-per-loader: 7500
 ghost-blocks: true
 custom-mobs: true
 max-fill-wand-blocks: 4096
+fill-wand-white-list:
+  - LEAVES
+  - GLASS_BLOCKS
+fill-wand-black-list:
+  - BARRIER
+  - SPAWNER
+  - COMMAND_BLOCKS
+  - STRUCTURE_BLOCK
+  - JIGSAW
 max-sponge-wand-blocks: 16384
 quest-mobs:
   - BAT
