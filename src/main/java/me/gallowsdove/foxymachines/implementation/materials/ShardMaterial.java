@@ -30,6 +30,7 @@ public class ShardMaterial extends SimpleSlimefunItem<ItemDropHandler> {
             }
 
             if (!QuestUtils.hasActiveQuest(p)) {
+                p.sendMessage(this.color + "You have no active quest!");
                 return true;
             }
 
@@ -38,8 +39,7 @@ public class ShardMaterial extends SimpleSlimefunItem<ItemDropHandler> {
                     return;
                 }
 
-                p.sendMessage(this.color + "Quest reset!");
-                QuestUtils.resetQuestLine(p);
+                QuestUtils.nextQuestLine(p);
                 SacrificialAltarListener.particleAnimation(item.getLocation());
 
                 if (item.getItemStack().getAmount() == 1) {
