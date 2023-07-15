@@ -114,15 +114,6 @@ public class QuestUtils {
         }
     }
 
-    @ParametersAreNonnullByDefault
-    public static void resetQuestLine(Player p) {
-        PersistentDataContainer container = p.getPersistentDataContainer();
-
-        if (container.has(KEY, PersistentDataType.INTEGER)) {
-            container.remove(KEY);
-        }
-    }
-
     public static EntityType toEntityType(Player p, int id) {
         if (id >= QUEST_MOBS.size()) {
             id = nextQuestLine(p);
