@@ -422,6 +422,7 @@ public final class Items{
             Material.NETHERITE_SWORD,
             "&cCursed Sword",
             "&7Life Steal I",
+            "&7Armor Ignorance I",
             "",
             "&7Confuses enemies. Increases damage.",
             "&7Can negatively affect wielder."
@@ -432,8 +433,7 @@ public final class Items{
             Material.NETHERITE_SWORD,
             "&eCelestial Sword",
             "&7Divine Smite II",
-            "",
-            "&7Ignores 20% of Resistances."
+            "&7Armor Ignorance III"
     );
 
     public static final SlimefunItemStack ELUCIDATOR = new SlimefunItemStack(
@@ -442,6 +442,7 @@ public final class Items{
             "&bElucidator",
             "&7Damage III",
             "&7Life Steal II",
+            "&7Armor Ignorance I",
             "&7Overheal"
     );
     static {
