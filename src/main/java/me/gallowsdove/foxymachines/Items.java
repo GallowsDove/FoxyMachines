@@ -24,48 +24,48 @@ import org.bukkit.inventory.meta.ItemMeta;
 public final class Items{
 
     // Item groups
-    public static NestedItemGroup MAIN_ITEM_GROUP = new NestedItemGroup(
+    public static final NestedItemGroup MAIN_ITEM_GROUP = new NestedItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "foxy_machines"),
             new CustomItemStack(Material.SHEARS, "&4Foxy Machines")
     );
 
-    public static SubItemGroup MATERIALS_ITEM_GROUP = new SubItemGroup(
+    public static final SubItemGroup MATERIALS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "materials"),
             MAIN_ITEM_GROUP,
             new CustomItemStack(Material.GOLD_INGOT, "&bMaterials")
     );
 
-    public static SubItemGroup MACHINES_ITEM_GROUP = new SubItemGroup(
+    public static final SubItemGroup MACHINES_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "machines"),
             MAIN_ITEM_GROUP,
             new CustomItemStack(Material.BEACON, "&aMachines")
     );
 
-    public static SubItemGroup TOOLS_ITEM_GROUP = new SubItemGroup(
+    public static final SubItemGroup TOOLS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "tools"),
             MAIN_ITEM_GROUP,
             new CustomItemStack(Material.BLAZE_ROD, "&eTools")
     );
 
-    public static SubItemGroup WEAPONS_AND_ARMORS_ITEM_GROUP = new SubItemGroup(
+    public static final SubItemGroup WEAPONS_AND_ARMORS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "weapons_and_armors"),
             MAIN_ITEM_GROUP,
             new CustomItemStack(Material.NETHERITE_SWORD, "&aWeapons and Armors")
     );
 
-    public static SubItemGroup ALTAR_ITEM_GROUP = new SubItemGroup(
+    public static final SubItemGroup ALTAR_ITEM_GROUP = new SubItemGroup(
         new NamespacedKey(FoxyMachines.getInstance(), "sacrificial_altars"),
         MAIN_ITEM_GROUP,
         new CustomItemStack(Material.POLISHED_BLACKSTONE_BRICKS, "&4Sacrificial Altar")
     );
 
-    public static SubItemGroup BOSSES_ITEM_GROUP = new SubItemGroup(
+    public static final SubItemGroup BOSSES_ITEM_GROUP = new SubItemGroup(
         new NamespacedKey(FoxyMachines.getInstance(), "bosses"),
         MAIN_ITEM_GROUP,
         new CustomItemStack(Material.DRAGON_HEAD, "&cBosses")
     );
 
-    public static SubItemGroup GHOST_BLOCKS_ITEM_GROUP = new SubItemGroup(
+    public static final SubItemGroup GHOST_BLOCKS_ITEM_GROUP = new SubItemGroup(
             new NamespacedKey(FoxyMachines.getInstance(), "ghost_blocks"),
             MAIN_ITEM_GROUP,
             new CustomItemStack(Material.GLASS, "&5Ghost Blocks")
