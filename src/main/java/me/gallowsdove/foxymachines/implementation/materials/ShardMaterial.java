@@ -30,7 +30,7 @@ public class ShardMaterial extends SimpleSlimefunItem<ItemDropHandler> {
             }
 
             if (!QuestUtils.hasActiveQuest(p)) {
-                p.sendMessage(this.color + "You have no active quest!");
+                p.sendMessage(this.color + "You should check your quest with &d/foxy quest " + this.color + "first!");
                 return true;
             }
 
