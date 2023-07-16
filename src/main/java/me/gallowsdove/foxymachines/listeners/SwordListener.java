@@ -115,17 +115,15 @@ public class SwordListener implements Listener {
                 return;
             }
 
-            QuestUtils.nextQuestLine(p);
-
             if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CURSED_SWORD, false, false)) {
                 inventory.addItem(new SlimefunItemStack(Items.CURSED_SHARD, 1));
                 p.sendMessage(ChatColor.RED + "The Cursed Sword is pleased.");
-                QuestUtils.sendQuestLine(p, Items.CURSED_SWORD);
             } else if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CELESTIAL_SWORD, false, false)) {
                 inventory.addItem(new SlimefunItemStack(Items.CELESTIAL_SHARD, 1));
                 p.sendMessage(ChatColor.YELLOW + "The Celestial Sword is pleased.");
-                QuestUtils.sendQuestLine(p, Items.CELESTIAL_SWORD);
             }
+
+            QuestUtils.nextQuestLine(p);
         }
     }
 }
