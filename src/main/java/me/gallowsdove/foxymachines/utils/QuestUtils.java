@@ -2,7 +2,6 @@ package me.gallowsdove.foxymachines.utils;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.ChatUtils;
-import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import org.bukkit.ChatColor;
@@ -25,31 +24,31 @@ public class QuestUtils {
     public static final NamespacedKey KEY = new NamespacedKey(FoxyMachines.getInstance(), "quest");
 
     private static final List<EntityType> QUEST_MOBS = new ArrayList<>();
-    private static final List<Line> CURSED_LINES = List.of(
-            new Line("I would love to kill a ", ", so tasty!"),
-            new Line("Give me a ", ", now!"),
-            new Line("Surely you can help me slay a ", "."),
-            new Line("I want blood....  ", " blood."),
-            new Line("I need a ", " liver."),
-            new Line("I've heard that ", " blood is tasty..."),
-            new Line("", " heart, hmmm..."),
-            new Line("I would slay God himself for some ", " flesh."),
-            new Line("I could be devouring a ", " whole day."),
-            new Line("I've been waiting for too long. Too long or a day to kill a ", "."),
-            new Line("", "'s blood shall be spilled"),
-            new Line("My curse shall devour ", "'s soul"));
-    private static final List<Line> CELESTIAL_LINES = List.of(
-            new Line("I love all beings... except ", ", I hate those."),
-            new Line("All life must be in balance, what's why I need to kill a ", "."),
-            new Line("I am celestial, but I am also a sword. Now get me a ", "."),
-            new Line("I'm sorry, but please get me some ", ". No questions."),
-            new Line("Celestial sword requires a celestial sacrifice. A ", "."),
-            new Line("My next victim should be ", ", just as God intended."),
-            new Line("And the next in line is ... ", "!"),
-            new Line("The God wants a ", " dead."),
-            new Line("For God and honour, go slay a ", "."),
-            new Line("Go, get that ", "! For justice!"),
-            new Line("The stars have aligned. I can clearly see the ", " that shall die by my blade"));
+    private static final List<String> CURSED_LINES = List.of(
+            "I would love to kill a {entity}, so tasty!",
+            "Give me a {entity}, now!",
+            "Surely you can help me slay a {entity}.",
+            "I want blood....  {entity} blood.",
+            "I need a {entity} liver.",
+            "I've heard that {entity} blood is tasty...",
+            "{entity} heart, hmmm...",
+            "I would slay God himself for some {entity} flesh.",
+            "I could be devouring a {entity} whole day.",
+            "I've been waiting for too long. Too long or a day to kill a {entity}.",
+            "{entity}'s blood shall be spilled",
+            "My curse shall devour {entity}'s soul");
+    private static final List<String> CELESTIAL_LINES = List.of(
+            "I love all beings... except {entity}, I hate those.",
+            "All life must be in balance, what's why I need to kill a {entity}.",
+            "I am celestial, but I am also a sword. Now get me a {entity}.",
+            "I'm sorry, but please get me some {entity}. No questions.",
+            "Celestial sword requires a celestial sacrifice. A {entity}.",
+            "My next victim should be {entity}, just as God intended.",
+            "And the next in line is ... {entity}!",
+            "The God wants a {entity} dead.",
+            "For God and honour, go slay a {entity}.",
+            "Go, get that {entity}! For justice!",
+            "The stars have aligned. I can clearly see the {entity} that shall die by my blade");
 
 
     public static void init() {
@@ -101,16 +100,16 @@ public class QuestUtils {
     @ParametersAreNonnullByDefault
     public static void sendQuestLine(Player p, SlimefunItemStack item) {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        int id = getQuestLine(p);
+        String entity = toString(p, getQuestLine(p));
 
         if (item == Items.CURSED_SWORD) {
             int i = random.nextInt(CURSED_LINES.size());
-            Line line = CURSED_LINES.get(i);
-            p.sendMessage(ChatColor.RED + line.firstHalf() + toString(p, id) + line.secondHalf());
+            String line = CURSED_LINES.get(i).replace("{entity}", entity);
+            p.sendMessage(ChatColor.RED + line);
         } else if (item == Items.CELESTIAL_SWORD) {
             int i = random.nextInt(CELESTIAL_LINES.size());
-            Line line = CELESTIAL_LINES.get(i);
-            p.sendMessage(ChatColor.YELLOW + line.firstHalf() + toString(p, id) + line.secondHalf());
+            String line = CELESTIAL_LINES.get(i).replace("{entity}", entity);
+            p.sendMessage(ChatColor.YELLOW + line);
         }
     }
 
@@ -139,5 +138,3 @@ public class QuestUtils {
         return ChatUtils.humanize(QUEST_MOBS.get(id).name().toLowerCase());
     }
 }
-
-record Line(@Getter String firstHalf, @Getter String secondHalf) { }
