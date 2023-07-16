@@ -3,7 +3,9 @@ package me.gallowsdove.foxymachines.implementation.weapons;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.utils.Utils;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.HumanEntity;
@@ -24,8 +26,12 @@ public class CursedSword extends OnHitWeapon {
             new PotionEffect(PotionEffectType.CONFUSION, 100, 3, false, false),
             new PotionEffect(PotionEffectType.WITHER, 80, 1, false, false));
 
-    public CursedSword(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+    public CursedSword() {
+        super(Items.WEAPONS_AND_ARMORS_ITEM_GROUP, Items.CURSED_SWORD, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
+                Items.BLOOD, Items.CURSED_RABBIT_PAW, Items.BLOOD,
+                Items.MAGIC_LUMP_5, new ItemStack(Material.NETHERITE_SWORD), Items.MAGIC_LUMP_5,
+                Items.BLOOD, Items.BLOOD_INFUSED_SKULL, Items.BLOOD
+        });
     }
 
     @Override

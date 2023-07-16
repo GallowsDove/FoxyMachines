@@ -3,6 +3,7 @@ package me.gallowsdove.foxymachines.implementation.weapons;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
+import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.utils.Utils;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.HumanEntity;
@@ -14,8 +15,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Elucidator extends OnHitWeapon {
-    public Elucidator(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(itemGroup, item, recipeType, recipe);
+    public Elucidator(boolean customMobs) {
+        super(Items.WEAPONS_AND_ARMORS_ITEM_GROUP, Items.ELUCIDATOR, RecipeType.ANCIENT_ALTAR, new ItemStack[]{
+                Items.EQUANIMOUS_GEM, Items.CURSED_SWORD, Items.EQUANIMOUS_GEM,
+                Items.BUCKET_OF_BLOOD, customMobs ? Items.PIXIE_QUEEN_HEART : Items.DEMONIC_PLATE, Items.BUCKET_OF_BLOOD,
+                Items.EQUANIMOUS_GEM, Items.CELESTIAL_SWORD, Items.EQUANIMOUS_GEM
+        });
     }
 
     @Override
