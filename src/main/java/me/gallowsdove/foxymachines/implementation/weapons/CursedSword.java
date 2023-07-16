@@ -1,7 +1,5 @@
 package me.gallowsdove.foxymachines.implementation.weapons;
 
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.utils.Utils;
@@ -36,13 +34,13 @@ public class CursedSword extends OnHitWeapon {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onHit(ThreadLocalRandom random, EntityDamageByEntityEvent event, HumanEntity humanoid, LivingEntity entity) {
+    public void onHit(EntityDamageByEntityEvent event, HumanEntity humanoid, LivingEntity entity) {
         // Life Steal I
         double health = humanoid.getHealth() + 1.25D;
         double maxHealth = humanoid.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
         humanoid.setHealth(Math.min(health, maxHealth));
 
-        // Armor Ignorance I
+        // Armor Penetration I
         double damage = event.getDamage();
         double finalDamage = event.getFinalDamage();
         Utils.dealDamageBypassingArmor(entity, (damage - finalDamage) * 0.05);
@@ -54,6 +52,7 @@ public class CursedSword extends OnHitWeapon {
         entity.addPotionEffects(EFFECTS);
 
         // Particle Effects
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < 10; i++) {
             entity.getWorld().spawnParticle(Particle.SQUID_INK, entity.getLocation(), 1,
                     random.nextDouble(-1, 1), random.nextDouble(1.6, 2), random.nextDouble(-1, 1), 0);

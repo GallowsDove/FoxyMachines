@@ -1,7 +1,5 @@
 package me.gallowsdove.foxymachines.implementation.weapons;
 
-import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
-import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.utils.Utils;
@@ -27,11 +25,12 @@ public class CelestialSword extends OnHitWeapon {
 
     @Override
     @ParametersAreNonnullByDefault
-    public void onHit(ThreadLocalRandom random, EntityDamageByEntityEvent event, HumanEntity humanoid, LivingEntity entity) {
-        // Armor Ignorance III
+    public void onHit(EntityDamageByEntityEvent event, HumanEntity humanoid, LivingEntity entity) {
+        // Armor Penetration V
         Utils.dealDamageBypassingArmor(entity, (event.getDamage() - event.getFinalDamage()) * 0.16);
 
         // Divine Smite II
+        ThreadLocalRandom random = ThreadLocalRandom.current();
         if (random.nextInt(100) < 15) {
             entity.getWorld().strikeLightningEffect(entity.getLocation());
             entity.damage(8);

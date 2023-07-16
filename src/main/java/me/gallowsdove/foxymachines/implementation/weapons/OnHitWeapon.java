@@ -10,7 +10,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class OnHitWeapon extends SlimefunItem {
     protected OnHitWeapon(ItemGroup itemGroup, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
@@ -18,5 +17,5 @@ public abstract class OnHitWeapon extends SlimefunItem {
     }
 
     @ParametersAreNonnullByDefault
-    public abstract void onHit(ThreadLocalRandom random, EntityDamageByEntityEvent event, HumanEntity humanoid, LivingEntity entity);
+    public abstract void onHit(EntityDamageByEntityEvent event, HumanEntity humanoid, LivingEntity entity);
 }
