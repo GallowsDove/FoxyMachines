@@ -129,6 +129,15 @@ public class QuestUtils {
 
         return ChatUtils.humanize(QUEST_MOBS.get(id).name().toLowerCase());
     }
+
+    @ParametersAreNonnullByDefault
+    public static void resetQuestLine(Player p) {
+        PersistentDataContainer container = p.getPersistentDataContainer();
+
+        if (container.has(KEY, PersistentDataType.INTEGER)) {
+            container.remove(KEY);
+        }
+    }
 }
 
 record Line(@Getter String firstHalf, @Getter String secondHalf) { }
