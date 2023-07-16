@@ -3,9 +3,13 @@ package me.gallowsdove.foxymachines.listeners;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
+import me.gallowsdove.foxymachines.implementation.weapons.CelestialSword;
+import me.gallowsdove.foxymachines.implementation.weapons.CursedSword;
 import me.gallowsdove.foxymachines.implementation.weapons.OnHitWeapon;
 import me.gallowsdove.foxymachines.utils.QuestUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.LivingEntity;
@@ -55,15 +59,16 @@ public class SwordListener implements Listener {
 
         QuestUtils.nextQuestLine(p);
         PlayerInventory inventory = p.getInventory();
+        SlimefunItem sfItem = SlimefunItem.getByItem(inventory.getItemInMainHand());
 
-        if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CURSED_SWORD, false, false)) {
+        if (sfItem instanceof CursedSword) {
             inventory.addItem(new SlimefunItemStack(Items.CURSED_SHARD, 1));
             p.sendMessage(ChatColor.RED + "The Cursed Sword is pleased.");
-            QuestUtils.sendQuestLine(p, Items.CURSED_SWORD);
-        } else if (SlimefunUtils.isItemSimilar(inventory.getItemInMainHand(), Items.CELESTIAL_SWORD, false, false)) {
+            Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () -> QuestUtils.sendQuestLine(p, Items.CURSED_SWORD), 20L);
+        } else if (sfItem instanceof CelestialSword) {
             inventory.addItem(new SlimefunItemStack(Items.CELESTIAL_SHARD, 1));
             p.sendMessage(ChatColor.YELLOW + "The Celestial Sword is pleased.");
-            QuestUtils.sendQuestLine(p, Items.CELESTIAL_SWORD);
+            Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () -> QuestUtils.sendQuestLine(p, Items.CELESTIAL_SWORD), 20L);
         }
     }
 }
