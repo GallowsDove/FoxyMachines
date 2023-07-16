@@ -1,5 +1,6 @@
 package me.gallowsdove.foxymachines.listeners;
 
+import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
@@ -64,11 +65,11 @@ public class SwordListener implements Listener {
         if (sfItem instanceof CursedSword) {
             inventory.addItem(new SlimefunItemStack(Items.CURSED_SHARD, 1));
             p.sendMessage(ChatColor.RED + "The Cursed Sword is pleased.");
-            Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () -> QuestUtils.sendQuestLine(p, Items.CURSED_SWORD), 20L);
+            Scheduler.run(20, () -> QuestUtils.sendQuestLine(p, Items.CURSED_SWORD));
         } else if (sfItem instanceof CelestialSword) {
             inventory.addItem(new SlimefunItemStack(Items.CELESTIAL_SHARD, 1));
             p.sendMessage(ChatColor.YELLOW + "The Celestial Sword is pleased.");
-            Bukkit.getScheduler().runTaskLater(FoxyMachines.getInstance(), () -> QuestUtils.sendQuestLine(p, Items.CELESTIAL_SWORD), 20L);
+            Scheduler.run(20, () -> QuestUtils.sendQuestLine(p, Items.CELESTIAL_SWORD));
         }
     }
 }
