@@ -31,7 +31,7 @@ public abstract class CustomBoss extends CustomMob {
 
     private final Set<DamageCause> resistances;
 
-    public CustomBoss(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health, @Nonnull DamageCause... resistances) {
+    protected CustomBoss(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health, @Nonnull DamageCause... resistances) {
         super(id, name, type, health);
         this.resistances = Set.of(resistances);
     }
@@ -56,6 +56,14 @@ public abstract class CustomBoss extends CustomMob {
         spawned.setRemoveWhenFarAway(false);
 
         instances.put(spawned, bossbar);
+    }
+
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public void onMobTick(@Nonnull LivingEntity mob, int tick) {
+        if (tick == 100) {
+            onBossPattern(mob);
+        }
     }
 
     @Override
@@ -91,6 +99,8 @@ public abstract class CustomBoss extends CustomMob {
     @Override
     @OverridingMethodsMustInvokeSuper
     public void onDeath(@Nonnull EntityDeathEvent e) {
+        super.onDeath(e);
+
         BossBar bossbar = getBossBarForEntity(e.getEntity());
         bossbar.setVisible(false);
         bossbar.removeAll();

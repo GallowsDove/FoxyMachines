@@ -60,6 +60,8 @@ public class Helldog extends CustomMob {
 
     @Override
     public void onDeath(@Nonnull EntityDeathEvent e) {
+        super.onDeath(e);
+
         e.getDrops().clear();
     }
 

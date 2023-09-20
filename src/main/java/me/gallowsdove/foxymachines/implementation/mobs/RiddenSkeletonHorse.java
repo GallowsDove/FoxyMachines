@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Set;
 
 public class RiddenSkeletonHorse extends CustomMob {
-    private static final Set<DamageCause> RESISTANCES = Set.of(new DamageCause[] {
-            DamageCause.CRAMMING, DamageCause.POISON, DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION});
+    private static final Set<DamageCause> RESISTANCES = Set.of(
+            DamageCause.CRAMMING, DamageCause.POISON, DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION);
 
     public RiddenSkeletonHorse() {
         super("SKELETON_HORSE", "Skeleton Horse", EntityType.SKELETON_HORSE, 132);
@@ -60,13 +60,15 @@ public class RiddenSkeletonHorse extends CustomMob {
 
     @Override
     protected void onDeath(@Nonnull EntityDeathEvent e) {
+        super.onDeath(e);
+
         e.getDrops().clear();
 
         List<Entity> passengers = e.getEntity().getPassengers();
 
         for (Entity passenger: passengers) {
-            if (passenger instanceof LivingEntity) {
-                ((LivingEntity) passenger).setHealth(0);
+            if (passenger instanceof LivingEntity livingEntity) {
+                livingEntity.setHealth(0);
             }
         }
     }

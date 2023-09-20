@@ -1,6 +1,7 @@
 package me.gallowsdove.foxymachines.abstracts;
 
 import io.github.mooy1.infinitylib.common.Events;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.blocks.ChunkPosition;
 import lombok.Getter;
 import me.gallowsdove.foxymachines.FoxyMachines;
 
@@ -8,6 +9,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.common.ChatColors;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -19,18 +21,26 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
+import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
 
 public abstract class CustomMob {
 
     public static final Map<String, CustomMob> MOBS = new HashMap<>();
+    public static final Set<ChunkPosition> SCANNED_CHUNKS = new HashSet<>();
+    public static final Map<CustomMob, Set<UUID>> MOB_CACHE = new HashMap<>();
 
     @Nullable
     public static CustomMob getByID(@Nonnull String id) {
@@ -54,7 +64,8 @@ public abstract class CustomMob {
     private final EntityType type;
     private final int health;
 
-    public CustomMob(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health) {
+    @ParametersAreNonnullByDefault
+    protected CustomMob(String id, String name, EntityType type, int health) {
         Validate.notNull(this.id = id);
         Validate.notNull(this.name = ChatColors.color(name));
         Validate.notNull(this.type = type);
@@ -78,6 +89,7 @@ public abstract class CustomMob {
         entity.setRemoveWhenFarAway(true);
 
         onSpawn(entity);
+        cacheEntity(entity);
 
         return entity;
     }
@@ -96,7 +108,10 @@ public abstract class CustomMob {
 
     protected void onTarget(@Nonnull EntityTargetEvent e) { }
 
-    protected void onDeath(@Nonnull EntityDeathEvent e) { }
+    @OverridingMethodsMustInvokeSuper
+    protected void onDeath(@Nonnull EntityDeathEvent e) {
+        uncacheEntity(e.getEntity());
+    }
 
     protected void onCastSpell(EntitySpellCastEvent e) { }
 
@@ -106,8 +121,37 @@ public abstract class CustomMob {
         return new Vector();
     }
 
+    protected void cacheEntity(@Nonnull Entity entity) {
+        Set<UUID> entities = MOB_CACHE.getOrDefault(this, new HashSet<>());
+        entities.add(entity.getUniqueId());
+        MOB_CACHE.put(this, entities);
+    }
+
+    protected void uncacheEntity(@Nonnull Entity entity) {
+        Set<UUID> entities = MOB_CACHE.getOrDefault(this, new HashSet<>());
+        entities.remove(entity.getUniqueId());
+        MOB_CACHE.put(this, entities);
+    }
+
     static {
         Events.registerListener(new Listener() {
+
+            @EventHandler
+            public void onChunkLoad(@Nonnull ChunkLoadEvent e) {
+                Chunk chunk = e.getChunk();
+                ChunkPosition chunkPosition = new ChunkPosition(chunk);
+                if (SCANNED_CHUNKS.contains(chunkPosition)) {
+                    return;
+                }
+                SCANNED_CHUNKS.add(chunkPosition);
+
+                for (Entity entity : chunk.getEntities()) {
+                    CustomMob customMob = getByEntity(entity);
+                    if (customMob != null) {
+                        customMob.cacheEntity(entity);
+                    }
+                }
+            }
 
             @EventHandler
             public void onTarget(@Nonnull EntityTargetEvent e) {
@@ -169,10 +213,8 @@ public abstract class CustomMob {
             private void onNametagEvent(PlayerInteractEntityEvent e) {
                 ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 
-                if (item.getType() == Material.NAME_TAG) {
-                    if (CustomMob.getByEntity(e.getRightClicked()) != null) {
-                        e.setCancelled(true);
-                    }
+                if (item.getType() == Material.NAME_TAG && CustomMob.getByEntity(e.getRightClicked()) != null) {
+                    e.setCancelled(true);
                 }
             }
 
