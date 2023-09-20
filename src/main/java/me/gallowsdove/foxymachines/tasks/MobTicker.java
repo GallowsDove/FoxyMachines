@@ -22,10 +22,10 @@ public class MobTicker implements Runnable {
         }
 
         for (Map.Entry<CustomMob, Set<UUID>> entry : CustomMob.MOB_CACHE.entrySet()) {
-            final CustomMob customMob = entry.getKey();
-            final Set<UUID> entities = entry.getValue();
+            CustomMob customMob = entry.getKey();
+            Set<UUID> entities = entry.getValue();
             for (UUID uuid : new HashSet<>(entities)) {
-                final Entity entity = Bukkit.getEntity(uuid);
+                Entity entity = Bukkit.getEntity(uuid);
                 if (!(entity instanceof LivingEntity livingEntity)) {
                     entities.remove(uuid);
                     continue;
