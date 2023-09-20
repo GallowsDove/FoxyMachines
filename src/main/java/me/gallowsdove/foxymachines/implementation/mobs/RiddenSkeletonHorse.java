@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 public class RiddenSkeletonHorse extends CustomMob {
-    private static final Set<DamageCause> RESISTANCES = Set.of(
-            DamageCause.CRAMMING, DamageCause.POISON, DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION);
+    private static final Set<DamageCause> RESISTANCES = Set.of(DamageCause.CRAMMING, DamageCause.POISON, DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION);
 
     public RiddenSkeletonHorse() {
         super("SKELETON_HORSE", "Skeleton Horse", EntityType.SKELETON_HORSE, 132);
@@ -42,17 +41,16 @@ public class RiddenSkeletonHorse extends CustomMob {
 
         SkeletonHorse horse = (SkeletonHorse) e.getEntity();
 
-        if (!e.isCancelled()) {
-            for (Entity entity : horse.getPassengers()) {
-                if (entity instanceof LivingEntity passenger) {
-                    CustomMob mob = RiddenSkeletonHorse.getByEntity(entity);
-                    if (mob instanceof CustomBoss boss) {
-                        double finalHealth = horse.getHealth() + passenger.getHealth() - e.getFinalDamage();
-                        if (finalHealth > 0) {
-                            boss.updateBossBar(passenger, finalHealth / (passenger.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
-                                    horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
-                        }
-                    }
+        if (e.isCancelled()) {
+            return;
+        }
+
+        for (Entity entity : horse.getPassengers()) {
+            if (entity instanceof LivingEntity passenger && CustomMob.getByEntity(entity) instanceof CustomBoss boss) {
+                double finalHealth = horse.getHealth() + passenger.getHealth() - e.getFinalDamage();
+                if (finalHealth > 0) {
+                    boss.updateBossBar(passenger, finalHealth / (passenger.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
+                            horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
                 }
             }
         }
@@ -65,7 +63,6 @@ public class RiddenSkeletonHorse extends CustomMob {
         e.getDrops().clear();
 
         List<Entity> passengers = e.getEntity().getPassengers();
-
         for (Entity passenger: passengers) {
             if (passenger instanceof LivingEntity livingEntity) {
                 livingEntity.setHealth(0);

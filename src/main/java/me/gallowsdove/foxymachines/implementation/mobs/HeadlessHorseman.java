@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.NumberConversions;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -31,9 +32,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class HeadlessHorseman extends CustomBoss {
 
     public static class AttackPattern {
-        public static short LIGHTNING = 0;
-        public static short SHOOT = 1;
-        public static short SUMMON = 2;
+        public static final short LIGHTNING = 0;
+        public static final short SHOOT = 1;
+        public static final short SUMMON = 2;
     }
 
     private static final NamespacedKey PATTERN_KEY = new NamespacedKey(FoxyMachines.getInstance(), "pattern");
@@ -90,8 +91,8 @@ public class HeadlessHorseman extends CustomBoss {
             pattern = AttackPattern.LIGHTNING;
         } else if (pattern < 5) {
             pattern = AttackPattern.SHOOT;
-            if (mob.isInsideVehicle() && mob.getVehicle() instanceof LivingEntity) {
-                ((LivingEntity) mob.getVehicle()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 100));
+            if (mob.getVehicle() instanceof LivingEntity vehicle) {
+                vehicle.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 100));
             }
         } else {
             pattern = AttackPattern.SUMMON;
@@ -112,68 +113,69 @@ public class HeadlessHorseman extends CustomBoss {
 
     @Override
     public void onMobTick(@Nonnull LivingEntity entity, int tick) {
-        Skeleton headlessHorseman = (Skeleton) entity;
+        super.onMobTick(entity, tick);
 
+        Skeleton headlessHorseman = (Skeleton) entity;
         short pattern = entity.getPersistentDataContainer().get(PATTERN_KEY, PersistentDataType.SHORT);
 
         if ((tick + 4) % 5 == 0) {
-            Collection<Entity> entities = headlessHorseman.getWorld().getNearbyEntities(headlessHorseman.getLocation(), 30, 20, 30);
-
-            for (Entity player : entities) {
-                if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
-                    headlessHorseman.setTarget((LivingEntity) player);
-                }
+            Collection<Player> players = Utils.getNearbyPlayersInSurvival(headlessHorseman.getLocation(), 30, 20, 30);
+            for (Player player : players) {
+                headlessHorseman.setTarget(player);
             }
         }
 
-        if (pattern == AttackPattern.SHOOT) {
-            if (headlessHorseman.getTarget() != null) {
-                Player target = (Player) headlessHorseman.getTarget();
-                if (tick % 5 == 0) {
-                    Arrow arrow = entity.launchProjectile(Arrow.class);
-                    arrow.setDamage(22);
-                    arrow.setColor(Color.RED);
-                    arrow.setGlowing(true);
-                    arrow.setSilent(true);
-                    arrow.setGravity(false);
-                    try {
-                        arrow.setVelocity(target.getLocation().toVector().subtract(headlessHorseman.getLocation().toVector()).normalize().multiply(1.64));
-                    } catch (IllegalArgumentException e) { }
-                }
-            }
-        } else if (pattern == AttackPattern.LIGHTNING) {
-            if (headlessHorseman.getTarget() != null) {
-                if (tick % 8 == 0) {
-                    Player player = (Player) headlessHorseman.getTarget();
-                    Location loc = player.getLocation().clone();
-                    Location l = headlessHorseman.getLocation();
+        if (pattern == AttackPattern.SUMMON && tick == 25) {
+            spawnHelldogs(headlessHorseman.getLocation());
+            return;
+        }
 
-                    if (Math.sqrt((loc.getX() - l.getX()) * (loc.getX() - l.getX()) +
-                            (loc.getY() - l.getY()) * (loc.getY() - l.getY()) +
-                            (loc.getZ() - l.getZ()) * (loc.getZ() - l.getZ())) < 26) {
+        final Entity target = headlessHorseman.getTarget();
+        if (!(target instanceof Player player)) {
+            return;
+        }
 
-                        Scheduler.run(4, () -> {
-                            loc.getWorld().strikeLightningEffect(loc);
-                            if (player.isValid()) {
-                                Location playerLoc = player.getLocation();
-                                if (Math.sqrt((loc.getX() - playerLoc.getX()) * (loc.getX() - playerLoc.getX()) +
-                                        (loc.getY() - playerLoc.getY()) * (loc.getY() - playerLoc.getY())) < 0.72) {
-                                    EntityDamageEvent e = new EntityDamageEvent(player, DamageCause.CUSTOM, 12);
-                                    Bukkit.getServer().getPluginManager().callEvent(e);
-                                    if (!e.isCancelled()) {
-                                        player.damage(12.4);
-                                        Utils.dealDamageBypassingArmor(player, 1.72);
-                                    }
-                                }
-                            }
-                        });
-                    }
+        if (tick % 5 == 0 && pattern == AttackPattern.SHOOT) {
+            Arrow arrow = entity.launchProjectile(Arrow.class);
+            arrow.setDamage(22);
+            arrow.setColor(Color.RED);
+            arrow.setGlowing(true);
+            arrow.setSilent(true);
+            arrow.setGravity(false);
+            try {
+                // TODO: Find out why this sometimes throws an error
+                arrow.setVelocity(target.getLocation().toVector().subtract(headlessHorseman.getLocation().toVector()).normalize().multiply(1.64));
+            } catch (IllegalArgumentException ignored) {}
+            return;
+        }
+
+        if (tick % 8 == 0 && pattern == AttackPattern.LIGHTNING) {
+            Location playerLocation = player.getLocation().clone();
+            Location horsemanLocation = headlessHorseman.getLocation();
+
+            if (playerLocation.distanceSquared(horsemanLocation) >= Math.pow(26, 2)) {
+                return;
+            }
+
+            Scheduler.run(4, () -> {
+                playerLocation.getWorld().strikeLightningEffect(playerLocation);
+                if (!player.isValid()) {
+                    return;
                 }
-            }
-        } else if (pattern == AttackPattern.SUMMON) {
-            if (tick == 25) {
-                spawnHelldogs(headlessHorseman.getLocation());
-            }
+
+                Location newLocation = player.getLocation();
+                if (NumberConversions.square(playerLocation.getX() - newLocation.getX())
+                        + NumberConversions.square(playerLocation.getY() - newLocation.getY()) >= Math.pow(0.72, 2)) {
+                    return;
+                }
+
+                EntityDamageEvent e = new EntityDamageEvent(player, DamageCause.CUSTOM, 12);
+                Bukkit.getServer().getPluginManager().callEvent(e);
+                if (!e.isCancelled()) {
+                    player.damage(12.4);
+                    Utils.dealDamageBypassingArmor(player, 1.72);
+                }
+            });
         }
     }
 
@@ -188,14 +190,15 @@ public class HeadlessHorseman extends CustomBoss {
     }
 
     private void spawnHelldogs(Location loc) {
-        CustomMob mob = CustomMob.getByID("HELLDOG");
-
-        assert mob != null;
+        CustomMob helldog = CustomMob.getByID("HELLDOG");
+        if (helldog == null) {
+            FoxyMachines.getInstance().getLogger().warning("Could not spawn Helldogs! Please report this to the github!");
+            return;
+        }
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
-
         for (int i = 0; i < 3; i++) {
-            mob.spawn(new Location(loc.getWorld(), loc.getX() + random.nextDouble(-1, 1),
+            helldog.spawn(new Location(loc.getWorld(), loc.getX() + random.nextDouble(-1, 1),
                     loc.getY() + random.nextDouble(0.6, 1.2), loc.getZ() + random.nextDouble(-1, 1)));
         }
 

@@ -3,7 +3,6 @@ package me.gallowsdove.foxymachines.implementation.mobs;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import me.gallowsdove.foxymachines.utils.Utils;
 import org.bukkit.DyeColor;
-import org.bukkit.GameMode;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -38,22 +37,18 @@ public class Helldog extends CustomMob {
         Wolf helldog = (Wolf) entity;
 
         entity.setFireTicks(999999999);
-        Collection<Entity> entities = helldog.getWorld().getNearbyEntities(helldog.getLocation(), 1.54, 1.54, 1.54);
 
-        for (Entity player : entities) {
-            if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
-                if (tick % 10 == 0)
-                    helldog.attack(player);
+        if (tick % 10 == 0) {
+            Collection<Player> players = Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 1.54);
+            for (Player player : players) {
+                helldog.attack(player);
             }
         }
 
         if (tick % 20 == 0) {
-            entities = helldog.getWorld().getNearbyEntities(helldog.getLocation(), 16, 16, 16);
-
-            for (Entity player : entities) {
-                if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
-                    helldog.setTarget((LivingEntity) player);
-                }
+            Collection<Player> players = Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 16);
+            for (Player player : players) {
+                helldog.setTarget(player);
             }
         }
     }
