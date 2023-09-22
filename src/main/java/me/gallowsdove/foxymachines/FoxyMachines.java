@@ -36,6 +36,7 @@ public class FoxyMachines extends AbstractAddon {
     public void enable() {
         instance = this;
 
+        Events.registerListener(new ChunkLoadListener());
         Events.registerListener(new ChunkLoaderListener());
         Events.registerListener(new BoostedRailListener());
         Events.registerListener(new BerryBushListener());

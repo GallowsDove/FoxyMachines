@@ -50,7 +50,7 @@ public class HeadlessHorseman extends CustomBoss {
 
         spawned.setInvisible(true);
 
-        CustomMob mob = CustomMob.getByID("SKELETON_HORSE");
+        CustomMob mob = CustomMob.getById("SKELETON_HORSE");
         SkeletonHorse horse = (SkeletonHorse) mob.spawn(spawned.getLocation());
         horse.addPassenger(spawned);
 
@@ -190,7 +190,7 @@ public class HeadlessHorseman extends CustomBoss {
     }
 
     private void spawnHelldogs(Location loc) {
-        CustomMob helldog = CustomMob.getByID("HELLDOG");
+        CustomMob helldog = CustomMob.getById("HELLDOG");
         if (helldog == null) {
             FoxyMachines.getInstance().getLogger().warning("Could not spawn Helldogs! Please report this to the github!");
             return;

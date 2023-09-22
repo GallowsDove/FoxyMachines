@@ -46,7 +46,7 @@ public class ChunkLoaderListener implements Listener {
         Config cfg = new Config(FoxyMachines.getInstance());
         if (!p.hasPermission("foxymachines.bypass-chunk-loader-limit")) {
             int max = cfg.getInt("max-chunk-loaders");
-            if(max != 0 && max < i) {
+            if (max != 0 && max < i) {
                 p.sendMessage(ChatColor.LIGHT_PURPLE + "Maximum amount of chunk loaders already placed: " + max);
                 e.setCancelled(true);
                 return;

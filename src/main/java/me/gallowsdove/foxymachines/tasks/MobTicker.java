@@ -1,9 +1,7 @@
 package me.gallowsdove.foxymachines.tasks;
 
-import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 

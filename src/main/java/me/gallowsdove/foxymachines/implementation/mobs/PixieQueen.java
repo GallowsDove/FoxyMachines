@@ -149,7 +149,7 @@ public class PixieQueen extends CustomBoss {
     }
 
     private void summonPixieSwarm(Location loc) {
-        CustomMob mob = CustomMob.getByID("PIXIE");
+        CustomMob mob = CustomMob.getById("PIXIE");
         if (mob == null) {
             FoxyMachines.getInstance().getLogger().warning("Could not spawn Pixies! Please report this to the github!");
             return;
