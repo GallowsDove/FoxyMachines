@@ -34,20 +34,20 @@ public class RiddenSkeletonHorse extends CustomMob {
     }
 
     @Override
-    protected void onHit(@Nonnull EntityDamageEvent e) {
-        if (RESISTANCES.contains(e.getCause())) {
-            e.setCancelled(true);
+    protected void onHit(@Nonnull EntityDamageEvent event) {
+        if (RESISTANCES.contains(event.getCause())) {
+            event.setCancelled(true);
         }
 
-        SkeletonHorse horse = (SkeletonHorse) e.getEntity();
+        SkeletonHorse horse = (SkeletonHorse) event.getEntity();
 
-        if (e.isCancelled()) {
+        if (event.isCancelled()) {
             return;
         }
 
         for (Entity entity : horse.getPassengers()) {
             if (entity instanceof LivingEntity passenger && CustomMob.getByEntity(entity) instanceof CustomBoss boss) {
-                double finalHealth = horse.getHealth() + passenger.getHealth() - e.getFinalDamage();
+                double finalHealth = horse.getHealth() + passenger.getHealth() - event.getFinalDamage();
                 if (finalHealth > 0) {
                     boss.updateBossBar(passenger, finalHealth / (passenger.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
                             horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
@@ -57,12 +57,12 @@ public class RiddenSkeletonHorse extends CustomMob {
     }
 
     @Override
-    protected void onDeath(@Nonnull EntityDeathEvent e) {
-        super.onDeath(e);
+    protected void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        e.getDrops().clear();
+        event.getDrops().clear();
 
-        List<Entity> passengers = e.getEntity().getPassengers();
+        List<Entity> passengers = event.getEntity().getPassengers();
         for (Entity passenger: passengers) {
             if (passenger instanceof LivingEntity livingEntity) {
                 livingEntity.setHealth(0);

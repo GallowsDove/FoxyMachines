@@ -32,18 +32,25 @@ public class KillallCommand extends SubCommand {
             return;
         }
 
+        int i = 0;
         for (Map.Entry<CustomMob, Set<UUID>> entry : CustomMob.MOB_CACHE.entrySet()) {
             Set<UUID> entities = entry.getValue();
+            Set<UUID> newEntities = new HashSet<>();
             for (UUID uuid : new HashSet<>(entities)) {
                 Entity entity = Bukkit.getEntity(uuid);
                 if (entity != null && entity.getWorld().equals(player.getWorld())) {
+                    i++;
                     entity.remove();
-                    entities.remove(uuid);
+                    continue;
                 }
+                newEntities.add(uuid);
             }
+            entry.setValue(newEntities);
         }
 
         CustomBoss.removeBossBars();
+
+        player.sendMessage("Killed %s Entities".formatted(i));
     }
 
     @Override

@@ -26,7 +26,6 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.NumberConversions;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class HeadlessHorseman extends CustomBoss {
@@ -69,16 +68,16 @@ public class HeadlessHorseman extends CustomBoss {
     }
 
     @Override
-    protected void onTarget(@Nonnull EntityTargetEvent e) {
-        if (!(e.getTarget() instanceof Player)) {
-            e.setCancelled(true);
+    protected void onTarget(@Nonnull EntityTargetEvent event) {
+        if (!(event.getTarget() instanceof Player)) {
+            event.setCancelled(true);
         }
     }
 
     @Override
-    protected void onAttack(@Nonnull EntityDamageByEntityEvent e) {
-        if (!e.isCancelled()) {
-            Utils.dealDamageBypassingArmor((LivingEntity) e.getEntity(), (e.getDamage() - e.getFinalDamage()) * 0.12);
+    protected void onAttack(@Nonnull EntityDamageByEntityEvent event) {
+        if (!event.isCancelled()) {
+            Utils.dealDamageBypassingArmor((LivingEntity) event.getEntity(), (event.getDamage() - event.getFinalDamage()) * 0.12);
         }
     }
 
@@ -102,12 +101,12 @@ public class HeadlessHorseman extends CustomBoss {
     }
 
     @Override
-    public void onBossDamaged(@Nonnull EntityDamageEvent e) {
-        super.onBossDamaged(e);
+    public void onBossDamaged(@Nonnull EntityDamageEvent event) {
+        super.onBossDamaged(event);
 
-        Skeleton headlessHorseman = (Skeleton) e.getEntity();
+        Skeleton headlessHorseman = (Skeleton) event.getEntity();
         if (headlessHorseman.isInsideVehicle()) {
-            e.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 
@@ -119,8 +118,10 @@ public class HeadlessHorseman extends CustomBoss {
         short pattern = entity.getPersistentDataContainer().get(PATTERN_KEY, PersistentDataType.SHORT);
 
         if ((tick + 4) % 5 == 0) {
-            Collection<Player> players = Utils.getNearbyPlayersInSurvival(headlessHorseman.getLocation(), 30, 20, 30);
-            for (Player player : players) {
+            LivingEntity target = headlessHorseman.getTarget();
+            Location location = headlessHorseman.getLocation();
+            if (!(target instanceof Player) || !Utils.isWithinBox(location, target.getLocation(), 30, 20, 30)) {
+                Player player = Utils.getNearbyPlayerInSurvival(location, 30, 20, 30);
                 headlessHorseman.setTarget(player);
             }
         }
@@ -180,16 +181,16 @@ public class HeadlessHorseman extends CustomBoss {
     }
 
     @Override
-    public void onDeath(@Nonnull EntityDeathEvent e) {
-        super.onDeath(e);
+    public void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        e.getDrops().clear();
-        Location loc = e.getEntity().getLocation();
-        loc.getWorld().dropItemNaturally(loc, new SlimefunItemStack(Items.VILE_PUMPKIN, 1));
-        loc.getWorld().spawn(loc, ExperienceOrb.class).setExperience(2000 + ThreadLocalRandom.current().nextInt(800));
+        event.getDrops().clear();
+        Location location = event.getEntity().getLocation();
+        location.getWorld().dropItemNaturally(location, new SlimefunItemStack(Items.VILE_PUMPKIN, 1));
+        location.getWorld().spawn(location, ExperienceOrb.class).setExperience(2000 + ThreadLocalRandom.current().nextInt(800));
     }
 
-    private void spawnHelldogs(Location loc) {
+    private void spawnHelldogs(Location location) {
         CustomMob helldog = CustomMob.getById("HELLDOG");
         if (helldog == null) {
             FoxyMachines.getInstance().getLogger().warning("Could not spawn Helldogs! Please report this to the github!");
@@ -198,12 +199,12 @@ public class HeadlessHorseman extends CustomBoss {
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < 3; i++) {
-            helldog.spawn(new Location(loc.getWorld(), loc.getX() + random.nextDouble(-1, 1),
-                    loc.getY() + random.nextDouble(0.6, 1.2), loc.getZ() + random.nextDouble(-1, 1)));
+            helldog.spawn(new Location(location.getWorld(), location.getX() + random.nextDouble(-1, 1),
+                    location.getY() + random.nextDouble(0.6, 1.2), location.getZ() + random.nextDouble(-1, 1)));
         }
 
         for (int i = 0; i < 20; i++) {
-            loc.getWorld().spawnParticle(Particle.FLAME, loc, 1, random.nextDouble(-1.5, 1.5),
+            location.getWorld().spawnParticle(Particle.FLAME, location, 1, random.nextDouble(-1.5, 1.5),
                     random.nextDouble(-1.2, 2.4), random.nextDouble(-1.5, 1.5), 0);
         }
     }

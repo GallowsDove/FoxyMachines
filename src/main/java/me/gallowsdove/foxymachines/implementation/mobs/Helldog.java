@@ -3,6 +3,7 @@ package me.gallowsdove.foxymachines.implementation.mobs;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import me.gallowsdove.foxymachines.utils.Utils;
 import org.bukkit.DyeColor;
+import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -12,7 +13,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.List;
 
 public class Helldog extends CustomMob {
 
@@ -38,39 +39,53 @@ public class Helldog extends CustomMob {
 
         entity.setFireTicks(999999999);
 
-        if (tick % 10 == 0) {
-            Collection<Player> players = Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 1.54);
-            for (Player player : players) {
-                helldog.attack(player);
-            }
-        }
-
+        List<Player> players = null;
         if (tick % 20 == 0) {
-            Collection<Player> players = Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 16);
-            for (Player player : players) {
-                helldog.setTarget(player);
+            Location location = helldog.getLocation();
+            LivingEntity target = helldog.getTarget();
+            if (!(target instanceof Player) || !Utils.isWithinBox(location, target.getLocation(), 16)) {
+                players = Utils.getNearbyPlayersInSurvival(location, 16);
+                helldog.setTarget(players.isEmpty() ? null : players.get(0));
             }
         }
+
+        if (tick % 10 == 0) {
+            if (players == null) {
+                players = Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 1.54);
+                for (Player player : players) {
+                    helldog.attack(player);
+                }
+                return;
+            }
+
+            for (Player player : players) {
+                if (Utils.isWithinBox(helldog.getLocation(), player.getLocation(), 1.54)) {
+                    helldog.attack(player);
+                }
+            }
+        }
+
+
     }
 
     @Override
-    public void onDeath(@Nonnull EntityDeathEvent e) {
-        super.onDeath(e);
+    public void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        e.getDrops().clear();
+        event.getDrops().clear();
     }
 
     @Override
-    protected void onAttack(@Nonnull EntityDamageByEntityEvent e) {
-        if (!e.isCancelled()) {
-            Utils.dealDamageBypassingArmor((LivingEntity) e.getEntity(), (e.getDamage() - e.getFinalDamage()) * 0.2);
+    protected void onAttack(@Nonnull EntityDamageByEntityEvent event) {
+        if (!event.isCancelled()) {
+            Utils.dealDamageBypassingArmor((LivingEntity) event.getEntity(), (event.getDamage() - event.getFinalDamage()) * 0.2);
         }
     }
 
     @Override
-    protected void onTarget(@Nonnull EntityTargetEvent e) {
-        if (!(e.getTarget() instanceof Player)) {
-            e.setCancelled(true);
+    protected void onTarget(@Nonnull EntityTargetEvent event) {
+        if (!(event.getTarget() instanceof Player)) {
+            event.setCancelled(true);
         }
     }
 }

@@ -21,7 +21,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PixieQueen extends CustomBoss {
@@ -57,16 +57,16 @@ public class PixieQueen extends CustomBoss {
     }
 
     @Override
-    protected void onTarget(@Nonnull EntityTargetEvent e) {
-        if (!(e.getTarget() instanceof Player)) {
-            e.setCancelled(true);
+    protected void onTarget(@Nonnull EntityTargetEvent event) {
+        if (!(event.getTarget() instanceof Player)) {
+            event.setCancelled(true);
         }
     }
 
     @Override
-    protected void onAttack(@Nonnull EntityDamageByEntityEvent e) {
-        if (!e.isCancelled()) {
-            Utils.dealDamageBypassingArmor((LivingEntity) e.getEntity(), (e.getDamage() - e.getFinalDamage()) * 0.12);
+    protected void onAttack(@Nonnull EntityDamageByEntityEvent event) {
+        if (!event.isCancelled()) {
+            Utils.dealDamageBypassingArmor((LivingEntity) event.getEntity(), (event.getDamage() - event.getFinalDamage()) * 0.12);
         }
     }
 
@@ -102,24 +102,31 @@ public class PixieQueen extends CustomBoss {
         }
 
         if (pattern == AttackPattern.CHARGE) {
+            Location location = pixieQueen.getLocation();
             if (tick % 10 == 0) {
-                Collection<Player> players = Utils.getNearbyPlayersInSurvival(pixieQueen.getLocation(), 1.6);
+                List<Player> players = Utils.getNearbyPlayersInSurvival(location, 1.6);
                 for (Player player : players) {
                     pixieQueen.attack(player);
                 }
             }
 
-            Collection<Player> players = Utils.getNearbyPlayersInSurvival(pixieQueen.getLocation(), 10);
-            for (Player player : players) {
-                pixieQueen.setTarget(pixieQueen);
+            LivingEntity target = pixieQueen.getTarget();
+            if (!(target instanceof Player) || !Utils.isWithinBox(location, target.getLocation(), 10)) {
+                Player player = Utils.getNearbyPlayerInSurvival(location, 10);
                 pixieQueen.setCharging(false);
+                pixieQueen.setTarget(player);
+                target = player;
+            }
 
-                if ((tick + 2) % 3 == 0) {
-                    try {
-                        // TODO: Find out why this sometimes throws an error
-                        pixieQueen.setVelocity(player.getLocation().toVector().subtract(pixieQueen.getLocation().toVector()).normalize().multiply(0.32));
-                    } catch (IllegalArgumentException ignored) { }
-                }
+            if (target == null) {
+                return;
+            }
+
+            if ((tick + 2) % 3 == 0) {
+                try {
+                    // TODO: Find out why this sometimes throws an error
+                    pixieQueen.setVelocity(target.getLocation().toVector().subtract(location.toVector()).normalize().multiply(0.32));
+                } catch (IllegalArgumentException ignored) { }
             }
             return;
         }
@@ -133,22 +140,25 @@ public class PixieQueen extends CustomBoss {
                 arrow.setGlowing(true);
                 arrow.setSilent(true);
                 arrow.setGravity(false);
-                arrow.setVelocity(pixieQueen.getTarget().getLocation().toVector().subtract(pixieQueen.getLocation().toVector()).normalize().multiply(1.42));
+                try {
+                    // TODO: Find out why this sometimes throws an error
+                    arrow.setVelocity(pixieQueen.getTarget().getLocation().toVector().subtract(pixieQueen.getLocation().toVector()).normalize().multiply(1.42));
+                } catch (IllegalArgumentException ignored) {}
             }
         }
     }
 
     @Override
-    public void onDeath(@Nonnull EntityDeathEvent e) {
-        super.onDeath(e);
+    public void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        e.getDrops().clear();
-        Location loc = e.getEntity().getLocation();
+        event.getDrops().clear();
+        Location loc = event.getEntity().getLocation();
         loc.getWorld().dropItemNaturally(loc, new SlimefunItemStack(Items.PIXIE_QUEEN_HEART, 1));
         loc.getWorld().spawn(loc, ExperienceOrb.class).setExperience(1400 + ThreadLocalRandom.current().nextInt(600));
     }
 
-    private void summonPixieSwarm(Location loc) {
+    private void summonPixieSwarm(Location location) {
         CustomMob mob = CustomMob.getById("PIXIE");
         if (mob == null) {
             FoxyMachines.getInstance().getLogger().warning("Could not spawn Pixies! Please report this to the github!");
@@ -158,12 +168,12 @@ public class PixieQueen extends CustomBoss {
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int i = 0; i < random.nextInt(2) + 3; i++) {
-            mob.spawn(new Location(loc.getWorld(), loc.getX() + random.nextDouble(-2, 2),
-                    loc.getY() + random.nextDouble(1.2, 2.4), loc.getZ() + random.nextDouble(-2, 2)));
+            mob.spawn(new Location(location.getWorld(), location.getX() + random.nextDouble(-2, 2),
+                    location.getY() + random.nextDouble(1.2, 2.4), location.getZ() + random.nextDouble(-2, 2)));
         }
 
         for (int i = 0; i < 10; i++) {
-            loc.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, loc, 1, random.nextDouble(-1.5, 1.5),
+            location.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, location, 1, random.nextDouble(-1.5, 1.5),
                     random.nextDouble(-1.2, 2.4), random.nextDouble(-1.5, 1.5), 0);
         }
     }

@@ -23,23 +23,23 @@ public class Pixie extends CustomMob {
     }
 
     @Override
-    public void onDeath(@Nonnull EntityDeathEvent e) {
-        super.onDeath(e);
+    public void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        e.getDrops().clear();
+        event.getDrops().clear();
     }
 
     @Override
-    protected void onAttack(@Nonnull EntityDamageByEntityEvent e) {
-        if (!e.isCancelled()) {
-            Utils.dealDamageBypassingArmor((LivingEntity) e.getEntity(), (e.getDamage() - e.getFinalDamage()) * 0.2);
+    protected void onAttack(@Nonnull EntityDamageByEntityEvent event) {
+        if (!event.isCancelled()) {
+            Utils.dealDamageBypassingArmor((LivingEntity) event.getEntity(), (event.getDamage() - event.getFinalDamage()) * 0.2);
         }
     }
 
     @Override
-    protected void onTarget(@Nonnull EntityTargetEvent e) {
-        if (!(e.getTarget() instanceof Player)) {
-            e.setCancelled(true);
+    protected void onTarget(@Nonnull EntityTargetEvent event) {
+        if (!(event.getTarget() instanceof Player)) {
+            event.setCancelled(true);
         }
     }
 }
