@@ -7,12 +7,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -32,25 +31,20 @@ public class KillallCommand extends SubCommand {
             return;
         }
 
-        int i = 0;
-        for (Map.Entry<CustomMob, Set<UUID>> entry : CustomMob.MOB_CACHE.entrySet()) {
-            Set<UUID> entities = entry.getValue();
-            Set<UUID> newEntities = new HashSet<>();
-            for (UUID uuid : new HashSet<>(entities)) {
+        int count = 0;
+        for (Set<UUID> uuids : CustomMob.MOB_CACHE.values()) {
+            for (UUID uuid : uuids) {
                 Entity entity = Bukkit.getEntity(uuid);
-                if (entity != null && entity.getWorld().equals(player.getWorld())) {
-                    i++;
+                if (entity instanceof LivingEntity && entity.getWorld().equals(player.getWorld())) {
                     entity.remove();
-                    continue;
+                    count++;
                 }
-                newEntities.add(uuid);
             }
-            entry.setValue(newEntities);
         }
 
         CustomBoss.removeBossBars();
 
-        player.sendMessage("Killed %s Entities".formatted(i));
+        player.sendMessage("Killed %s Entities".formatted(count));
     }
 
     @Override

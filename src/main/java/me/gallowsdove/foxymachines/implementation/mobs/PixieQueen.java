@@ -1,6 +1,7 @@
 package me.gallowsdove.foxymachines.implementation.mobs;
 
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
@@ -94,7 +95,7 @@ public class PixieQueen extends CustomBoss {
         super.onMobTick(entity, tick);
 
         Vex pixieQueen = (Vex) entity;
-        short pattern = entity.getPersistentDataContainer().get(PATTERN_KEY, PersistentDataType.SHORT);
+        short pattern = PersistentDataAPI.getShort(entity, PATTERN_KEY);
 
         if (pattern == AttackPattern.SUMMON && tick == 25) {
             summonPixieSwarm(pixieQueen.getLocation());
@@ -110,22 +111,18 @@ public class PixieQueen extends CustomBoss {
                 }
             }
 
-            LivingEntity target = pixieQueen.getTarget();
-            if (!(target instanceof Player) || !Utils.isWithinBox(location, target.getLocation(), 10)) {
-                Player player = Utils.getNearbyPlayerInSurvival(location, 10);
-                pixieQueen.setCharging(false);
-                pixieQueen.setTarget(player);
-                target = player;
-            }
+            Player player = Utils.getNearbyPlayerInSurvival(location, 10);
+            pixieQueen.setCharging(false);
+            pixieQueen.setTarget(player);
 
-            if (target == null) {
+            if (player == null) {
                 return;
             }
 
             if ((tick + 2) % 3 == 0) {
                 try {
                     // TODO: Find out why this sometimes throws an error
-                    pixieQueen.setVelocity(target.getLocation().toVector().subtract(location.toVector()).normalize().multiply(0.32));
+                    pixieQueen.setVelocity(player.getLocation().toVector().subtract(location.toVector()).normalize().multiply(0.32));
                 } catch (IllegalArgumentException ignored) { }
             }
             return;

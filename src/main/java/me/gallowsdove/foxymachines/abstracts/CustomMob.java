@@ -96,22 +96,22 @@ public abstract class CustomMob {
 
     public void onMobTick(@Nonnull LivingEntity mob, int tick) { }
 
-    protected void onHit(@Nonnull EntityDamageEvent e) { }
+    protected void onHit(@Nonnull EntityDamageEvent event) { }
 
-    protected void onAttack(@Nonnull EntityDamageByEntityEvent e) { }
+    protected void onAttack(@Nonnull EntityDamageByEntityEvent event) { }
 
-    protected void onInteract(@Nonnull PlayerInteractEntityEvent e) { }
+    protected void onInteract(@Nonnull PlayerInteractEntityEvent event) { }
 
-    protected void onTarget(@Nonnull EntityTargetEvent e) { }
+    protected void onTarget(@Nonnull EntityTargetEvent event) { }
 
     @OverridingMethodsMustInvokeSuper
-    protected void onDeath(@Nonnull EntityDeathEvent e) {
-        uncacheEntity(e.getEntity());
+    protected void onDeath(@Nonnull EntityDeathEvent event) {
+        uncacheEntity(event.getEntity());
     }
 
-    protected void onCastSpell(EntitySpellCastEvent e) { }
+    protected void onCastSpell(@Nonnull EntitySpellCastEvent event) { }
 
-    protected void onDamage(EntityDamageEvent e) { }
+    protected void onDamage(@Nonnull EntityDamageEvent event) { }
 
     protected Vector getSpawnOffset() {
         return new Vector();
@@ -133,74 +133,74 @@ public abstract class CustomMob {
         Events.registerListener(new Listener() {
 
             @EventHandler
-            public void onTarget(@Nonnull EntityTargetEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onTarget(@Nonnull EntityTargetEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onTarget(e);
+                    customMob.onTarget(event);
                 }
             }
 
             @EventHandler
-            public void onInteract(@Nonnull PlayerInteractEntityEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getRightClicked());
+            public void onInteract(@Nonnull PlayerInteractEntityEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getRightClicked());
                 if (customMob != null) {
-                    customMob.onInteract(e);
+                    customMob.onInteract(event);
                 }
             }
 
             @EventHandler
-            public void onHit(@Nonnull EntityDamageByEntityEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getDamager());
+            public void onHit(@Nonnull EntityDamageByEntityEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getDamager());
                 if (customMob != null) {
-                    customMob.onAttack(e);
+                    customMob.onAttack(event);
                 }
             }
 
             @EventHandler
-            public void onDamaged(@Nonnull EntityDamageEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onDamaged(@Nonnull EntityDamageEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onHit(e);
+                    customMob.onHit(event);
                 }
             }
 
             @EventHandler
-            public void onDeath(@Nonnull EntityDeathEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onDeath(@Nonnull EntityDeathEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onDeath(e);
+                    customMob.onDeath(event);
                 }
             }
 
             @EventHandler
-            public void onSpellCast(@Nonnull EntitySpellCastEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onSpellCast(@Nonnull EntitySpellCastEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onCastSpell(e);
+                    customMob.onCastSpell(event);
                 }
             }
 
             @EventHandler
-            public void onDamage(@Nonnull EntityDamageEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onDamage(@Nonnull EntityDamageEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onDamage(e);
+                    customMob.onDamage(event);
                 }
             }
 
             @EventHandler(ignoreCancelled = true)
-            private void onNametagEvent(PlayerInteractEntityEvent e) {
-                ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
+            private void onNametagEvent(PlayerInteractEntityEvent event) {
+                ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
-                if (item.getType() == Material.NAME_TAG && CustomMob.getByEntity(e.getRightClicked()) != null) {
-                    e.setCancelled(true);
+                if (item.getType() == Material.NAME_TAG && CustomMob.getByEntity(event.getRightClicked()) != null) {
+                    event.setCancelled(true);
                 }
             }
 
             @EventHandler(ignoreCancelled = true)
-            private void onCombust(EntityCombustEvent e) {
-                if (CustomMob.getByEntity(e.getEntity()) != null) {
-                    e.setCancelled(true);
+            private void onCombust(EntityCombustEvent event) {
+                if (CustomMob.getByEntity(event.getEntity()) != null) {
+                    event.setCancelled(true);
                 }
             }
         });

@@ -2,6 +2,7 @@ package me.gallowsdove.foxymachines.implementation.mobs;
 
 import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
@@ -115,15 +116,10 @@ public class HeadlessHorseman extends CustomBoss {
         super.onMobTick(entity, tick);
 
         Skeleton headlessHorseman = (Skeleton) entity;
-        short pattern = entity.getPersistentDataContainer().get(PATTERN_KEY, PersistentDataType.SHORT);
+        short pattern = PersistentDataAPI.getShort(entity, PATTERN_KEY);
 
         if ((tick + 4) % 5 == 0) {
-            LivingEntity target = headlessHorseman.getTarget();
-            Location location = headlessHorseman.getLocation();
-            if (!(target instanceof Player) || !Utils.isWithinBox(location, target.getLocation(), 30, 20, 30)) {
-                Player player = Utils.getNearbyPlayerInSurvival(location, 30, 20, 30);
-                headlessHorseman.setTarget(player);
-            }
+            headlessHorseman.setTarget(Utils.getNearbyPlayerInSurvival(headlessHorseman.getLocation(), 30, 20, 30));
         }
 
         if (pattern == AttackPattern.SUMMON && tick == 25) {
@@ -131,7 +127,7 @@ public class HeadlessHorseman extends CustomBoss {
             return;
         }
 
-        final Entity target = headlessHorseman.getTarget();
+        Entity target = headlessHorseman.getTarget();
         if (!(target instanceof Player player)) {
             return;
         }
@@ -165,14 +161,14 @@ public class HeadlessHorseman extends CustomBoss {
                 }
 
                 Location newLocation = player.getLocation();
-                if (NumberConversions.square(playerLocation.getX() - newLocation.getX())
-                        + NumberConversions.square(playerLocation.getY() - newLocation.getY()) >= Math.pow(0.72, 2)) {
+                if (Math.pow(playerLocation.getX() - newLocation.getX(), 2)
+                        + Math.pow(playerLocation.getY() - newLocation.getY(), 2) >= Math.pow(0.72, 2)) {
                     return;
                 }
 
-                EntityDamageEvent e = new EntityDamageEvent(player, DamageCause.CUSTOM, 12);
-                Bukkit.getServer().getPluginManager().callEvent(e);
-                if (!e.isCancelled()) {
+                EntityDamageEvent event = new EntityDamageEvent(player, DamageCause.CUSTOM, 12);
+                Bukkit.getServer().getPluginManager().callEvent(event);
+                if (!event.isCancelled()) {
                     player.damage(12.4);
                     Utils.dealDamageBypassingArmor(player, 1.72);
                 }

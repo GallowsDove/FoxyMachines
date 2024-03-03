@@ -68,20 +68,20 @@ public abstract class CustomBoss extends CustomMob {
 
     @Override
     @OverridingMethodsMustInvokeSuper
-    public final void onHit(@Nonnull EntityDamageEvent e) {
-        this.onBossDamaged(e);
+    public final void onHit(@Nonnull EntityDamageEvent event) {
+        this.onBossDamaged(event);
 
-        if (!e.isCancelled() && e.getEntity() instanceof LivingEntity entity) {
+        if (!event.isCancelled() && event.getEntity() instanceof LivingEntity entity) {
             BossBar bossbar = getBossBarForEntity(entity);
 
             if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity vehicle) {
-                double finalHealth = entity.getHealth() + vehicle.getHealth() - e.getFinalDamage();
+                double finalHealth = entity.getHealth() + vehicle.getHealth() - event.getFinalDamage();
                 if (finalHealth > 0) {
                     bossbar.setProgress(Math.min(finalHealth / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
                             vehicle.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()), 1));
                 }
             } else {
-                double finalHealth = entity.getHealth() - e.getFinalDamage();
+                double finalHealth = entity.getHealth() - event.getFinalDamage();
                 if (finalHealth > 0) {
                     bossbar.setProgress(Math.min(finalHealth / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue(), 1));
                 }
@@ -98,10 +98,10 @@ public abstract class CustomBoss extends CustomMob {
 
     @Override
     @OverridingMethodsMustInvokeSuper
-    public void onDeath(@Nonnull EntityDeathEvent e) {
-        super.onDeath(e);
+    public void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        BossBar bossbar = getBossBarForEntity(e.getEntity());
+        BossBar bossbar = getBossBarForEntity(event.getEntity());
         bossbar.setVisible(false);
         bossbar.removeAll();
     }

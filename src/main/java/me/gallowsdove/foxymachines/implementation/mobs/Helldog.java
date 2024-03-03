@@ -3,7 +3,6 @@ package me.gallowsdove.foxymachines.implementation.mobs;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
 import me.gallowsdove.foxymachines.utils.Utils;
 import org.bukkit.DyeColor;
-import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.*;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -41,18 +40,13 @@ public class Helldog extends CustomMob {
 
         List<Player> players = null;
         if (tick % 20 == 0) {
-            Location location = helldog.getLocation();
-            LivingEntity target = helldog.getTarget();
-            if (!(target instanceof Player) || !Utils.isWithinBox(location, target.getLocation(), 16)) {
-                players = Utils.getNearbyPlayersInSurvival(location, 16);
-                helldog.setTarget(players.isEmpty() ? null : players.get(0));
-            }
+            players = Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 16);
+            helldog.setTarget(players.isEmpty() ? null : players.get(0));
         }
 
         if (tick % 10 == 0) {
             if (players == null) {
-                players = Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 1.54);
-                for (Player player : players) {
+                for (Player player : Utils.getNearbyPlayersInSurvival(helldog.getLocation(), 1.54)) {
                     helldog.attack(player);
                 }
                 return;
