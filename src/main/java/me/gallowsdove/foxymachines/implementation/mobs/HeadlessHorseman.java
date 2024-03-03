@@ -24,7 +24,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-import org.bukkit.util.NumberConversions;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.ThreadLocalRandom;
@@ -98,7 +97,7 @@ public class HeadlessHorseman extends CustomBoss {
             pattern = AttackPattern.SUMMON;
         }
 
-        mob.getPersistentDataContainer().set(PATTERN_KEY, PersistentDataType.SHORT, pattern);
+        PersistentDataAPI.setShort(mob, PATTERN_KEY, pattern);
     }
 
     @Override

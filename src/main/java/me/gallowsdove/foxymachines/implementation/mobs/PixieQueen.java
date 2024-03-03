@@ -87,7 +87,7 @@ public class PixieQueen extends CustomBoss {
             pattern = AttackPattern.IDLE;
         }
 
-        mob.getPersistentDataContainer().set(PATTERN_KEY, PersistentDataType.SHORT, pattern);
+        PersistentDataAPI.setShort(mob, PATTERN_KEY, pattern);
     }
 
     @Override
