@@ -1,6 +1,7 @@
 package me.gallowsdove.foxymachines.implementation.consumables;
 
 import io.github.mooy1.infinitylib.common.Scheduler;
+import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemDropHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
@@ -25,7 +26,6 @@ import java.util.Optional;
 public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
     private static final double RANGE = 1.5;
-
 
     public UnbreakableRune() {
         super(Items.TOOLS_ITEM_GROUP, Items.UNBREAKABLE_RUNE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
@@ -94,7 +94,8 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
     private boolean findCompatibleItem(Entity entity) {
         if (entity instanceof Item item) {
-            return !isUnbreakable(item.getItemStack()) && !isItem(item.getItemStack());
+            ItemStack itemStack = item.getItemStack();
+            return !isUnbreakable(itemStack) && !isItem(itemStack) && !isDisallowed(itemStack);
         }
 
         return false;
@@ -103,7 +104,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
     public static void setUnbreakable(@Nullable ItemStack item) {
         if (item != null && item.getType() != Material.AIR) {
 
-            if (!isUnbreakable(item)) {
+            if (!isUnbreakable(item) && item.hasItemMeta()) {
                 ItemMeta meta = item.getItemMeta();
 
                 meta.setUnbreakable(true);
@@ -122,5 +123,22 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
         } else {
             return false;
         }
+    }
+
+    public static boolean isDisallowed(ItemStack itemStack) {
+        final SlimefunItem slimefunItem = SlimefunItem.getByItem(itemStack);
+        if (slimefunItem == null) {
+            return false;
+        }
+
+        final String id = slimefunItem.getId();
+        final String addon = slimefunItem.getAddon().getName();
+        if (addon.equals("InfinityExpansion")) {
+            return id.contains("_STRAINER");
+        }
+
+        // If there is anything else in the future it can follow this format ^
+
+        return false;
     }
 }
