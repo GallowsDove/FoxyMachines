@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.common.ChatColors;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -32,6 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public abstract class CustomMob {
 
@@ -51,6 +53,7 @@ public abstract class CustomMob {
 
     private static final NamespacedKey KEY = new NamespacedKey(FoxyMachines.getInstance(), "mob");
 
+    @Getter
     @Nonnull
     private final String id;
     @Nonnull
@@ -118,15 +121,30 @@ public abstract class CustomMob {
     }
 
     public void cacheEntity(@Nonnull Entity entity) {
+        cacheEntity(entity.getUniqueId());
+    }
+
+    public void cacheEntity(@Nonnull UUID uuid) {
         Set<UUID> entities = MOB_CACHE.getOrDefault(this, new HashSet<>());
-        entities.add(entity.getUniqueId());
+        entities.add(uuid);
         MOB_CACHE.put(this, entities);
     }
 
     public void uncacheEntity(@Nonnull Entity entity) {
+        uncacheEntity(entity.getUniqueId());
+    }
+
+    public void uncacheEntity(@Nonnull UUID uuid) {
         Set<UUID> entities = MOB_CACHE.getOrDefault(this, new HashSet<>());
-        entities.remove(entity.getUniqueId());
+        entities.remove(uuid);
         MOB_CACHE.put(this, entities);
+    }
+
+    public static void debug() {
+        Bukkit.broadcastMessage("CACHE:");
+        for (Map.Entry<CustomMob, Set<UUID>> entry : CustomMob.MOB_CACHE.entrySet()) {
+            Bukkit.broadcastMessage(entry.getKey().getId() + " (" + entry.getValue().size() + ")\n" + entry.getValue().stream().map(UUID::toString).collect(Collectors.joining("\n")));
+        }
     }
 
     static {

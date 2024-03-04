@@ -22,17 +22,19 @@ public class MobTicker implements Runnable {
         for (Map.Entry<CustomMob, Set<UUID>> entry : CustomMob.MOB_CACHE.entrySet()) {
             CustomMob customMob = entry.getKey();
             Set<UUID> entities = entry.getValue();
-            Set<UUID> newEntities = new HashSet<>();
             for (UUID uuid : new HashSet<>(entities)) {
                 Entity entity = Bukkit.getEntity(uuid);
                 if (!(entity instanceof LivingEntity livingEntity)) {
+                    if (entity != null) {
+                        entity.remove();
+                    }
+
+                    customMob.uncacheEntity(uuid);
                     continue;
                 }
 
-                newEntities.add(uuid);
                 customMob.onMobTick(livingEntity, tick);
             }
-            entry.setValue(newEntities);
         }
 
         if (tick == 100) {
