@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -29,20 +30,22 @@ public class CustomMobSpawnEgg extends SimpleSlimefunItem<ItemUseHandler> {
     @Nonnull
     @Override
     public ItemUseHandler getItemHandler() {
-        return e -> {
-            e.cancel();
-            Player player = e.getPlayer();
+        return event -> {
+            event.cancel();
+            Player player = event.getPlayer();
             Location location = player.getLocation();
             if (!Slimefun.getProtectionManager().hasPermission(player, location, Interaction.ATTACK_PLAYER)) {
                 return;
             }
 
-            ItemStack item = e.getItem();
-            item.setAmount(item.getAmount() - 1);
+            ItemStack item = event.getItem();
+            if (player.getGameMode() != GameMode.CREATIVE) {
+                item.setAmount(item.getAmount() - 1);
+            }
 
             CustomMob mob = CustomMob.getById(this.id);
             if (mob != null) {
-                mob.spawn(e.getPlayer().getLocation());
+                mob.spawn(event.getPlayer().getLocation());
             }
         };
     }
