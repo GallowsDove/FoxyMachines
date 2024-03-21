@@ -11,6 +11,7 @@ import me.gallowsdove.foxymachines.commands.KillallCommand;
 import me.gallowsdove.foxymachines.commands.QuestCommand;
 import me.gallowsdove.foxymachines.commands.SacrificialAltarCommand;
 import me.gallowsdove.foxymachines.commands.SummonCommand;
+import me.gallowsdove.foxymachines.implementation.consumables.UnbreakableRune;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.implementation.tools.BerryBushTrimmer;
 import me.gallowsdove.foxymachines.listeners.*;
@@ -51,6 +52,7 @@ public class FoxyMachines extends AbstractAddon {
 
         QuestUtils.init();
         AbstractWand.init();
+        UnbreakableRune.init();
         ItemSetup.INSTANCE.init();
         ResearchSetup.INSTANCE.init();
 

@@ -32,6 +32,10 @@
 #
 # quest-mobs
 # All mob types that can be required for a quest, for a full list of them go to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+#
+# unbreakable-rune-blacklist
+# Any items from addons to blacklist from being usable with the unbreakable rune
+# for ex, by default the strainers from InfinityExpansion are disabled as they do not respect the unbreakable setting
 
 auto-update: true
 max-chunk-loaders: 8
@@ -102,3 +106,8 @@ quest-mobs:
   - ZOMBIE
   - ZOMBIFIED_PIGLIN
   - FOX
+unbreakable-rune-blacklist:
+  InfinityExpansion:
+    - BASIC_STRAINER
+    - ADVANCED_STRAINER
+    - REINFORCED_STRAINER
