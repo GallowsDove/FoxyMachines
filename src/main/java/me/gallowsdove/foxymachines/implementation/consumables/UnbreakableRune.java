@@ -1,17 +1,20 @@
 package me.gallowsdove.foxymachines.implementation.consumables;
 
 import io.github.mooy1.infinitylib.common.Scheduler;
+import io.github.mooy1.infinitylib.core.AddonConfig;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.handlers.ItemDropHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
+import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
@@ -21,11 +24,34 @@ import org.bukkit.inventory.meta.ItemMeta;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.logging.Level;
 
 public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
+    private static final Map<String, Set<String>> BLACKLIST = new HashMap<>();
     private static final double RANGE = 1.5;
+
+    public static void init() {
+        if (!BLACKLIST.isEmpty()) {
+            FoxyMachines.log(Level.WARNING, "Attempted to initialize UnbreakableRune after already initialized!");
+            return;
+        }
+
+        AddonConfig config = FoxyMachines.getInstance().getConfig();
+        ConfigurationSection blacklist = config.getConfigurationSection("unbreakable-rune-blacklist");
+        if (blacklist == null) {
+            return;
+        }
+
+        for (String addon : blacklist.getKeys(false)) {
+            BLACKLIST.put(addon, new HashSet<>(blacklist.getStringList(addon)));
+        }
+    }
 
     public UnbreakableRune() {
         super(Items.TOOLS_ITEM_GROUP, Items.UNBREAKABLE_RUNE, RecipeType.ANCIENT_ALTAR, new ItemStack[] {
@@ -133,12 +159,6 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
         final String id = slimefunItem.getId();
         final String addon = slimefunItem.getAddon().getName();
-        if (addon.equals("InfinityExpansion")) {
-            return id.contains("_STRAINER");
-        }
-
-        // If there is anything else in the future it can follow this format ^
-
-        return false;
+        return BLACKLIST.containsKey(addon) && BLACKLIST.get(addon).contains(id);
     }
 }
