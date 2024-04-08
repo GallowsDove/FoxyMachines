@@ -127,7 +127,7 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
                             Bukkit.getScheduler().runTask(FoxyMachines.getInstance(), () -> {
                                 loc.getBlock().setType(material);
                                 if (Utils.isAuraSkillsLoaded()) {
-                                    AuraSkillsCompat.addPlaceBlock(loc.getBlock());
+                                    AuraSkillsCompat.addPlacedBlock(loc.getBlock());
                                 }
                             });
                         }
