@@ -1,35 +1,21 @@
-## CHANGE this to the name of your plugin.
 name: FoxyMachines
-
-## CHANGE this to your username.
-author: GallowsDove
-
-## CHANGE this to a meaninful but short description of your plugin.
-description: Adds tools, machines, items, armor, weapons, bosses and more!
-
-## CHANGE this to the path of the class that extends JavaPlugin.
 main: me.gallowsdove.foxymachines.FoxyMachines
 
-## You can change this to link to your website or repository. You can also remove this line if you want to.
+author: GallowsDove
+description: Adds tools, machines, items, armor, weapons, bosses and more!
 website: https://github.com/GallowsDove/FoxyMachines
 
-## This is required and marks Slimefun as a plugin dependency.
 depend: [Slimefun]
-
-## This value is automatically replaced by the version specified in your pom.xml file, do not change this.
+softdepend: [AuraSkills]
 version: ${project.version}
-
-## This is the minimum minecraft version required to run your plugin.
 api-version: 1.16
 
-## Commands
 commands:
   foxymachines:
     description: foxymachines main command
     usage: /foxymachines <subcommand>
     aliases: [fm, foxy]
 
-## Permissions
 permissions:
   foxymachines.bypass-chunk-loader-limit:
     description: Allows a player with the permission to place an unlimited amount of chunk loaders
