@@ -85,7 +85,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
         }
 
         Location l = rune.getLocation();
-        Collection<Entity> entities = l.getWorld().getNearbyEntities(l, RANGE, RANGE, RANGE, this::findCompatibleItem);
+        Collection<Entity> entities = l.getWorld().getNearbyEntities(l, RANGE, RANGE, RANGE, entity -> findCompatibleItem(p, entity));
         Optional<Entity> optional = entities.stream().findFirst();
 
         if (optional.isPresent()) {
@@ -118,10 +118,10 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
         }
     }
 
-    private boolean findCompatibleItem(Entity entity) {
+    private boolean findCompatibleItem(Player player, Entity entity) {
         if (entity instanceof Item item) {
             ItemStack itemStack = item.getItemStack();
-            return !isUnbreakable(itemStack) && !isItem(itemStack) && !isDisallowed(itemStack);
+            return !isUnbreakable(itemStack) && !isItem(itemStack) && !isDisallowed(player, itemStack);
         }
 
         return false;
@@ -151,7 +151,7 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
         }
     }
 
-    public static boolean isDisallowed(ItemStack itemStack) {
+    public static boolean isDisallowed(Player player, ItemStack itemStack) {
         final SlimefunItem slimefunItem = SlimefunItem.getByItem(itemStack);
         if (slimefunItem == null) {
             return false;
@@ -159,6 +159,10 @@ public class UnbreakableRune extends SimpleSlimefunItem<ItemDropHandler> {
 
         final String id = slimefunItem.getId();
         final String addon = slimefunItem.getAddon().getName();
-        return BLACKLIST.containsKey(addon) && BLACKLIST.get(addon).contains(id);
+        if (BLACKLIST.containsKey(addon) && BLACKLIST.get(addon).contains(id)) {
+            player.sendMessage(ChatColor.LIGHT_PURPLE + "You can't make this item unbreakable!");
+            return true;
+        }
+        return false;
     }
 }
