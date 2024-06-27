@@ -138,10 +138,13 @@ public class HeadlessHorseman extends CustomBoss {
             arrow.setGlowing(true);
             arrow.setSilent(true);
             arrow.setGravity(false);
+            arrow.setPersistent(false);
             try {
                 // TODO: Find out why this sometimes throws an error
                 arrow.setVelocity(target.getLocation().toVector().subtract(headlessHorseman.getLocation().toVector()).normalize().multiply(1.64));
-            } catch (IllegalArgumentException ignored) {}
+            } catch (IllegalArgumentException ignored) {
+                arrow.remove();
+            }
             return;
         }
 

@@ -137,10 +137,13 @@ public class PixieQueen extends CustomBoss {
                 arrow.setGlowing(true);
                 arrow.setSilent(true);
                 arrow.setGravity(false);
+                arrow.setPersistent(false);
                 try {
                     // TODO: Find out why this sometimes throws an error
                     arrow.setVelocity(pixieQueen.getTarget().getLocation().toVector().subtract(pixieQueen.getLocation().toVector()).normalize().multiply(1.42));
-                } catch (IllegalArgumentException ignored) {}
+                } catch (IllegalArgumentException ignored) {
+                    arrow.remove();
+                }
             }
         }
     }
