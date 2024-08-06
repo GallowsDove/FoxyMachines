@@ -3,8 +3,8 @@ FoxyMachines adds various machines and tools to [Slimefun](https://github.com/Sl
 
 ### Requires at least Java 16!
 
-### [Download](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/)
-[![Build Status](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master/badge.svg)](https://thebusybiscuit.github.io/builds/GallowsDove/FoxyMachines/master)
+### [Download](https://blob.build/project/FoxyMachines)
+[![Build Status](https://img.shields.io/badge/build-latest-brightgreen.svg)](https://blob.build/project/FoxyMachines)
 
 #### Unwanted items can be disabled in items.yml
 
