@@ -2,6 +2,7 @@ package me.gallowsdove.foxymachines.implementation.mobs;
 
 import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 import me.gallowsdove.foxymachines.FoxyMachines;
 import me.gallowsdove.foxymachines.Items;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
@@ -25,15 +26,14 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
-import java.util.Collection;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class HeadlessHorseman extends CustomBoss {
 
     public static class AttackPattern {
-        public static short LIGHTNING = 0;
-        public static short SHOOT = 1;
-        public static short SUMMON = 2;
+        public static final short LIGHTNING = 0;
+        public static final short SHOOT = 1;
+        public static final short SUMMON = 2;
     }
 
     private static final NamespacedKey PATTERN_KEY = new NamespacedKey(FoxyMachines.getInstance(), "pattern");
@@ -49,7 +49,7 @@ public class HeadlessHorseman extends CustomBoss {
 
         spawned.setInvisible(true);
 
-        CustomMob mob = CustomMob.getByID("SKELETON_HORSE");
+        CustomMob mob = CustomMob.getById("SKELETON_HORSE");
         SkeletonHorse horse = (SkeletonHorse) mob.spawn(spawned.getLocation());
         horse.addPassenger(spawned);
 
@@ -68,16 +68,16 @@ public class HeadlessHorseman extends CustomBoss {
     }
 
     @Override
-    protected void onTarget(@Nonnull EntityTargetEvent e) {
-        if (!(e.getTarget() instanceof Player)) {
-            e.setCancelled(true);
+    protected void onTarget(@Nonnull EntityTargetEvent event) {
+        if (!(event.getTarget() instanceof Player)) {
+            event.setCancelled(true);
         }
     }
 
     @Override
-    protected void onAttack(@Nonnull EntityDamageByEntityEvent e) {
-        if (!e.isCancelled()) {
-            Utils.dealDamageBypassingArmor((LivingEntity) e.getEntity(), (e.getDamage() - e.getFinalDamage()) * 0.12);
+    protected void onAttack(@Nonnull EntityDamageByEntityEvent event) {
+        if (!event.isCancelled()) {
+            Utils.dealDamageBypassingArmor((LivingEntity) event.getEntity(), (event.getDamage() - event.getFinalDamage()) * 0.12);
         }
     }
 
@@ -90,117 +90,119 @@ public class HeadlessHorseman extends CustomBoss {
             pattern = AttackPattern.LIGHTNING;
         } else if (pattern < 5) {
             pattern = AttackPattern.SHOOT;
-            if (mob.isInsideVehicle() && mob.getVehicle() instanceof LivingEntity) {
-                ((LivingEntity) mob.getVehicle()).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 100));
+            if (mob.getVehicle() instanceof LivingEntity vehicle) {
+                vehicle.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 100, 100));
             }
         } else {
             pattern = AttackPattern.SUMMON;
         }
 
-        mob.getPersistentDataContainer().set(PATTERN_KEY, PersistentDataType.SHORT, pattern);
+        PersistentDataAPI.setShort(mob, PATTERN_KEY, pattern);
     }
 
     @Override
-    public void onBossDamaged(@Nonnull EntityDamageEvent e) {
-        super.onBossDamaged(e);
+    public void onBossDamaged(@Nonnull EntityDamageEvent event) {
+        super.onBossDamaged(event);
 
-        Skeleton headlessHorseman = (Skeleton) e.getEntity();
+        Skeleton headlessHorseman = (Skeleton) event.getEntity();
         if (headlessHorseman.isInsideVehicle()) {
-            e.setCancelled(true);
+            event.setCancelled(true);
         }
     }
 
     @Override
     public void onMobTick(@Nonnull LivingEntity entity, int tick) {
-        Skeleton headlessHorseman = (Skeleton) entity;
+        super.onMobTick(entity, tick);
 
-        short pattern = entity.getPersistentDataContainer().get(PATTERN_KEY, PersistentDataType.SHORT);
+        Skeleton headlessHorseman = (Skeleton) entity;
+        short pattern = PersistentDataAPI.getShort(entity, PATTERN_KEY);
 
         if ((tick + 4) % 5 == 0) {
-            Collection<Entity> entities = headlessHorseman.getWorld().getNearbyEntities(headlessHorseman.getLocation(), 30, 20, 30);
-
-            for (Entity player : entities) {
-                if (player instanceof Player && ((Player) player).getGameMode() == GameMode.SURVIVAL) {
-                    headlessHorseman.setTarget((LivingEntity) player);
-                }
-            }
+            headlessHorseman.setTarget(Utils.getNearbyPlayerInSurvival(headlessHorseman.getLocation(), 30, 20, 30));
         }
 
-        if (pattern == AttackPattern.SHOOT) {
-            if (headlessHorseman.getTarget() != null) {
-                Player target = (Player) headlessHorseman.getTarget();
-                if (tick % 5 == 0) {
-                    Arrow arrow = entity.launchProjectile(Arrow.class);
-                    arrow.setDamage(22);
-                    arrow.setColor(Color.RED);
-                    arrow.setGlowing(true);
-                    arrow.setSilent(true);
-                    arrow.setGravity(false);
-                    try {
-                        arrow.setVelocity(target.getLocation().toVector().subtract(headlessHorseman.getLocation().toVector()).normalize().multiply(1.64));
-                    } catch (IllegalArgumentException e) { }
-                }
-            }
-        } else if (pattern == AttackPattern.LIGHTNING) {
-            if (headlessHorseman.getTarget() != null) {
-                if (tick % 8 == 0) {
-                    Player player = (Player) headlessHorseman.getTarget();
-                    Location loc = player.getLocation().clone();
-                    Location l = headlessHorseman.getLocation();
+        if (pattern == AttackPattern.SUMMON && tick == 25) {
+            spawnHelldogs(headlessHorseman.getLocation());
+            return;
+        }
 
-                    if (Math.sqrt((loc.getX() - l.getX()) * (loc.getX() - l.getX()) +
-                            (loc.getY() - l.getY()) * (loc.getY() - l.getY()) +
-                            (loc.getZ() - l.getZ()) * (loc.getZ() - l.getZ())) < 26) {
+        Entity target = headlessHorseman.getTarget();
+        if (!(target instanceof Player player)) {
+            return;
+        }
 
-                        Scheduler.run(4, () -> {
-                            loc.getWorld().strikeLightningEffect(loc);
-                            if (player.isValid()) {
-                                Location playerLoc = player.getLocation();
-                                if (Math.sqrt((loc.getX() - playerLoc.getX()) * (loc.getX() - playerLoc.getX()) +
-                                        (loc.getY() - playerLoc.getY()) * (loc.getY() - playerLoc.getY())) < 0.72) {
-                                    EntityDamageEvent e = new EntityDamageEvent(player, DamageCause.CUSTOM, 12);
-                                    Bukkit.getServer().getPluginManager().callEvent(e);
-                                    if (!e.isCancelled()) {
-                                        player.damage(12.4);
-                                        Utils.dealDamageBypassingArmor(player, 1.72);
-                                    }
-                                }
-                            }
-                        });
-                    }
+        if (tick % 5 == 0 && pattern == AttackPattern.SHOOT) {
+            Arrow arrow = entity.launchProjectile(Arrow.class);
+            arrow.setDamage(22);
+            arrow.setColor(Color.RED);
+            arrow.setGlowing(true);
+            arrow.setSilent(true);
+            arrow.setGravity(false);
+            arrow.setPersistent(false);
+            try {
+                // TODO: Find out why this sometimes throws an error
+                arrow.setVelocity(target.getLocation().toVector().subtract(headlessHorseman.getLocation().toVector()).normalize().multiply(1.64));
+            } catch (IllegalArgumentException ignored) {
+                arrow.remove();
+            }
+            return;
+        }
+
+        if (tick % 8 == 0 && pattern == AttackPattern.LIGHTNING) {
+            Location playerLocation = player.getLocation().clone();
+            Location horsemanLocation = headlessHorseman.getLocation();
+
+            if (playerLocation.distanceSquared(horsemanLocation) >= Math.pow(26, 2)) {
+                return;
+            }
+
+            Scheduler.run(4, () -> {
+                playerLocation.getWorld().strikeLightningEffect(playerLocation);
+                if (!player.isValid()) {
+                    return;
                 }
-            }
-        } else if (pattern == AttackPattern.SUMMON) {
-            if (tick == 25) {
-                spawnHelldogs(headlessHorseman.getLocation());
-            }
+
+                Location newLocation = player.getLocation();
+                if (Math.pow(playerLocation.getX() - newLocation.getX(), 2)
+                        + Math.pow(playerLocation.getY() - newLocation.getY(), 2) >= Math.pow(0.72, 2)) {
+                    return;
+                }
+
+                EntityDamageEvent event = new EntityDamageEvent(player, DamageCause.CUSTOM, 12);
+                Bukkit.getServer().getPluginManager().callEvent(event);
+                if (!event.isCancelled()) {
+                    player.damage(12.4);
+                    Utils.dealDamageBypassingArmor(player, 1.72);
+                }
+            });
         }
     }
 
     @Override
-    public void onDeath(@Nonnull EntityDeathEvent e) {
-        super.onDeath(e);
+    public void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        e.getDrops().clear();
-        Location loc = e.getEntity().getLocation();
-        loc.getWorld().dropItemNaturally(loc, new SlimefunItemStack(Items.VILE_PUMPKIN, 1));
-        loc.getWorld().spawn(loc, ExperienceOrb.class).setExperience(2000 + ThreadLocalRandom.current().nextInt(800));
+        event.getDrops().clear();
+        Location location = event.getEntity().getLocation();
+        location.getWorld().dropItemNaturally(location, new SlimefunItemStack(Items.VILE_PUMPKIN, 1));
+        location.getWorld().spawn(location, ExperienceOrb.class).setExperience(2000 + ThreadLocalRandom.current().nextInt(800));
     }
 
-    private void spawnHelldogs(Location loc) {
-        CustomMob mob = CustomMob.getByID("HELLDOG");
-
-        assert mob != null;
+    private void spawnHelldogs(Location location) {
+        CustomMob helldog = CustomMob.getById("HELLDOG");
+        if (helldog == null) {
+            FoxyMachines.getInstance().getLogger().warning("Could not spawn Helldogs! Please report this to the github!");
+            return;
+        }
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
-
         for (int i = 0; i < 3; i++) {
-            mob.spawn(new Location(loc.getWorld(), loc.getX() + random.nextDouble(-1, 1),
-                    loc.getY() + random.nextDouble(0.6, 1.2), loc.getZ() + random.nextDouble(-1, 1)));
+            helldog.spawn(new Location(location.getWorld(), location.getX() + random.nextDouble(-1, 1),
+                    location.getY() + random.nextDouble(0.6, 1.2), location.getZ() + random.nextDouble(-1, 1)));
         }
 
         for (int i = 0; i < 20; i++) {
-            loc.getWorld().spawnParticle(Particle.FLAME, loc, 1, random.nextDouble(-1.5, 1.5),
+            location.getWorld().spawnParticle(Particle.FLAME, location, 1, random.nextDouble(-1.5, 1.5),
                     random.nextDouble(-1.2, 2.4), random.nextDouble(-1.5, 1.5), 0);
         }
     }

@@ -16,26 +16,26 @@ public final class SummonCommand extends SubCommand {
     }
 
     @Override
-    protected void execute(@Nonnull CommandSender commandSender, @Nonnull String[] args) {
-        if (!(commandSender instanceof Player p)) {
+    protected void execute(@Nonnull CommandSender sender, @Nonnull String[] args) {
+        if (!(sender instanceof Player player)) {
             return;
         }
 
         if (args.length != 1) {
-            commandSender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /foxy summon <MOB_ID>");
+            sender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /foxy summon <MOB_ID>");
             return;
         }
 
-        CustomMob mob = CustomMob.getByID(args[0]);
+        CustomMob mob = CustomMob.getById(args[0]);
 
         if (mob != null) {
-            mob.spawn(p.getLocation());
+            mob.spawn(player.getLocation());
         }
     }
 
 
     @Override
-    protected void complete(@Nonnull CommandSender commandSender, @Nonnull String[] args, @Nonnull List<String> tabs) {
+    protected void complete(@Nonnull CommandSender sender, @Nonnull String[] args, @Nonnull List<String> tabs) {
         tabs.addAll(CustomMob.MOBS.keySet());
     }
 }

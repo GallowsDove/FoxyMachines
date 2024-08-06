@@ -7,8 +7,9 @@ import io.github.thebusybiscuit.slimefun4.core.handlers.ItemUseHandler;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.implementation.items.SimpleSlimefunItem;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
-import io.github.thebusybiscuit.slimefun4.utils.SlimefunUtils;
 import me.gallowsdove.foxymachines.abstracts.CustomMob;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,26 +18,34 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 public class CustomMobSpawnEgg extends SimpleSlimefunItem<ItemUseHandler> {
 
-    String id;
-    SlimefunItemStack slimefunItem;
+    private final String id;
 
     @ParametersAreNonnullByDefault
     public CustomMobSpawnEgg(SubItemGroup itemGroup, String id, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
         super(itemGroup, item, recipeType, recipe);
+
         this.id = id;
-        this.slimefunItem = item;
     }
 
     @Nonnull
     @Override
     public ItemUseHandler getItemHandler() {
-        return e -> {
-            e.cancel();
-            Player p = e.getPlayer();
-            if (Slimefun.getProtectionManager().hasPermission(e.getPlayer(), p.getLocation(), Interaction.ATTACK_PLAYER)) {
-                ItemStack item = SlimefunUtils.isItemSimilar(p.getInventory().getItemInMainHand(), slimefunItem, false, false) ? p.getInventory().getItemInMainHand() : p.getInventory().getItemInOffHand();
+        return event -> {
+            event.cancel();
+            Player player = event.getPlayer();
+            Location location = player.getLocation();
+            if (!Slimefun.getProtectionManager().hasPermission(player, location, Interaction.ATTACK_PLAYER)) {
+                return;
+            }
+
+            ItemStack item = event.getItem();
+            if (player.getGameMode() != GameMode.CREATIVE) {
                 item.setAmount(item.getAmount() - 1);
-                CustomMob.getByID(id).spawn(e.getPlayer().getLocation());
+            }
+
+            CustomMob mob = CustomMob.getById(this.id);
+            if (mob != null) {
+                mob.spawn(event.getPlayer().getLocation());
             }
         };
     }

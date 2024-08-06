@@ -8,6 +8,7 @@ import lombok.SneakyThrows;
 import me.gallowsdove.foxymachines.abstracts.AbstractWand;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
 import me.gallowsdove.foxymachines.commands.KillallCommand;
+import me.gallowsdove.foxymachines.commands.ListallCommand;
 import me.gallowsdove.foxymachines.commands.QuestCommand;
 import me.gallowsdove.foxymachines.commands.SacrificialAltarCommand;
 import me.gallowsdove.foxymachines.commands.SummonCommand;
@@ -37,6 +38,7 @@ public class FoxyMachines extends AbstractAddon {
     public void enable() {
         instance = this;
 
+        Events.registerListener(new ChunkLoadListener());
         Events.registerListener(new ChunkLoaderListener());
         Events.registerListener(new BoostedRailListener());
         Events.registerListener(new BerryBushListener());
@@ -69,7 +71,7 @@ public class FoxyMachines extends AbstractAddon {
         new Metrics(this, 10568);
 
         getAddonCommand().addSub(new KillallCommand()).addSub((new QuestCommand())).
-                addSub(new SacrificialAltarCommand()).addSub(new SummonCommand());
+                addSub(new SacrificialAltarCommand()).addSub(new SummonCommand()).addSub(new ListallCommand());
     }
 
     @SneakyThrows

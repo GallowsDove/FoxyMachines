@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 public class RiddenSkeletonHorse extends CustomMob {
-    private static final Set<DamageCause> RESISTANCES = Set.of(new DamageCause[] {
-            DamageCause.CRAMMING, DamageCause.POISON, DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION});
+    private static final Set<DamageCause> RESISTANCES = Set.of(DamageCause.CRAMMING, DamageCause.POISON, DamageCause.BLOCK_EXPLOSION, DamageCause.ENTITY_EXPLOSION);
 
     public RiddenSkeletonHorse() {
         super("SKELETON_HORSE", "Skeleton Horse", EntityType.SKELETON_HORSE, 132);
@@ -35,38 +34,38 @@ public class RiddenSkeletonHorse extends CustomMob {
     }
 
     @Override
-    protected void onHit(@Nonnull EntityDamageEvent e) {
-        if (RESISTANCES.contains(e.getCause())) {
-            e.setCancelled(true);
+    protected void onHit(@Nonnull EntityDamageEvent event) {
+        if (RESISTANCES.contains(event.getCause())) {
+            event.setCancelled(true);
         }
 
-        SkeletonHorse horse = (SkeletonHorse) e.getEntity();
+        SkeletonHorse horse = (SkeletonHorse) event.getEntity();
 
-        if (!e.isCancelled()) {
-            for (Entity entity : horse.getPassengers()) {
-                if (entity instanceof LivingEntity passenger) {
-                    CustomMob mob = RiddenSkeletonHorse.getByEntity(entity);
-                    if (mob instanceof CustomBoss boss) {
-                        double finalHealth = horse.getHealth() + passenger.getHealth() - e.getFinalDamage();
-                        if (finalHealth > 0) {
-                            boss.updateBossBar(passenger, finalHealth / (passenger.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
-                                    horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
-                        }
-                    }
+        if (event.isCancelled()) {
+            return;
+        }
+
+        for (Entity entity : horse.getPassengers()) {
+            if (entity instanceof LivingEntity passenger && CustomMob.getByEntity(entity) instanceof CustomBoss boss) {
+                double finalHealth = horse.getHealth() + passenger.getHealth() - event.getFinalDamage();
+                if (finalHealth > 0) {
+                    boss.updateBossBar(passenger, finalHealth / (passenger.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
+                            horse.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()));
                 }
             }
         }
     }
 
     @Override
-    protected void onDeath(@Nonnull EntityDeathEvent e) {
-        e.getDrops().clear();
+    protected void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
 
-        List<Entity> passengers = e.getEntity().getPassengers();
+        event.getDrops().clear();
 
+        List<Entity> passengers = event.getEntity().getPassengers();
         for (Entity passenger: passengers) {
-            if (passenger instanceof LivingEntity) {
-                ((LivingEntity) passenger).setHealth(0);
+            if (passenger instanceof LivingEntity livingEntity) {
+                livingEntity.setHealth(0);
             }
         }
     }

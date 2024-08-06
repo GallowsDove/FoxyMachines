@@ -8,6 +8,7 @@ import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.common.ChatColors;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.data.persistent.PersistentDataAPI;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -24,27 +25,35 @@ import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.OverridingMethodsMustInvokeSuper;
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public abstract class CustomMob {
 
     public static final Map<String, CustomMob> MOBS = new HashMap<>();
+    public static final Map<CustomMob, Set<UUID>> MOB_CACHE = new HashMap<>();
 
     @Nullable
-    public static CustomMob getByID(@Nonnull String id) {
+    public static CustomMob getById(@Nonnull String id) {
         return MOBS.get(id);
     }
 
     @Nullable
     public static CustomMob getByEntity(@Nonnull Entity entity) {
         String id = PersistentDataAPI.getString(entity, CustomMob.KEY);
-        return id == null ? null : getByID(id);
+        return id == null ? null : getById(id);
     }
 
     private static final NamespacedKey KEY = new NamespacedKey(FoxyMachines.getInstance(), "mob");
 
+    @Getter
     @Nonnull
     private final String id;
     @Nonnull
@@ -54,7 +63,8 @@ public abstract class CustomMob {
     private final EntityType type;
     private final int health;
 
-    public CustomMob(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health) {
+    @ParametersAreNonnullByDefault
+    protected CustomMob(String id, String name, EntityType type, int health) {
         Validate.notNull(this.id = id);
         Validate.notNull(this.name = ChatColors.color(name));
         Validate.notNull(this.type = type);
@@ -78,6 +88,7 @@ public abstract class CustomMob {
         entity.setRemoveWhenFarAway(true);
 
         onSpawn(entity);
+        cacheEntity(entity);
 
         return entity;
     }
@@ -88,98 +99,126 @@ public abstract class CustomMob {
 
     public void onMobTick(@Nonnull LivingEntity mob, int tick) { }
 
-    protected void onHit(@Nonnull EntityDamageEvent e) { }
+    protected void onHit(@Nonnull EntityDamageEvent event) { }
 
-    protected void onAttack(@Nonnull EntityDamageByEntityEvent e) { }
+    protected void onAttack(@Nonnull EntityDamageByEntityEvent event) { }
 
-    protected void onInteract(@Nonnull PlayerInteractEntityEvent e) { }
+    protected void onInteract(@Nonnull PlayerInteractEntityEvent event) { }
 
-    protected void onTarget(@Nonnull EntityTargetEvent e) { }
+    protected void onTarget(@Nonnull EntityTargetEvent event) { }
 
-    protected void onDeath(@Nonnull EntityDeathEvent e) { }
+    @OverridingMethodsMustInvokeSuper
+    protected void onDeath(@Nonnull EntityDeathEvent event) {
+        uncacheEntity(event.getEntity());
+    }
 
-    protected void onCastSpell(EntitySpellCastEvent e) { }
+    protected void onCastSpell(@Nonnull EntitySpellCastEvent event) { }
 
-    protected void onDamage(EntityDamageEvent e) { }
+    protected void onDamage(@Nonnull EntityDamageEvent event) { }
 
     protected Vector getSpawnOffset() {
         return new Vector();
+    }
+
+    public void cacheEntity(@Nonnull Entity entity) {
+        cacheEntity(entity.getUniqueId());
+    }
+
+    public void cacheEntity(@Nonnull UUID uuid) {
+        Set<UUID> entities = MOB_CACHE.getOrDefault(this, new HashSet<>());
+        entities.add(uuid);
+        MOB_CACHE.put(this, entities);
+    }
+
+    public void uncacheEntity(@Nonnull Entity entity) {
+        uncacheEntity(entity.getUniqueId());
+    }
+
+    public void uncacheEntity(@Nonnull UUID uuid) {
+        Set<UUID> entities = MOB_CACHE.getOrDefault(this, new HashSet<>());
+        entities.remove(uuid);
+        MOB_CACHE.put(this, entities);
+    }
+
+    public static void debug() {
+        Bukkit.broadcastMessage("CACHE:");
+        for (Map.Entry<CustomMob, Set<UUID>> entry : CustomMob.MOB_CACHE.entrySet()) {
+            Bukkit.broadcastMessage(entry.getKey().getId() + " (" + entry.getValue().size() + ")\n" + entry.getValue().stream().map(UUID::toString).collect(Collectors.joining("\n")));
+        }
     }
 
     static {
         Events.registerListener(new Listener() {
 
             @EventHandler
-            public void onTarget(@Nonnull EntityTargetEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onTarget(@Nonnull EntityTargetEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onTarget(e);
+                    customMob.onTarget(event);
                 }
             }
 
             @EventHandler
-            public void onInteract(@Nonnull PlayerInteractEntityEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getRightClicked());
+            public void onInteract(@Nonnull PlayerInteractEntityEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getRightClicked());
                 if (customMob != null) {
-                    customMob.onInteract(e);
+                    customMob.onInteract(event);
                 }
             }
 
             @EventHandler
-            public void onHit(@Nonnull EntityDamageByEntityEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getDamager());
+            public void onHit(@Nonnull EntityDamageByEntityEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getDamager());
                 if (customMob != null) {
-                    customMob.onAttack(e);
+                    customMob.onAttack(event);
                 }
             }
 
             @EventHandler
-            public void onDamaged(@Nonnull EntityDamageEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onDamaged(@Nonnull EntityDamageEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onHit(e);
+                    customMob.onHit(event);
                 }
             }
 
             @EventHandler
-            public void onDeath(@Nonnull EntityDeathEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onDeath(@Nonnull EntityDeathEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onDeath(e);
+                    customMob.onDeath(event);
                 }
             }
 
             @EventHandler
-            public void onSpellCast(@Nonnull EntitySpellCastEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onSpellCast(@Nonnull EntitySpellCastEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onCastSpell(e);
+                    customMob.onCastSpell(event);
                 }
             }
 
             @EventHandler
-            public void onDamage(@Nonnull EntityDamageEvent e) {
-                CustomMob customMob = CustomMob.getByEntity(e.getEntity());
+            public void onDamage(@Nonnull EntityDamageEvent event) {
+                CustomMob customMob = CustomMob.getByEntity(event.getEntity());
                 if (customMob != null) {
-                    customMob.onDamage(e);
+                    customMob.onDamage(event);
                 }
             }
 
             @EventHandler(ignoreCancelled = true)
-            private void onNametagEvent(PlayerInteractEntityEvent e) {
-                ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
+            private void onNametagEvent(PlayerInteractEntityEvent event) {
+                ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
-                if (item.getType() == Material.NAME_TAG) {
-                    if (CustomMob.getByEntity(e.getRightClicked()) != null) {
-                        e.setCancelled(true);
-                    }
+                if (item.getType() == Material.NAME_TAG && CustomMob.getByEntity(event.getRightClicked()) != null) {
+                    event.setCancelled(true);
                 }
             }
 
             @EventHandler(ignoreCancelled = true)
-            private void onCombust(EntityCombustEvent e) {
-                if (CustomMob.getByEntity(e.getEntity()) != null) {
-                    e.setCancelled(true);
+            private void onCombust(EntityCombustEvent event) {
+                if (CustomMob.getByEntity(event.getEntity()) != null) {
+                    event.setCancelled(true);
                 }
             }
         });

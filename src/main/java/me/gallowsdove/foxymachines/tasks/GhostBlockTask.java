@@ -2,20 +2,24 @@ package me.gallowsdove.foxymachines.tasks;
 
 import me.gallowsdove.foxymachines.implementation.materials.GhostBlock;
 import org.bukkit.Bukkit;
-import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.FallingBlock;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashSet;
+import java.util.UUID;
 
 public class GhostBlockTask extends BukkitRunnable {
     @Override
     public void run() {
-        for (World world : Bukkit.getWorlds()) {
-            for (FallingBlock block : world.getEntitiesByClass(FallingBlock.class)) {
-                if (block.getPersistentDataContainer().has(GhostBlock.KEY, PersistentDataType.STRING)) {
-                    block.setTicksLived(1);
-                }
+        for (UUID uuid : new HashSet<>(GhostBlock.BLOCK_CACHE)) {
+            Entity entity = Bukkit.getEntity(uuid);
+            if (!(entity instanceof FallingBlock)) {
+                GhostBlock.BLOCK_CACHE.remove(uuid);
+                continue;
             }
+
+            entity.setTicksLived(1);
         }
     }
 }

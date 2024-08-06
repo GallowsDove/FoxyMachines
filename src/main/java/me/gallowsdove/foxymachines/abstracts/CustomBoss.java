@@ -31,7 +31,7 @@ public abstract class CustomBoss extends CustomMob {
 
     private final Set<DamageCause> resistances;
 
-    public CustomBoss(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health, @Nonnull DamageCause... resistances) {
+    protected CustomBoss(@Nonnull String id, @Nonnull String name, @Nonnull EntityType type, int health, @Nonnull DamageCause... resistances) {
         super(id, name, type, health);
         this.resistances = Set.of(resistances);
     }
@@ -60,20 +60,28 @@ public abstract class CustomBoss extends CustomMob {
 
     @Override
     @OverridingMethodsMustInvokeSuper
-    public final void onHit(@Nonnull EntityDamageEvent e) {
-        this.onBossDamaged(e);
+    public void onMobTick(@Nonnull LivingEntity mob, int tick) {
+        if (tick == 100) {
+            onBossPattern(mob);
+        }
+    }
 
-        if (!e.isCancelled() && e.getEntity() instanceof LivingEntity entity) {
+    @Override
+    @OverridingMethodsMustInvokeSuper
+    public final void onHit(@Nonnull EntityDamageEvent event) {
+        this.onBossDamaged(event);
+
+        if (!event.isCancelled() && event.getEntity() instanceof LivingEntity entity) {
             BossBar bossbar = getBossBarForEntity(entity);
 
             if (entity.isInsideVehicle() && entity.getVehicle() instanceof LivingEntity vehicle) {
-                double finalHealth = entity.getHealth() + vehicle.getHealth() - e.getFinalDamage();
+                double finalHealth = entity.getHealth() + vehicle.getHealth() - event.getFinalDamage();
                 if (finalHealth > 0) {
                     bossbar.setProgress(Math.min(finalHealth / (entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue() +
                             vehicle.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue()), 1));
                 }
             } else {
-                double finalHealth = entity.getHealth() - e.getFinalDamage();
+                double finalHealth = entity.getHealth() - event.getFinalDamage();
                 if (finalHealth > 0) {
                     bossbar.setProgress(Math.min(finalHealth / entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue(), 1));
                 }
@@ -90,8 +98,10 @@ public abstract class CustomBoss extends CustomMob {
 
     @Override
     @OverridingMethodsMustInvokeSuper
-    public void onDeath(@Nonnull EntityDeathEvent e) {
-        BossBar bossbar = getBossBarForEntity(e.getEntity());
+    public void onDeath(@Nonnull EntityDeathEvent event) {
+        super.onDeath(event);
+
+        BossBar bossbar = getBossBarForEntity(event.getEntity());
         bossbar.setVisible(false);
         bossbar.removeAll();
     }
