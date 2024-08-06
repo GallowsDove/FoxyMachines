@@ -3,11 +3,16 @@ package me.gallowsdove.foxymachines.utils;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 
 public class Utils {
     private Utils() {}
+
+    public static boolean isAuraSkillsLoaded() {
+        return Bukkit.getPluginManager().isPluginEnabled("AuraSkills");
+    }
 
     public static void dealDamageBypassingArmor(LivingEntity entity, double damage) {
         if (damage >= 0) {
