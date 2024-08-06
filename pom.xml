@@ -43,7 +43,7 @@
     </pluginRepositories>
 
     <build>
-        <finalName>${project.name} v${project.version}</finalName>
+        <finalName>${project.name}</finalName>
         <defaultGoal>clean package</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 
@@ -116,7 +116,7 @@
         <dependency>
             <groupId>com.github.Slimefun</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>f0ac184c5b</version>
+            <version>RC-37</version>
             <scope>provided</scope>
         </dependency>
 
