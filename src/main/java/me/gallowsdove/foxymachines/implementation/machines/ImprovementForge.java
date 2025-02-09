@@ -247,7 +247,8 @@ public class ImprovementForge extends SlimefunItem implements EnergyNetComponent
                     }
 
                     ItemStack improvedItem = item.clone();
-                    improvedItem.setType(tools[tier+1][index]);
+                    improvedItem.setAmount(1);
+                    improvedItem.setType(tools[tier + 1][index]);
 
                     if (!menu.fits(improvedItem, getOutputSlots())) {
                         return null;
