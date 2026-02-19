@@ -41,6 +41,7 @@ public class FoxyMachines extends AbstractAddon {
 
         Events.registerListener(new ChunkLoadListener());
         Events.registerListener(new ChunkLoaderListener());
+        Events.registerListener(new SlimeWorldCompatListener());
         Events.registerListener(new BoostedRailListener());
         Events.registerListener(new BerryBushListener());
         Events.registerListener(new ForcefieldListener());
