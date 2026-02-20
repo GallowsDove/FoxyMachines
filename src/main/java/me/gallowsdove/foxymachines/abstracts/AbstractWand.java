@@ -81,7 +81,8 @@ public abstract class AbstractWand extends SlimefunItem implements NotPlaceable,
     protected ItemUseHandler onUse() {
         return e -> {
             Player player = e.getPlayer();
-            ItemStack itemInInventory = player.getInventory().getItemInMainHand();
+            ItemStack itemInInventory = e.getItem();
+            if (itemInInventory == null) return;
             ItemMeta meta = itemInInventory.getItemMeta();
             PersistentDataContainer container = meta.getPersistentDataContainer();
 
