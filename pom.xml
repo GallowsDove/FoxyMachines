@@ -14,10 +14,7 @@
     </properties>
 
     <repositories>
-        <repository>
-            <id>paper-repo</id>
-            <url>https://repo.destroystokyo.com/repository/maven-public/</url>
-        </repository>
+        
 
         <repository>
             <id>spigot-repo</id>
