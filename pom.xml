@@ -131,7 +131,7 @@
         <dependency>
     <groupId>com.github.Slimefun5</groupId>
     <artifactId>Slimefun5</artifactId>
-    <version>master-SNAPSHOT</version>
+    <version>5.3.3.6</version>
     <scope>provided</scope>
 </dependency>
 
