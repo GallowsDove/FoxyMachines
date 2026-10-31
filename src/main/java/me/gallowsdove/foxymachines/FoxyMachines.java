@@ -1,18 +1,8 @@
 package me.gallowsdove.foxymachines;
 
-import io.github.mooy1.infinitylib.common.Events;
-import io.github.mooy1.infinitylib.common.Scheduler;
-import io.github.mooy1.infinitylib.core.AbstractAddon;
-import io.github.mooy1.infinitylib.metrics.bukkit.Metrics;
-import io.github.thebusybiscuit.slimefun4.libraries.dough.updater.BlobBuildUpdater;
-import lombok.SneakyThrows;
+import io.github.thebusybiscuit.slimefun5.api.SlimefunAddon;
 import me.gallowsdove.foxymachines.abstracts.AbstractWand;
 import me.gallowsdove.foxymachines.abstracts.CustomBoss;
-import me.gallowsdove.foxymachines.commands.KillallCommand;
-import me.gallowsdove.foxymachines.commands.ListallCommand;
-import me.gallowsdove.foxymachines.commands.QuestCommand;
-import me.gallowsdove.foxymachines.commands.SacrificialAltarCommand;
-import me.gallowsdove.foxymachines.commands.SummonCommand;
 import me.gallowsdove.foxymachines.implementation.consumables.UnbreakableRune;
 import me.gallowsdove.foxymachines.implementation.machines.ForcefieldDome;
 import me.gallowsdove.foxymachines.implementation.tools.BerryBushTrimmer;
@@ -21,51 +11,46 @@ import me.gallowsdove.foxymachines.tasks.GhostBlockTask;
 import me.gallowsdove.foxymachines.tasks.MobTicker;
 import me.gallowsdove.foxymachines.tasks.QuestTicker;
 import me.gallowsdove.foxymachines.utils.QuestUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.annotation.Nonnull;
 import java.io.File;
 
-import org.bukkit.plugin.java.JavaPlugin;
-import io.github.thebusybiscuit.Slimefun5.api.Slimefun5Addon;
-
-public class FoxyMachines extends JavaPlugin implements Slimefun5Addon {
+public class FoxyMachines extends JavaPlugin implements SlimefunAddon {
     private static FoxyMachines instance;
 
     public String folderPath;
 
-    public FoxyMachines() {
-        super ("GallowsDove", "FoxyMachines", "master", "auto-update");
+    @Override
+    public JavaPlugin getJavaPlugin() {
+        return this;
     }
 
     @Override
-    @Override
-        public JavaPlugin getJavaPlugin() {
-            return this;
-        }
+    public String getBugTrackerURL() {
+        return "https://github.com/GallowsDove/FoxyMachines/issues";
+    }
 
     @Override
-        public String getBugTrackerURL() {
-            return "https://github.com/GallowsDove/FoxyMachines/issues";
-        }
-    
-    @SneakyThrows
-    public void enable() {
+    public void onEnable() {
         instance = this;
+        saveDefaultConfig();
 
-        Events.registerListener(new ChunkLoadListener());
-        Events.registerListener(new ChunkLoaderListener());
-        Events.registerListener(new SlimeWorldCompatListener());
-        Events.registerListener(new BoostedRailListener());
-        Events.registerListener(new BerryBushListener());
-        Events.registerListener(new ForcefieldListener());
-        Events.registerListener(new GhostBlockListener());
-        Events.registerListener(new RemoteControllerListener());
-        Events.registerListener(new SacrificialAltarListener());
-        Events.registerListener(new SwordListener());
-        Events.registerListener(new PoseidonsFishingRodListener());
-        Events.registerListener(new ArmorListener());
-        Events.registerListener(new BowListener());
-        Events.registerListener(new PositionSelectorListener());
+        // Register listeners through Bukkit instead of the removed InfinityLib event helper.
+        Bukkit.getPluginManager().registerEvents(new ChunkLoadListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ChunkLoaderListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SlimeWorldCompatListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BoostedRailListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BerryBushListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ForcefieldListener(), this);
+        Bukkit.getPluginManager().registerEvents(new GhostBlockListener(), this);
+        Bukkit.getPluginManager().registerEvents(new RemoteControllerListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SacrificialAltarListener(), this);
+        Bukkit.getPluginManager().registerEvents(new SwordListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PoseidonsFishingRodListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ArmorListener(), this);
+        Bukkit.getPluginManager().registerEvents(new BowListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PositionSelectorListener(), this);
 
         QuestUtils.init();
         AbstractWand.init();
@@ -73,38 +58,34 @@ public class FoxyMachines extends JavaPlugin implements Slimefun5Addon {
         ItemSetup.INSTANCE.init();
         ResearchSetup.INSTANCE.init();
 
-        this.folderPath = getDataFolder().getAbsolutePath() + File.separator + "data-storage" + File.separator;
+        folderPath = getDataFolder().getAbsolutePath() + File.separator + "data-storage" + File.separator;
         BerryBushTrimmer.loadTrimmedBlocks();
         ForcefieldDome.loadDomeLocations();
-        Scheduler.run(() -> ForcefieldDome.INSTANCE.setupDomes());
-        Scheduler.repeat(240, 10, new QuestTicker());
-        Scheduler.repeat(100, new GhostBlockTask());
+
+        Bukkit.getScheduler().runTask(this, () -> ForcefieldDome.INSTANCE.setupDomes());
+        Bukkit.getScheduler().runTaskTimer(this, new QuestTicker(), 240L, 10L);
+        Bukkit.getScheduler().runTaskTimer(this, new GhostBlockTask(), 100L, 100L);
+
         if (getConfig().getBoolean("custom-mobs")) {
-            Scheduler.repeat(2, new MobTicker());
+            Bukkit.getScheduler().runTaskTimer(this, new MobTicker(), 2L, 2L);
         }
 
-        new Metrics(this, 10568);
-
-        getAddonCommand().addSub(new KillallCommand()).addSub((new QuestCommand())).
-                addSub(new SacrificialAltarCommand()).addSub(new SummonCommand()).addSub(new ListallCommand());
-
-        if (getConfig().getBoolean("auto-update") && getDescription().getVersion().startsWith("Dev - ")) {
-            BlobBuildUpdater updater = new BlobBuildUpdater(this, this.getFile(), "FoxyMachines", "Dev");
-            updater.start();
-        }
+        getLogger().info("FoxyMachines enabled.");
     }
 
-    @SneakyThrows
     @Override
-    public void disable() {
+    public void onDisable() {
         BerryBushTrimmer.saveTrimmedBlocks();
         ForcefieldDome.saveDomeLocations();
+
         if (getConfig().getBoolean("custom-mobs")) {
             CustomBoss.removeBossBars();
         }
+
+        Bukkit.getScheduler().cancelTasks(this);
+        instance = null;
     }
 
-    @Nonnull
     public static FoxyMachines getInstance() {
         return instance;
     }
