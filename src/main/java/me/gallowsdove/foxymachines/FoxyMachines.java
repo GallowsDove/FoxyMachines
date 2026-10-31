@@ -25,7 +25,10 @@ import me.gallowsdove.foxymachines.utils.QuestUtils;
 import javax.annotation.Nonnull;
 import java.io.File;
 
-public class FoxyMachines extends AbstractAddon {
+import org.bukkit.plugin.java.JavaPlugin;
+import io.github.thebusybiscuit.Slimefun5.api.Slimefun5Addon;
+
+public class FoxyMachines extends JavaPlugin implements Slimefun5Addon {
     private static FoxyMachines instance;
 
     public String folderPath;
@@ -35,6 +38,16 @@ public class FoxyMachines extends AbstractAddon {
     }
 
     @Override
+    @Override
+        public JavaPlugin getJavaPlugin() {
+            return this;
+        }
+
+    @Override
+        public String getBugTrackerURL() {
+            return "https://github.com/GallowsDove/FoxyMachines/issues";
+        }
+    
     @SneakyThrows
     public void enable() {
         instance = this;
