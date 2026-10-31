@@ -29,7 +29,7 @@ public class ChunkLoaderListener implements Listener {
         ItemStack item = e.getItemInHand();
         Player p = e.getPlayer();
 
-        if (!SlimefunUtils.isItemSimilar(item, Items.CHUNK_LOADER, true, false)) {
+        if (!SlimefunUtils.isItemSimilar(item, Items.CHUNK_LOADER.item(), true, false)) {
             return;
         }
 
