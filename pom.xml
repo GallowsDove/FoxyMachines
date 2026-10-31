@@ -11,21 +11,18 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.release>25</maven.compiler.release>
     </properties>
 
     <repositories>
-        
-
         <repository>
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
-
         <repository>
             <id>CodeMC</id>
             <url>https://repo.codemc.org/repository/maven-public</url>
@@ -40,7 +37,7 @@
     </pluginRepositories>
 
     <build>
-        <finalName>${project.name}</finalName>
+        <finalName>${project.artifactId}</finalName>
         <defaultGoal>clean package</defaultGoal>
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
 
@@ -60,12 +57,6 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>io.github.mooy1.infinitylib</pattern>
-                            <shadedPattern>me.gallowsdove.foxymachines.infinitylib</shadedPattern>
-                        </relocation>
-                    </relocations>
                     <filters>
                         <filter>
                             <artifact>*:*</artifact>
@@ -91,8 +82,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.13.0</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <release>25</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
@@ -102,22 +92,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
-            
         </plugins>
-
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.8.1</version>
-                    <configuration>
-                        <source>16</source>
-                        <target>16</target>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
     </build>
 
     <dependencies>
@@ -129,11 +104,11 @@
         </dependency>
 
         <dependency>
-    <groupId>com.github.Slimefun5</groupId>
-    <artifactId>Slimefun5</artifactId>
-    <version>5.3.3.6</version>
-    <scope>provided</scope>
-</dependency>
+            <groupId>com.github.Slimefun5</groupId>
+            <artifactId>Slimefun5</artifactId>
+            <version>5.3.3.6</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>dev.aurelium</groupId>
@@ -141,8 +116,6 @@
             <version>2.0.0</version>
             <scope>provided</scope>
         </dependency>
-
-        
 
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
