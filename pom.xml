@@ -132,9 +132,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Slimefun</groupId>
-            <artifactId>Slimefun4</artifactId>
-            <version>RC-37</version>
+            <groupId>com.github.Slimefun5</groupId>
+            <artifactId>Slimefun5</artifactId>
+            <version>master-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
